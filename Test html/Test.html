@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test HTML</title>
+  </head>
+  <body>
+    <div class="container login">
+      <form id="form" action="login-submit.php" method="post">
+        <div class="two-thirds column" id="main">
+          <fieldset id="fieldSet">
+            <legend>Create User</legend>
+              
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required/>
+              
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required/>
+              
+            <label for="FirstName">First Name:</label>
+            <input type="text" id="FirstName" name="FirstName" required/>
+              
+            <label for="LastName">Last Name:</label>
+            <input type="text" id="LastName" name="LastName" required/>
+              
+            <label for="Phone">Phone:</label>
+            <input type="text" id="Phone" name="Phone" required/>
+           
+            <input type="submit" id="submit" value="Login" />
+          </fieldset>
+            
+          <div id="content">
+          </div>
+        </div><!-- .two-thirds -->
+      </form>
+    </div><!-- .container -->
+    <script src="js/Create.js"></script>
+    <script src="js/jquery-1.9.1.js"></script>
+    <script src="js/jquery-ui-1.10.3.custom.js"></script>  
+  </body>
+</html>
