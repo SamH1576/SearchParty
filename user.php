@@ -91,7 +91,24 @@ function create_user($cust, $addr){
 	//First check whether address exists
 	//using first line of address and post code
 	$address_exists = False;
-	$result = 
+	$result = $db->query("SELECT cust_address_id FROM cust_address WHERE postcode = '$addr[4]' AND firstline = '$addr[0]'");
+	if($result->rowCount() > 0){
+		$address_exists = True;
+		
+		//Add user
+		$catch = $db->exec("INSERT INTO user(email, firstname, lastname, phone, 
+							creation_time, modification_time)
+							VALUES ('$cust[0]', '$cust[1]', '$cust[2]', '$cust[3]', 
+							NOW(), NOW())");
+		$newUser_ID = mysql_insert_id();
+		//Update customer_addresses with new User_ID and cust_address_id from previous query
+		$catch = $db->exec("INSERT INTO customer_addresses(customer_id, cust_address_id, creation_time, modification_time)
+							VALUES ('$newUser_ID', '$result(["cust_address_id"])'")
+	}else{
+		//create the address
+		//add the customer with newly created address
+	}
+	
 	
 }
 
