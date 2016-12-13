@@ -100,8 +100,13 @@ function check_parameters($array){
 }
 
 function create_user($cust, $addr){
+	//Set connection parameters
+	$dbname = "projectdb";
+	$dbusername = "root";
+	$dbpassword = "";
+	
 	//Login to database
-	$db = new PDO("mysql:dbname=projectdb", "root", "");
+	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
 	//First check whether address exists
