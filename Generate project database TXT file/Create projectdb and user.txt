@@ -1,0 +1,105 @@
+DROP DATABASE IF EXISTS projectdb;
+CREATE DATABASE projectdb;
+
+USE projectdb;
+
+DROP TABLE IF EXISTS Host;
+DROP TABLE IF EXISTS Guest_List;
+DROP TABLE IF EXISTS Venue;
+DROP TABLE IF EXISTS Customer_Addresses;
+DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS Venue_Address;
+DROP TABLE IF EXISTS Event;
+DROP TABLE IF EXISTS Cust_Address;
+
+CREATE TABLE Event (
+  Event_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
+  Title VARCHAR(255),
+  Capacity INT,
+  StartDate DATE,
+  StartTime TIME,
+  EndDate DATE,
+  EndTime TIME,
+  Description TEXT,
+  Category VARCHAR(255),
+  Ticket_startdate DATE,
+  Ticket_enddate DATE,
+  creation_time      DATETIME DEFAULT CURRENT_TIMESTAMP,
+  modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Venue_Address (
+  Venue_Address_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
+  FirstLine TEXT,
+  SecondLine TEXT,
+  City VARCHAR(255),
+  County VARCHAR(255),
+  PostCode VARCHAR(255),
+  creation_time      DATETIME DEFAULT CURRENT_TIMESTAMP,
+  modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE User (
+  User_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
+  Email VARCHAR(255),
+  Password VARCHAR(255),
+  FirstName VARCHAR(255),
+  LastName VARCHAR(255),
+  Phone VARCHAR(13),
+  creation_time      DATETIME DEFAULT CURRENT_TIMESTAMP,
+  modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Cust_Address (
+  Cust_Address_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
+  FirstLine TEXT,
+  SecondLine TEXT,
+  City VARCHAR(255),
+  County VARCHAR(255),
+  PostCode VARCHAR(255),
+  creation_time      DATETIME DEFAULT CURRENT_TIMESTAMP,
+  modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Host (
+   User_ID INT,
+   Event_ID INT,
+   FOREIGN KEY (User_ID) REFERENCES User(User_ID),
+   FOREIGN KEY (Event_ID) REFERENCES Event(Event_ID),
+   creation_time      DATETIME DEFAULT CURRENT_TIMESTAMP,
+   modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Venue (
+  Event_ID INT,
+  Address_ID INT,
+  FOREIGN KEY (Event_ID) REFERENCES Event(Event_ID),
+  FOREIGN KEY (Address_ID) REFERENCES Venue_Address(Venue_Address_ID),
+  creation_time      DATETIME DEFAULT CURRENT_TIMESTAMP,
+  modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Customer_Addresses (
+  Customer_ID INT,
+  Cust_Address_ID INT,
+  FOREIGN KEY (Customer_ID) REFERENCES User(User_ID),
+  FOREIGN KEY (Cust_Address_ID) REFERENCES Cust_Address(Cust_Address_ID),
+  creation_time      DATETIME DEFAULT CURRENT_TIMESTAMP,
+  modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Guest_List (
+  Event_ID INT,
+  User_ID INT,
+  FOREIGN KEY (Event_ID) REFERENCES Event(Event_ID),
+  FOREIGN KEY (User_ID) REFERENCES User(User_ID),
+  creation_time      DATETIME DEFAULT CURRENT_TIMESTAMP,
+  modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+/* Create User hyminsa */ 
+/* Create User hyminsa */ 
+/* Create User hyminsa */ 
+DROP USER IF EXISTS 'hyminsa'@'localhost';
+CREATE USER 'hyminsa'@'localhost' identified by 'hyminsa';
+GRANT ALL PRIVILEGES ON projectdb.* to 'hyminsa'@'localhost';

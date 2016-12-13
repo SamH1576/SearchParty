@@ -102,8 +102,8 @@ function check_parameters($array){
 function create_user($cust, $addr){
 	//Set connection parameters
 	$dbname = "projectdb";
-	$dbusername = "root";
-	$dbpassword = "";
+	$dbusername = "hyminsa";
+	$dbpassword = "hyminsa";
 	
 	//Login to database
 	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
@@ -186,9 +186,7 @@ if($url_pieces[1] == 'adduser'){
 		}
 	}
 }
-//print "success \r\n";
-
-//print $data;
+//print "success";
 ?>
 
 <!DOCTYPE html>
