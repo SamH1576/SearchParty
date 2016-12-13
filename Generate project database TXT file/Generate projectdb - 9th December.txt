@@ -96,6 +96,13 @@ CREATE TABLE Guest_List (
   modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+/* Create User hyminsa */ 
+/* Create User hyminsa */ 
+/* Create User hyminsa */ 
+DROP USER IF EXISTS 'hyminsa'@'localhost';
+CREATE USER 'hyminsa'@'localhost' identified by 'hyminsa';
+GRANT ALL PRIVILEGES ON projectdb.* to 'hyminsa'@'localhost';
+
 /* DUMMY DATA */
 /* DUMMY DATA */
 /* DUMMY DATA */
