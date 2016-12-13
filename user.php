@@ -112,19 +112,17 @@ function create_user($cust, $addr){
 	//Check if User already exists - ie check email
 	dbCheckUserExists($cust[0], $db);
 	
-	//First check whether address exists
-	//using first line of address and post code
-	$address_exists = False;
-	$result = $db->query("SELECT cust_address_id FROM cust_address WHERE postcode = '$addr[4]' AND firstline = '$addr[0]'");
-	$rowdata = $result->fetch(PDO::FETCH_ASSOC);
-	if($result->rowCount() > 0){
-		$address_exists = True;
-		
-		//Add user, returning new record id
+	//First check whether address exists using first line of address and post code
+	//This returns either null or the cust_address_id
+	$cust_address_id = dbCheckCustAddressExists($addr[0],$addr[4],$db);
+
+	if($cust_address_id != null){
+		//The address exists, so add user then connect with existing address:
+		//dbAddUser returns the new User_ID key it just created
 		$newUser_ID = dbAddUser($cust, $db);
 		
 		//Update customer_addresses with new User_ID and cust_address_id from previous query
-		dbAddCustomerAddressRecord($newUser_ID, $rowdata["cust_address_id"], $db);
+		dbAddCustomerAddressRecord($newUser_ID, $cust_address_id, $db);
 		
 	}else{
 		//create the address
@@ -168,6 +166,16 @@ function dbCheckUserExists($email, $db){
 	}	
 }
 
+function dbCheckCustAddressExists($firstline, $postcode, $db){
+	$result = $db->query("SELECT cust_address_id FROM cust_address WHERE postcode = '$postcode' AND firstline = '$firstline'");
+	if($result->rowCount() > 0){
+		$rowdata = $result->fetch(PDO::FETCH_ASSOC);
+		return $rowdata["cust_address_id"];
+	}else{
+		return null;
+	}
+}
+
 /*****************************************************/
 // main
 /*****************************************************/
@@ -185,6 +193,8 @@ if($url_pieces[1] == 'adduser'){
 			}
 		}
 	}
+}else{
+	echo 'unknown path';
 }
 //print "success";
 ?>
