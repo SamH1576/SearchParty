@@ -23,7 +23,9 @@ CREATE TABLE Event (
   Description TEXT,
   Category VARCHAR(255),
   Ticket_startdate DATE,
-  Ticket_enddate TIME
+  Ticket_enddate TIME,
+  creation_time      DATETIME DEFAULT   CURRENT_TIMESTAMP,
+  modification_time  DATETIME ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Venue_Address (
@@ -32,7 +34,9 @@ CREATE TABLE Venue_Address (
   SecondLine TEXT,
   City VARCHAR(255),
   County VARCHAR(255),
-  PostCode VARCHAR(255)
+  PostCode VARCHAR(255),
+  creation_time      DATETIME DEFAULT   CURRENT_TIMESTAMP,
+  modification_time  DATETIME ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE User (
@@ -41,7 +45,9 @@ CREATE TABLE User (
   FirstName VARCHAR(255),
   LastName VARCHAR(255),
   Phone VARCHAR(12),
-  Email VARCHAR(255)
+  Email VARCHAR(255),
+  creation_time      DATETIME DEFAULT   CURRENT_TIMESTAMP,
+  modification_time  DATETIME ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Cust_Address (
@@ -50,33 +56,79 @@ CREATE TABLE Cust_Address (
   SecondLine TEXT,
   City VARCHAR(255),
   County VARCHAR(255),
-  PostCode VARCHAR(255)
+  PostCode VARCHAR(255),
+  creation_time      DATETIME DEFAULT   CURRENT_TIMESTAMP,
+  modification_time  DATETIME ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Host (
    User_ID INT,
    Event_ID INT,
    FOREIGN KEY (User_ID) REFERENCES User(User_ID),
-   FOREIGN KEY (Event_ID) REFERENCES Event(Event_ID)
+   FOREIGN KEY (Event_ID) REFERENCES Event(Event_ID),
+   creation_time      DATETIME DEFAULT   CURRENT_TIMESTAMP,
+   modification_time  DATETIME ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Venue (
   Event_ID INT,
   Address_ID INT,
   FOREIGN KEY (Event_ID) REFERENCES Event(Event_ID),
-  FOREIGN KEY (Address_ID) REFERENCES Venue_Address(Venue_Address_ID)
+  FOREIGN KEY (Address_ID) REFERENCES Venue_Address(Venue_Address_ID),
+  creation_time      DATETIME DEFAULT   CURRENT_TIMESTAMP,
+  modification_time  DATETIME ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Customer_Addresses (
   Customer_ID INT,
   Cust_Address_ID INT,
   FOREIGN KEY (Customer_ID) REFERENCES User(User_ID),
-  FOREIGN KEY (Cust_Address_ID) REFERENCES Cust_Address(Cust_Address_ID)
+  FOREIGN KEY (Cust_Address_ID) REFERENCES Cust_Address(Cust_Address_ID),
+  creation_time      DATETIME DEFAULT   CURRENT_TIMESTAMP,
+  modification_time  DATETIME ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Guest_List (
   Event_ID INT,
   User_ID INT,
   FOREIGN KEY (Event_ID) REFERENCES Event(Event_ID),
-  FOREIGN KEY (User_ID) REFERENCES User(User_ID)
+  FOREIGN KEY (User_ID) REFERENCES User(User_ID),
+  creation_time      DATETIME DEFAULT   CURRENT_TIMESTAMP,
+  modification_time  DATETIME ON UPDATE CURRENT_TIMESTAMP
 );
+
+/* DUMMY DATA */
+/* DUMMY DATA */
+/* DUMMY DATA */
+INSERT INTO Event (Title, Capacity, StartDate, StartTime, EndDate, EndTime, Description, Category, Ticket_startdate, Ticket_enddate) 
+VALUES ('Dummy event 1', 420, 2017-01-01, '21:00:00', 2017-01-02, '04:00:00', 'Dummy event from 9pm-4am 1st Jan 2017 - 2nd Jan 2017', 'Event', 2017-01-01, 2017-01-02);
+INSERT INTO Event (Title, Capacity, StartDate, StartTime, EndDate, EndTime, Description, Category, Ticket_startdate, Ticket_enddate) 
+VALUES ('Dummy event 2', 421, 2017-01-02, '21:00:00', 2017-01-03, '04:00:00', 'Dummy event from 9pm-4am 2nd Jan 2017 - 3rd Jan 2017', 'Event', 2017-01-02, 2017-01-03);
+INSERT INTO Venue_Address (FirstLine, SecondLine, City, County, PostCode)
+VALUES ('1st Dummy Address line 1', '1st Dummy Address line 2', '1st Dummy City', '1st Dummy County', 'WXX XXX');
+INSERT INTO Venue_Address (FirstLine, SecondLine, City, County, PostCode)
+VALUES ('2nd Dummy Address line 1', '2nd Dummy Address line 2', '2nd Dummy City', '2nd Dummy County', 'WXX XXZ');
+INSERT INTO User (UserName, FirstName, LastName, Phone, Email)
+VALUES ('Dummy User 1', 'Dummy FirstName1', 'Dummy LastName1', '000111222333', 'notarealemail1@ucl.com');
+INSERT INTO User (UserName, FirstName, LastName, Phone, Email)
+VALUES ('Dummy User 2', 'Dummy FirstName2',  'Dummy LastName2', '0001313654', 'notarealemail2@ucl.com');
+INSERT INTO Cust_Address (FirstLine, SecondLine, City, County, PostCode)
+VALUES ('1st Dummy Address line 1', '1st Dummy Address line 2', '1st Dummy City', '1st Dummy County', 'WXX XXX');
+INSERT INTO Cust_Address (FirstLine, SecondLine, City, County, PostCode)
+VALUES ('2nd Dummy Address line 1', '2nd Dummy Address line 2', '2nd Dummy City', '2nd Dummy County', 'WXX XXZ');
+INSERT INTO Host (User_ID, Event_ID)
+VALUES(1, 1);
+INSERT INTO Host (User_ID, Event_ID)
+VALUES(2, 2);
+INSERT INTO Venue (Event_ID, Address_ID)
+VALUES(1, 1);
+INSERT INTO Venue (Event_ID, Address_ID)
+VALUES(2, 2);
+INSERT INTO Customer_Addresses (Customer_ID, Cust_Address_ID)
+VALUES(1, 1);
+INSERT INTO Customer_Addresses (Customer_ID, Cust_Address_ID)
+VALUES(2, 2);
+INSERT INTO Guest_List (Event_ID, User_ID)
+VALUES(1, 1);
+INSERT INTO Guest_List (Event_ID, User_ID)
+VALUES(2, 2);
