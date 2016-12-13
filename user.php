@@ -2,7 +2,7 @@
 
 $customer = array();
 $address = array();
-$data = array();
+$data = "";
 
 /***********************************************************************/
 //  Functions and Exception Handlers
@@ -109,6 +109,9 @@ function create_user($cust, $addr){
 	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
+	//Check if User already exists - ie check email
+	dbCheckUserExists($cust[0], $db);
+	
 	//First check whether address exists
 	//using first line of address and post code
 	$address_exists = False;
@@ -157,6 +160,14 @@ function dbAddCustAddress($addr, $db){
 		return $db->lastInsertId();	
 }
 
+function dbCheckUserExists($email, $db){
+	global $data;
+	$result = $db->query("SELECT email FROM user WHERE email = '$email'");
+	if($result->rowCount() > 0){
+		$data = "User already exists";
+	}	
+}
+
 /*****************************************************/
 // main
 /*****************************************************/
@@ -175,6 +186,17 @@ if($url_pieces[1] == 'adduser'){
 		}
 	}
 }
+//print "success \r\n";
 
-echo 'success';
+//print $data;
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add User</title>
+</head>
+<body>
+	<h1>Success</h1>
+	<p>A new user with email address <?php echo $customer[0] ?> was added</p>
+</body>
