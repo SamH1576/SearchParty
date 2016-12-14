@@ -1,4 +1,8 @@
 <?php
+//Set connection parameters
+$dbname = "projectdb";
+$dbusername = "hyminsa";
+$dbpassword = "hyminsa";
 
 $customer = array();
 $address = array();
@@ -14,8 +18,7 @@ set_exception_handler(function($e){
 	exit;
 });
 
-function check_parameters($array){
-	//need to confirm exactly what is being passed from the form
+function check_parameters_add_user($array){
 	global $customer;
 	global $address;
 	
@@ -99,18 +102,47 @@ function check_parameters($array){
 	return $valid;
 }
 
+function check_parameters_delete_user($array){
+	$valid = True;
+	$delete_email_password = array();
+	
+	if ($array['email']==null){
+		$valid = False;
+	}else{
+		$delete_email_password[0] = $array["email"];
+	}
+
+	if ($array['password']==null){
+		$valid = False;
+	}else{
+		$delete_email_password[1] = $array["password"];
+	}
+	
+	if($valid){
+		return $delete_email_password;
+	}else{
+		return null;
+	}
+	
+}
+/******************************************************************/
+/*  Create User
+/******************************************************************/
 function create_user($cust, $addr){
-	//Set connection parameters
-	$dbname = "projectdb";
-	$dbusername = "hyminsa";
-	$dbpassword = "hyminsa";
+	global $dbname;
+	global $dbusername;
+	global $dbpassword;
 	
 	//Login to database
 	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
 	//Check if User already exists - ie check email
-	dbCheckUserExists($cust[0], $db);
+	if(dbCheckUserExists($cust[0], $db)){
+		//Exit the function, returning False to let the caller know it was unsuccessful
+		$db = null;
+		return False;
+	}
 	
 	//First check whether address exists using first line of address and post code
 	//This returns either null or the cust_address_id
@@ -135,6 +167,8 @@ function create_user($cust, $addr){
 		dbAddCustomerAddressRecord($newUser_ID, $newCust_Address_ID, $db);				
 	}
 	$db =null;
+	//return True to let the calling function know the update was successful
+	return True;
 }
 
 function dbAddUser($cust, $db){
@@ -146,7 +180,7 @@ function dbAddUser($cust, $db){
 }
 
 function dbAddCustomerAddressRecord($newUser_ID, $cust_address_id, $db){
-		$catch = $db->exec("INSERT INTO customer_addresses(customer_id, cust_address_id, 
+		$catch = $db->exec("INSERT INTO fkcust_address(customer_id, cust_address_id, 
 							creation_time, modification_time)
 							VALUES ('$newUser_ID', '$cust_address_id', NOW(), NOW())");	
 }
@@ -159,20 +193,41 @@ function dbAddCustAddress($addr, $db){
 }
 
 function dbCheckUserExists($email, $db){
-	global $data;
 	$result = $db->query("SELECT email FROM user WHERE email = '$email'");
 	if($result->rowCount() > 0){
-		$data = "User already exists";
+		return True;
+	}else{
+		return False;
 	}	
 }
 
 function dbCheckCustAddressExists($firstline, $postcode, $db){
-	$result = $db->query("SELECT cust_address_id FROM cust_address WHERE postcode = '$postcode' AND firstline = '$firstline'");
+	$result = $db->query("SELECT cust_address_id FROM fkcust_address WHERE postcode = '$postcode' AND firstline = '$firstline'");
 	if($result->rowCount() > 0){
 		$rowdata = $result->fetch(PDO::FETCH_ASSOC);
 		return $rowdata["cust_address_id"];
 	}else{
 		return null;
+	}
+}
+
+/******************************************************************/
+/*  Delete User
+/******************************************************************/
+function delete_user($cust_info){
+	global $dbname;
+	global $dbusername;
+	global $dbpassword;
+	
+	//Login to database
+	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
+	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	
+	if(dbCheckUserExists($cust_info[0], $db)){
+		//SQL to detete user
+		return True;
+	}else{
+		return False;
 	}
 }
 
@@ -185,26 +240,69 @@ $url_pieces= explode('/', $_SERVER['PATH_INFO']);
 
 if($url_pieces[1] == 'adduser'){
 	if($verb == 'POST'){
-		if(check_parameters($_POST)){
+		if(check_parameters_add_user($_POST)){
 			try{
-				create_user($customer, $address);
+				$boolSuccess = create_user($customer, $address);
 			} catch (UnexpectedValueException $e){
 				throw new Exception("Resource does not exist", 404);
 			}
+		display_result($boolSuccess, 'adduser');
+		}else{
+			display_result(False, 'adduser');
+		}
+	
+	}
+}else if($url_pieces[1]=='deleteuser'){
+	if($verb == 'POST'){
+		$cust_info = check_parameters_delete_user($_POST);
+		if($cust_info != null){
+			try{
+				$boolSuccess = delete_user($cust_info);
+			} catch (UnexpectedValueException $e){
+				throw new Exception("Resource does not exist", 404);
+			}
+		display_result($boolSuccess, 'delete_user');
+		}else{
+		display_result(False, 'delete_user');			
 		}
 	}
 }else{
 	echo 'unknown path';
 }
-//print "success";
-?>
 
+function display_result($success, $action){
+?>
+<!-- Generate some HTML to indicate success or failure -->
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Add User</title>
 </head>
 <body>
-	<h1>Success</h1>
-	<p>A new user with email address <?php echo $customer[0] ?> was added</p>
-</body>
+	
+<?php	
+	if($action == 'adduser'){
+		if($success){
+		?>
+			<h1>Success</h1>
+			<p>A new user with email address <?php echo $customer[0] ?> was added.</p>
+		<?php }else{ ?>
+			<h1>Failure</h1>
+			<p>A user with email address <?php echo $customer[0] ?> already exists.</p>	
+		<?php } 
+	}else if($action == 'deleteuser'){
+		if($success){
+		?>
+			<h1>Success</h1>
+			<p>The user with email address <?php echo $customer[0] ?> was deleted.</p>
+		<?php }else{ ?>
+			<h1>Failure</h1>
+			<p>The user with email address <?php echo $customer[0] ?> was not deleted.</p>	
+		<?php }	
+	}else{
+		
+	}
+?>
+</body>	
+<? } ?>
+

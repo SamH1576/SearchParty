@@ -48,5 +48,26 @@
         </div><!-- .two-thirds -->
       </form>
     </div><!-- .container -->
+	
+    <div class="container deleteuser">
+      <form id="form" action="user.php/deleteuser" method="post">
+        <div class="two-thirds column" id="main">
+          <fieldset id="fieldSet">
+            <legend>Delete User</legend>
+              
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required/>
+              
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required/>
+           
+            <input type="submit" id="submit" value="Delete User" />
+          </fieldset>
+            
+          <div id="content">
+          </div>
+        </div><!-- .two-thirds -->
+      </form>
+    </div><!-- .container -->
   </body>
 </html>
