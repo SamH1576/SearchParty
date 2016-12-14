@@ -202,13 +202,18 @@ function dbCheckUserExists($email, $db){
 }
 
 function dbCheckCustAddressExists($firstline, $postcode, $db){
-	$result = $db->query("SELECT cust_address_id FROM fkcust_address WHERE postcode = '$postcode' AND firstline = '$firstline'");
+	$result = $db->query("SELECT cust_address_id FROM cust_address WHERE postcode = '$postcode' AND firstline = '$firstline'");
 	if($result->rowCount() > 0){
 		$rowdata = $result->fetch(PDO::FETCH_ASSOC);
 		return $rowdata["cust_address_id"];
 	}else{
 		return null;
 	}
+}
+
+function dbDeleteUserbyEmail($email, $password, $db){
+	$result = $db->exec("DELETE FROM user WHERE email = '$email' AND password = '$password'");
+	echo $result; //delete this line
 }
 
 /******************************************************************/
@@ -224,7 +229,7 @@ function delete_user($cust_info){
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
 	if(dbCheckUserExists($cust_info[0], $db)){
-		//SQL to detete user
+		dbDeleteUserbyEmail($cust_info[0], $cust_info[1], $db);
 		return True;
 	}else{
 		return False;
@@ -246,9 +251,8 @@ if($url_pieces[1] == 'adduser'){
 			} catch (UnexpectedValueException $e){
 				throw new Exception("Resource does not exist", 404);
 			}
-		display_result($boolSuccess, 'adduser');
 		}else{
-			display_result(False, 'adduser');
+			$boolSuccess = False;
 		}
 	
 	}
@@ -261,17 +265,15 @@ if($url_pieces[1] == 'adduser'){
 			} catch (UnexpectedValueException $e){
 				throw new Exception("Resource does not exist", 404);
 			}
-		display_result($boolSuccess, 'delete_user');
 		}else{
-		display_result(False, 'delete_user');			
+		$boolSuccess = False;			
 		}
 	}
 }else{
 	echo 'unknown path';
 }
-
-function display_result($success, $action){
 ?>
+
 <!-- Generate some HTML to indicate success or failure -->
 <!DOCTYPE html>
 <html>
@@ -281,8 +283,8 @@ function display_result($success, $action){
 <body>
 	
 <?php	
-	if($action == 'adduser'){
-		if($success){
+	if($url_pieces[1] == 'adduser'){
+		if($boolSuccess){
 		?>
 			<h1>Success</h1>
 			<p>A new user with email address <?php echo $customer[0] ?> was added.</p>
@@ -291,7 +293,7 @@ function display_result($success, $action){
 			<p>A user with email address <?php echo $customer[0] ?> already exists.</p>	
 		<?php } 
 	}else if($action == 'deleteuser'){
-		if($success){
+		if($boolSuccess){
 		?>
 			<h1>Success</h1>
 			<p>The user with email address <?php echo $customer[0] ?> was deleted.</p>
@@ -305,4 +307,3 @@ function display_result($success, $action){
 ?>
 </body>	
 <? } ?>
-
