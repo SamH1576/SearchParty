@@ -213,7 +213,11 @@ function dbCheckCustAddressExists($firstline, $postcode, $db){
 
 function dbDeleteUserbyEmail($email, $password, $db){
 	$result = $db->exec("DELETE FROM user WHERE email = '$email' AND password = '$password'");
-	echo $result; //delete this line
+	if($result == 1){
+		return True;
+	}else{
+		return False;
+	}
 }
 
 /******************************************************************/
@@ -229,8 +233,11 @@ function delete_user($cust_info){
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
 	if(dbCheckUserExists($cust_info[0], $db)){
-		dbDeleteUserbyEmail($cust_info[0], $cust_info[1], $db);
-		return True;
+		if(dbDeleteUserbyEmail($cust_info[0], $cust_info[1], $db)){
+			return True;
+		}else{
+			return False;
+		}	
 	}else{
 		return False;
 	}
@@ -292,14 +299,14 @@ if($url_pieces[1] == 'adduser'){
 			<h1>Failure</h1>
 			<p>A user with email address <?php echo $customer[0] ?> already exists.</p>	
 		<?php } 
-	}else if($action == 'deleteuser'){
+	}else if($url_pieces[1] == 'deleteuser'){
 		if($boolSuccess){
 		?>
 			<h1>Success</h1>
-			<p>The user with email address <?php echo $customer[0] ?> was deleted.</p>
+			<p>The user was deleted.</p>
 		<?php }else{ ?>
 			<h1>Failure</h1>
-			<p>The user with email address <?php echo $customer[0] ?> was not deleted.</p>	
+			<p>The user was not deleted.</p>	
 		<?php }	
 	}else{
 		
