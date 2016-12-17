@@ -26,9 +26,9 @@ VALUES(1, 1);
 INSERT INTO FKHost (User_ID, Event_ID)
 VALUES(2, 2);
 
-INSERT INTO FKEvent_Venue (Event_ID, Address_ID)
+INSERT INTO FKEvent_Venue (Event_ID, Venue_Address_ID)
 VALUES(1, 1);
-INSERT INTO FKEvent_Venue (Event_ID, Address_ID)
+INSERT INTO FKEvent_Venue (Event_ID, Venue_Address_ID)
 VALUES(2, 2);
 
 INSERT INTO FKCust_Address (Customer_ID, Cust_Address_ID)
