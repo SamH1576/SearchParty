@@ -1,4 +1,7 @@
 <?php
+/***********************************************************************/
+/*  PHP file to add and delete users
+/***********************************************************************/
 //Set connection parameters
 $dbname = "projectdb";
 $dbusername = "hyminsa";
