@@ -142,32 +142,6 @@ function check_parameters_add_event($array){
 	return $valid;
 }
 
-function check_parameters_delete_user($array){
-	$valid = True;
-	$delete_email_password = array();
-	
-	if ($array['email']==null){
-		$valid = False;
-	}else{
-		$delete_email_password[0] = $array["email"];
-	}
-
-	if ($array['password']==null){
-		$valid = False;
-	}else{
-		$delete_email_password[1] = $array["password"];
-	}
-	
-	if($valid){
-		return $delete_email_password;
-	}else{
-		return null;
-	}
-	
-}
-/******************************************************************/
-/*  Create Event
-/******************************************************************/
 function create_event($eve, $addr){
 	global $dbname;
 	global $dbusername;
@@ -248,38 +222,6 @@ function dbCheckVenueAddressExists($firstline, $postcode, $db){
 	}
 }
 
-function dbDeleteUserbyEmail($email, $password, $db){
-	$result = $db->exec("DELETE FROM user WHERE email = '$email' AND password = '$password'");
-	if($result == 1){
-		return True;
-	}else{
-		return False;
-	}
-}
-
-/******************************************************************/
-/*  Delete User
-/******************************************************************/
-function delete_user($cust_info){
-	global $dbname;
-	global $dbusername;
-	global $dbpassword;
-	
-	//Login to database
-	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
-	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	
-	if(dbCheckEventExists($cust_info[0], $db)){
-		if(dbDeleteUserbyEmail($cust_info[0], $cust_info[1], $db)){
-			return True;
-		}else{
-			return False;
-		}	
-	}else{
-		return False;
-	}
-}
-
 function display_events(){
     global $dbname;
 	global $dbusername;
@@ -299,6 +241,7 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 echo '</select>';
     return True;
 }
+
 function delete_event($unwantedevent){
     global $dbname;
 	global $dbusername;
@@ -374,6 +317,7 @@ else{
 			<p>An event with title <?php echo $event[0] ?> already exists.</p>	
 		<?php } 
 	}
+    
     //HTML for showevents
     else if($url_pieces[1] == 'showevents'){  
 		if($boolSuccess){
@@ -395,6 +339,7 @@ else{
 			<p>The events are not shown in dropdown menu</p>	
 		<?php }	
 	}
+    
     //HTML for deleting events success/fail
     else if($url_pieces[1] == 'deleteevent'){  
 		if($boolSuccess){
