@@ -1,0 +1,105 @@
+<html>
+<head>
+<title>Menu</title>
+<style>
+h1 {
+	text-align: center;
+	font-family: Algerian;
+	background: teal;
+	margin:0;
+}
+#Image {
+	width: 50%;
+	margin:auto;
+	display: block;
+	background: teal;
+}
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+ul.topnav li {float: left;}
+ul.topnav li input {
+    display: inline-block;
+    color: #f2f2f2;
+    background: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+body {background: teal
+}
+#addevent {
+float: left;
+display: none;
+}
+#search {
+	float: left;
+	display: none;
+}
+#attending {
+  display: none;
+}
+ul.topnav li a:hover {background-color: #555;}
+ul.topnav li.icon {display: none;}
+</style>
+</head>
+<body>
+<ul class="topnav" id="myTopnav">
+  <li><input type="button" name="search" value="Search Event" onclick="search()"></li>
+  <li><input type="button" name="host" value="Host Event" onclick="host()"/></li>
+  <li><input type="button" name="attending" value="Events I'm Attending" onclick="attending()"></li>
+  <li class="icon">
+  </li>
+</ul>
+<h1>Search Party</h1>
+<img src="http://ichef.bbci.co.uk/news/624/media/images/82339000/jpg/_82339710_469785106.jpg" id="Image"> 
+<div id= "addevent">
+<h2> Provide the following information about the event you want to host.</h2>
+<form>
+Title:<br>
+<input type="text" name="title"><br>
+Capacity:<br>
+<input type="text" name="capacity"><br>
+Start date:<br>
+<input type="text" name="start-date"><br>
+Start time:<br>
+<input type="text" name="start-time"><br>
+End date:<br>
+<input type="text" name="end-date"><br>
+End time:<br>
+<input type="text" name="end-time"><br>
+Description:<br>
+<input type="text" name="description"><br>
+Category:<br>
+<input type="text" name="category"><br>
+Ticket start:<br>
+<input type="text" name="ticket-start"><br>
+Ticket end:<br>
+<input type="text" name="ticket-end"><br>
+</form>
+</div>
+<div id = "search">
+<h2> Select what kind of event you would like to attend.</h2>
+<select>
+  <option value="music">Music</option>
+  <option value="sport">Sport</option>
+  <option value="art">Art Exhibition</option>
+  <option value="other">Other</option>
+</select>
+<input type=button name= "find" value= "search" onclick="find()"/>
+</div>
+<div id = "attending">
+<p>(show list of events from database)</p>
+<select>
+<option value="list of selected events">Events</option>
+</select>
+</div>
+<script src = "Group-Project-Java.js"></script> 
+</body>
+</html>
