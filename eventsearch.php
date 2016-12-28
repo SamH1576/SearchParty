@@ -3,10 +3,7 @@
 /*  PHP file to search for events
 /***********************************************************************/
 //Set database connection parameters
-$dbname = "projectdb";
-$dbusername = "hyminsa";
-$dbpassword = "hyminsa";
-
+include 'Database-config.php';
 
 /***********************************************************************/
 /*  Set exception handler

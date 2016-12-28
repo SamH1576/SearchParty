@@ -3,9 +3,7 @@
 /*  PHP file to add and delete users
 /***********************************************************************/
 //Set connection parameters
-$dbname = "projectdb";
-$dbusername = "hyminsa";
-$dbpassword = "hyminsa";
+include 'Database-config.php';
 
 $customer = array();
 $address = array();

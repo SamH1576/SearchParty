@@ -1,8 +1,6 @@
 <?php
 //Set connection parameters
-$dbname = "projectdb";
-$dbusername = "hyminsa";
-$dbpassword = "hyminsa";
+include 'Database-config.php';
 
 $event = array();
 $address = array();
