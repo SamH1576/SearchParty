@@ -1,53 +1,7 @@
 <html>
 <head>
 <title>Menu</title>
-<style>
-h1 {
-	text-align: center;
-	font-family: Algerian;
-	background: teal;
-	margin:0;
-}
-#Image {
-	width: 50%;
-	margin:auto;
-	display: block;
-	background: teal;
-}
-ul.topnav {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-}
-ul.topnav li {float: left;}
-ul.topnav li input {
-    display: inline-block;
-    color: #f2f2f2;
-    background: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    transition: 0.3s;
-    font-size: 17px;
-}
-body {background: teal
-}
-#addevent {
-float: left;
-display: none;
-}
-#search {
-	float: left;
-	display: none;
-}
-#attending {
-  display: none;
-}
-ul.topnav li a:hover {background-color: #555;}
-ul.topnav li.icon {display: none;}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <ul class="topnav" id="myTopnav">
@@ -59,31 +13,66 @@ ul.topnav li.icon {display: none;}
 </ul>
 <h1>Search Party</h1>
 <img src="http://ichef.bbci.co.uk/news/624/media/images/82339000/jpg/_82339710_469785106.jpg" id="Image"> 
-<div id= "addevent">
-<h2> Provide the following information about the event you want to host.</h2>
-<form>
-Title:<br>
-<input type="text" name="title"><br>
-Capacity:<br>
-<input type="text" name="capacity"><br>
-Start date:<br>
-<input type="text" name="start-date"><br>
-Start time:<br>
-<input type="text" name="start-time"><br>
-End date:<br>
-<input type="text" name="end-date"><br>
-End time:<br>
-<input type="text" name="end-time"><br>
-Description:<br>
-<input type="text" name="description"><br>
-Category:<br>
-<input type="text" name="category"><br>
-Ticket start:<br>
-<input type="text" name="ticket-start"><br>
-Ticket end:<br>
-<input type="text" name="ticket-end"><br>
-</form>
-</div>
+    <div class="add event" id= "addevent">
+      <form id="form" action="event.php/addevent" method="post">
+        <div class="two-thirds column" id="main">
+          <fieldset id="fieldSet">
+            <legend>Create Event</legend>
+              
+            <label for="title">Title:</label><br>
+            <input type="text" id="title" name="title" required/><br>
+              
+            <label for="capacity">Capacity:</label><br>
+            <input type="number" id="capacity" name="capacity" required/><br>
+              
+            <label for="startdate">Start Date:</label><br>
+            <input type="date" id="startdate" name="startdate" required/><br>
+              
+            <label for="starttime">Start Time:</label><br>
+            <input type="time" id="starttime" name="starttime" required/><br>
+              
+            <label for="enddate">End Date:</label><br>
+            <input type="date" id="enddate" name="enddate" required/><br>
+              
+            <label for="endtime">End Time:</label><br>
+            <input type="time" id="endtime" name="endtime" required/><br>
+            
+            <label for="description">Description:</label><br>
+            <textarea rows="4" cols="20" id="description" name="description" required></textarea><br>
+              
+            <label for="category">Category:</label><br>
+            <input type="text" id="category" name="category" required/><br>
+            
+            <label for="ticketstartdate">Ticket Start Date:</label><br>
+            <input type="date" id="ticketstartdate" name="ticketstartdate" required/><br>
+              
+            <label for="ticketenddate">Ticket End Date:</label><br>
+            <input type="date" id="ticketenddate" name="ticketenddate" required/><br>
+            
+            <!-- Event Address data -->
+            <label for="FirstLine">FirstLine:</label><br>
+            <input type="text" id="FirstLine" name="firstline" required/><br>
+              
+            <label for="SecondLine">SecondLine:</label><br>
+            <input type="text" id="SecondLine" name="secondline" required/><br>
+              
+            <label for="City">City:</label><br>
+            <input type="text" id="City" name="city" required/><br>
+              
+            <label for="County">County:</label><br>
+            <input type="text" id="County" name="county" required/><br>
+              
+            <label for="PostCode">PostCode:</label><br>
+            <input type="text" id="PostCode" name="postcode" required/><br><br>
+              
+            <input type="submit" id="submit" value="Create Event" />
+          </fieldset>
+            
+          <div id="content">
+          </div>
+        </div><!-- .two-thirds -->
+      </form>
+    </div><!-- .container -->
 <div id = "search">
 <h2> Select what kind of event you would like to attend.</h2>
 <select>
