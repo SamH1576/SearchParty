@@ -1,0 +1,45 @@
+h1 {
+	text-align: center;
+	font-family: Algerian;
+	background: teal;
+	margin:0;
+}
+#Image {
+	width: 50%;
+	margin:auto;
+	display: block;
+	background: teal;
+}
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+ul.topnav li {float: left;}
+ul.topnav li input {
+    display: inline-block;
+    color: #f2f2f2;
+    background: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+body {background: teal
+}
+#addevent {
+float: left;
+display: none;
+}
+#search {
+	float: left;
+	display: none;
+}
+#attending {
+  display: none;
+}
+ul.topnav li a:hover {background-color: #555;}
+ul.topnav li.icon {display: none;}

@@ -1,0 +1,53 @@
+body {
+    background: teal
+}
+h1 {
+    text-align: center;
+    font-family: Algerian;
+}
+h2 {
+    text-align: center;
+    font-family: Algerian;
+}
+#Image {
+    width: 50%;
+    display: block;
+    margin: auto;
+}
+#login {
+    margin: auto;
+}
+#submit{
+     display: inline-block;
+    color: #f2f2f2;
+    background: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+.col1 {
+    float:left;
+    width:110px;
+}
+#val1{
+display: none;
+color: red;
+}
+#val2{
+    display: none;
+    color: red;
+}
+#val3{
+    display: none;
+    color: red;
+}
+#val4{
+    display: none;
+    color: red;
+}
+#val5{
+    display: none;
+    color: red;
+}
