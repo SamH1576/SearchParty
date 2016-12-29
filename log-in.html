@@ -1,0 +1,37 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css\log-in.css">
+</head>
+<body>
+<h1> Search Party</h1>
+<img src="http://i2.mirror.co.uk/incoming/article5230502.ece/ALTERNATES/s1227b/Detectives-focus-on-the-alleyway-behind-the-house-of-missing-Claudia-Lawrence.jpg" id="Image"> 
+<h2> Login</h2>
+<div id= "login">
+<form name="form1">
+<span class="col1">User email:</span>
+<input type="email" name="email" onchange="ValidateEmail(document.form1.email)"/>
+<span id="val1">(email address is not in the valid form)</span><br>
+<span class="col1">User password:</span>
+<input type="password" name="psw" onchange="CheckPassword(document.form1.psw)"/>
+<span id="val2">(Password is not valid! Must be 6-20 characters, have 1 upper and lower case, 1 numerical digit.)</span><br>
+<input id="submit" type="submit" value="Login" /> 
+</form>
+</div>
+<p> Not a member?<br> Register here.</p>
+<div id="register">
+<form name= "form2">
+<span class="col1">New email:</span>
+<input type="email" name="newemail" onchange="ValidateEmail2(document.form2.newemail)"/>
+<span id="val3">(email address is not in the valid form)</span><br>
+<span class="col1"> New Password:</span>
+<input  id="newpass" type="password" name="newpassword" onchange="CheckPass(document.form2.newpassword)"/>
+<span id="val4">(Password is not valid! Must be 6-20 characters, have 1 upper and lower case, 1 numerical digit.)</span><br>
+<span class="col1"> Confirm Password:</span><br>
+<input id ="confirm" type="password" name="confirmpassword" onchange="Confirm(document.form2.confirmpassword)"/>
+<span id="val5">(Password does not match!)</span><br>
+<input id="submit" type="submit" value="Register"/>
+</form>
+</div>
+<script src = "js\log-in.js"></script> 
+</body>
+</html>
