@@ -1,45 +1,15 @@
 <html>
 <head>
-<style>
-body {
-	background: teal
-}
-h1 {
-	text-align: center;
-	font-family: Algerian;
-}
-h2 {
-	text-align: center;
-	font-family: Algerian;
-}
-#Image {
-	width: 50%;
-	display: block;
-	margin: auto;
-}
-#login {
-	margin: auto;
-}
-#submit{
-	 display: inline-block;
-    color: #f2f2f2;
-    background: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    transition: 0.3s;
-    font-size: 17px;
-}
-.col1 {
-	float:left;
-	width:110px;
-}
-</style>
+<link rel="stylesheet" href="css/login-style.css">
+<script src = "js/Group-Project-Java.js"></script> 
 </head>
 <body>
 <h1> Search Party</h1>
 <img src="http://i2.mirror.co.uk/incoming/article5230502.ece/ALTERNATES/s1227b/Detectives-focus-on-the-alleyway-behind-the-house-of-missing-Claudia-Lawrence.jpg" id="Image"> 
+    
+<!-- Login form -->
 <h2> Login</h2>
+    
 <div id= "login">
 <form>
 <span class="col1">User email:</span>
@@ -49,15 +19,20 @@ h2 {
 <input id="submit" type="submit" value="Login"/> 
 </form>
 </div>
+    
+<!-- Registration form -->    
 <p> Not a member?<br> Register here.</p>
+    
 <form id= "register">
-<span class="col1">New email:</span>
-<input type="email" name="new-email"/><br>
-<span class="col1"> New Password:</span>
-<input type="password" name="new-password"/><br>
-<span class="col1"> Confirm Password:</span><br>
-<input type="password" name="confirm-password"/><br>
-<input id="submit" type="submit" value="Register"/>
+    <span class="col1">New email:</span>
+    <input type="email" name="new-email"/><br>
+    <span class="col1"> New Password:</span>
+    <input type="password" name="new-password" id="new-password"/><br>
+    <span class="col1"> Confirm Password:</span><br>
+    <input type="password" name="confirm-password" id="confirm-password" onchange="check_passwords_match()"/><br>
+    <span id='message'></span><br>
+    <input id="submit" type="submit" value="Register" />
 </form>
+    
 </body>
 </html>

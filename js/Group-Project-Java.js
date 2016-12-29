@@ -49,3 +49,10 @@ function attending() {
 		search.style.display = "none";
 	}
 }
+function check_passwords_match(){
+    if(document.getElementById('new-password').value === document.getElementById('confirm-password').value) {
+        document.getElementById('message').innerHTML = " match";
+    } else {
+        document.getElementById('message').innerHTML = " no match";
+    }
+}
