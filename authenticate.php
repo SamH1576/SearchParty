@@ -27,6 +27,7 @@ $verb = $_SERVER['REQUEST_METHOD'];
     if($verb == 'POST'){
 		if(check_username_password_match($_POST)){
             echo "Login successful";
+			include 'main.html';
     }
         else{
             echo "Username and password not a match <br><br>";

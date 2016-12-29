@@ -1,16 +1,29 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <title>Testlogin HTML</title>
-  </head>
-  <body>
- 
-       <form action = "authenticate.php" method = "post">
-        <label>UserName  :</label><input type = "text" name = "username" class = "box"/><br/>
-        <label>Password  :</label><input type = "password" name = "password" class = "box" />
-           <br/><br/>
-        <input type = "submit" value = " Login "/><br />
-        </form>
-
-  </body>
+<head>
+<link rel="stylesheet" href="css/login-style.css">
+<script src = "js/Group-Project-Java.js"></script> 
+</head>
+<body>
+<h1> Search Party</h1>
+<img src="http://i2.mirror.co.uk/incoming/article5230502.ece/ALTERNATES/s1227b/Detectives-focus-on-the-alleyway-behind-the-house-of-missing-Claudia-Lawrence.jpg" id="Image"> 
+    
+<!-- Login form -->
+<h2> Login</h2>
+</div>
+    
+<!-- Registration form -->    
+<p> Not a member?<br> Register here.</p>
+    
+<form id= "register" action = "user.php/adduser" method = "post">
+    <span class="col1">New email:</span>
+    <input type="email" name="email"/><br>
+    <span class="col1"> New Password:</span>
+    <input type="password" name="new-password" id="new-password"/><br>
+    <span class="col1"> Confirm Password:</span><br>
+    <input type="password" name="confirm-password" id="confirm-password" onchange="check_passwords_match()"/><br>
+    <span id='message'></span><br>
+    <input id="submit" type="submit" value="Register" />
+</form>
+    
+</body>
 </html>
