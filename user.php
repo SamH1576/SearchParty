@@ -40,64 +40,64 @@ function check_parameters_add_user($array){
 		postcode	
 	*/
 	
-	if ($array['email']==null){
+	if ($array['email1']==null){
 		$valid = False;
 	}else{
-		$customer[0] = $array["email"];
+		$customer[0] = $array["email1"];
 	}
 		
-	if ($array["password"]==null){
+	if ($array["password1"]==null){
 		$valid = False;
 	}else{
-		$customer[1] = $array["password"];
+		$customer[1] = $array["password1"];
 	}
 	
-	if ($array["first_name"]==null){
+	if ($array["FirstName1"]==null){
 		$valid = False;
 	}else{
-		$customer[2] = $array["first_name"];
+		$customer[2] = $array["FirstName1"];
 	}
 	
-	if (($array["last_name"]==null)){
+	if (($array["LastName1"]==null)){
 		$valid = False;
 	}else{
-		$customer[3] = $array["last_name"];
+		$customer[3] = $array["LastName1"];
 	}
 
-	if (($array["phone"]==null)){
+	if (($array["Phone1"]==null)){
 		$valid = False;
 	}else{
-		$customer[4] = $array["phone"];
+		$customer[4] = $array["Phone1"];
 	}
 	
-	if (($array["firstline"]==null)){
+	if (($array["FirstLine1"]==null)){
 		$valid = False;
 	}else{
-		$address[0] = $array["firstline"];
+		$address[0] = $array["FirstLine1"];
 	}
 	
-	if (($array["secondline"]==null)){
+	if (($array["SecondLine1"]==null)){
 		$valid = False;
 	}else{
-		$address[1] = $array["secondline"];
+		$address[1] = $array["SecondLine1"];
 	}
 	
-	if (($array["city"]==null)){
+	if (($array["City1"]==null)){
 		$valid = False;
 	}else{
-		$address[2] = $array["city"];
+		$address[2] = $array["City1"];
 	}
 
-	if (($array["county"]==null)){
+	if (($array["County1"]==null)){
 		$valid = False;
 	}else{
-		$address[3] = $array["county"];
+		$address[3] = $array["County1"];
 	}
 	
-	if (($array["postcode"]==null)){
+	if (($array["PostCode1"]==null)){
 		$valid = False;
 	}else{
-		$address[4] = $array["postcode"];
+		$address[4] = $array["PostCode1"];
 	}
 
 	return $valid;
@@ -280,38 +280,21 @@ if($url_pieces[1] == 'adduser'){
 }else{
 	echo 'unknown path';
 }
-?>
-
-<!-- Generate some HTML to indicate success or failure -->
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Add User</title>
-</head>
-<body>
-	
-<?php	
-	if($url_pieces[1] == 'adduser'){
+/* window output message */
+if($url_pieces[1] == 'adduser'){
 		if($boolSuccess){
-		?>
-			<h1>Success</h1>
-			<p>A new user with email address <?php echo $customer[0] ?> was added.</p>
-		<?php }else{ ?>
-			<h1>Failure</h1>
-			<p>A user with email address <?php echo $customer[0] ?> already exists.</p>	
-		<?php } 
-	}else if($url_pieces[1] == 'deleteuser'){
+            echo "Success, a new user with email address echo $customer[0] was added.";
+        }
+        else {
+            echo "Sorry, a user with the address $customer[0] already exists. Please use another email.";
+        }
+}
+else if($url_pieces[1] == 'deleteuser'){
 		if($boolSuccess){
-		?>
-			<h1>Success</h1>
-			<p>The user was deleted.</p>
-		<?php }else{ ?>
-			<h1>Failure</h1>
-			<p>The user was not deleted.</p>	
-		<?php }	
-	}else{
-		
-	}
+            echo "success the user was deleted.";
+        }
+        else{
+            echo "Failure, the user was not deleted.";
+        }
+}
 ?>
-</body>	
-<? } ?>

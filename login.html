@@ -1,7 +1,9 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="css\log-in.css">
-<script src = "js\log-in.js"></script> 
+<script src = "js/jquery-3.1.1.min.js"></script>
+<script src = "js/log-in.js"></script> 
+<script src = "js/main.js"></script> 
 </head>
 <body>
 	<h1> Search Party</h1>
@@ -27,7 +29,58 @@
 	<p> Not a member?<br> Register here.</p>
 	
 	<div id="register">
-		<form name= "form2" action = "user.php/adduser" method = "post">
+        <div id="form-messages"></div>
+       
+        <form id="form">
+        <div class="two-thirds column" id="main">
+          <fieldset id="fieldSet">
+            <legend>Create User</legend>
+              
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" />
+            <span id="val3">(email address is not in the valid form)</span><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="new-password" name="password" onchange="check_passwords_match()"/>
+			<span id="val4">(Password is not valid! Must be 6-20 characters, have 1 upper and lower case, 1 numerical digit.)</span><br>
+
+            <span class="col1"> Confirm Password:</span><br>
+			<input id ="confirm-password" type="password" name="confirm-password" onchange="check_passwords_match()"/>
+
+            <label for="FirstName">First Name:</label>
+            <input type="text" id="FirstName" name="first_name" />
+              
+            <label for="LastName">Last Name:</label>
+            <input type="text" id="LastName" name="last_name" />
+              
+            <label for="Phone">Phone:</label>
+            <input type="text" id="Phone" name="phone" />
+			
+			<label for="FirstLine">FirstLine:</label>
+            <input type="text" id="FirstLine" name="firstline" />
+              
+            <label for="SecondLine">SecondLine:</label>
+            <input type="text" id="SecondLine" name="secondline" />
+              
+            <label for="City">City:</label>
+            <input type="text" id="City" name="city" />
+              
+            <label for="County">County:</label>
+            <input type="text" id="County" name="county" />
+              
+            <label for="PostCode">PostCode:</label>
+            <input type="text" id="PostCode" name="postcode" />
+           
+            <input type="button" id="submit" onclick="addnewuser()" value="Add User"/>
+          </fieldset>
+            
+          <div id="content">
+          </div>
+        </div><!-- .two-thirds -->
+      </form>
+        <!-- Previous form with correct formatting. For your reference @ HYWELL
+
+		<form name= "form2" action = "user.php/adduser" id="ajax-register" method = "post">
 			<span class="col1">New email:</span>
 			<input type="email" name="newemail" onchange="ValidateEmail2(document.form2.newemail)"/>
 			<span id="val3">(email address is not in the valid form)</span><br>
@@ -37,9 +90,10 @@
 			<span class="col1"> Confirm Password:</span><br>
 			<input id ="confirm" type="password" name="confirm-password" onchange="Confirm(document.form2.confirmpassword)"/>
 			<span id="val5">(Password does not match!)</span><br>
-			<input id="submit" type="submit" value="Register"/>
-		</form>
+			<input id="submit" type="submit" value="Register" />
+            <input type="button" id="submit" onclick="penis()" value="alert"/>
+            
+		</form>-->
 	</div>
-
 </body>
 </html>
