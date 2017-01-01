@@ -1,5 +1,8 @@
 function addnewuser() {
+<<<<<<< HEAD
     //user variables
+=======
+>>>>>>> origin/master
     var email = $('#email').val();
     var password = $('#password').val();
     var FirstName = $('#Firstname').val();
@@ -35,6 +38,7 @@ function addnewuser() {
             cache: false,
             success: function(html) {
 // Returns successful data submission message when the entered information is stored in database.
+				window.location.assign('main.html');
                 alert(html);
             }
             }

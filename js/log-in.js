@@ -1,4 +1,5 @@
-function ValidateEmail(inputText) { 
+
+	function ValidateEmail(inputText) { 
 	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
 	var valid = document.getElementById("val1");
 	if(inputText.value.match(mailformat)) { 

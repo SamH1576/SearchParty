@@ -283,7 +283,7 @@ if($url_pieces[1] == 'adduser'){
 /* window output message */
 if($url_pieces[1] == 'adduser'){
 		if($boolSuccess){
-            echo "Success, a new user with email address echo $customer[0] was added.";
+            echo "Success, a new user with email address $customer[0] was added.";
         }
         else {
             echo "Sorry, a user with the address $customer[0] already exists. Please use another email.";
