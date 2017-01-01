@@ -1,5 +1,9 @@
 <?php
 include 'Database-config.php';
+
+//start session
+session_start();
+
 function check_username_password_match($array){
     global $dbname;
 	global $dbusername;
@@ -27,10 +31,12 @@ $verb = $_SERVER['REQUEST_METHOD'];
     if($verb == 'POST'){
 		if(check_username_password_match($_POST)){
             echo "Login successful";
+			$_SESSION["loggedIn"] = True;
 			include 'main.html';
     }
         else{
             echo "Username and password not a match <br><br>";
+			$_SESSION["loggedIn"] = False;
             include 'login.html';
         } 
     } 
