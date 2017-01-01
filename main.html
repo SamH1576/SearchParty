@@ -43,7 +43,12 @@
             <textarea rows="4" cols="20" id="description" name="description" required></textarea><br>
               
             <label for="category">Category:</label><br>
-            <input type="text" id="category" name="category" required/><br>
+            <select id = "desiredeventcategory" onchange = "find(this.value)">
+            <option value="music">Music</option>
+            <option value="sport">Sport</option>
+            <option value="art">Art Exhibition</option>
+            <option value="other">Other</option>
+            </select><br>
             
             <label for="ticketstartdate">Ticket Start Date:</label><br>
             <input type="date" id="ticketstartdate" name="ticketstartdate" required/><br>

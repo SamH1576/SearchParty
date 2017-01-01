@@ -229,9 +229,13 @@ function display_events(){
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     global $url_pieces;
     $category = $url_pieces[2];
-    //query
-$sql= "SELECT * FROM event WHERE category = '$category'";
+    //query to obtain key event details from two seperate tables using fkevent_venue constraint
+$sql= "SELECT e.title AS Title, e.startdate AS StartDate, e.StartTime AS StartTime, e.EndDate AS EndDate, e.EndTime AS EndTime, e.Description AS Description, e.category AS Category, CONCAT(v.firstline ,', ', v.city ,' ', v.postcode) AS Address 
+FROM event AS e
+JOIN fkevent_venue AS fk ON fk.Event_ID = e.Event_ID
+JOIN venue_address AS v ON fk.Venue_Address_ID = v.Venue_Address_ID WHERE e.category = '$category';";
 $result = $db->query($sql);
+    if($result->rowCount() > 0){
 //generate table
 echo "<table>
 <tr>
@@ -242,6 +246,7 @@ echo "<table>
 <th>End Time</th>
 <th>Description</th>
 <th>Category</th>
+<th>Address</th>
 </tr>";
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     echo "<tr>";
@@ -252,9 +257,14 @@ echo "<table>
     echo "<td>" . $row['EndTime'] . "</td>";
     echo "<td>" . $row['Description'] . "</td>";
     echo "<td>" . $row['Category'] . "</td>";
+    echo "<td>" . $row['Address'] . "</td>";
     echo "</tr>";
     }
 echo "</table>";
+    }
+    else{
+        echo "No events of this category.";
+    }
     $db = null;
 }
 
