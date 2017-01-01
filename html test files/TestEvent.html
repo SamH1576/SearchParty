@@ -2,10 +2,13 @@
 <html>
   <head>
     <title>Testevent HTML</title>
+      <script src= "http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script src = "../js/jquery-3.1.1.min.js"></script>
+      <script src = "../js/main.js"></script>
   </head>
   <body>
     <div class="add event" id= "addevent">
-      <form id="form" action="../event.php/addevent" method="post">
+      <form id="form">
         <div class="two-thirds column" id="main">
           <fieldset id="fieldSet">
             <legend>Create Event</legend>
@@ -56,7 +59,7 @@
             <label for="PostCode">PostCode:</label><br>
             <input type="text" id="PostCode" name="postcode" required/><br>
               
-            <input type="submit" id="submit" value="Create Event" />
+            <input type="button" id="submit" onclick="addnewevent()" value="Add Event"/>
           </fieldset>
             
           <div id="content">

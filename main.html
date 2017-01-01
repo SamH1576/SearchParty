@@ -2,6 +2,7 @@
 <head>
 <title>Menu</title>
 <link rel="stylesheet" href="css/style.css">
+<script src = "js/jquery-3.1.1.min.js"></script>
 <script src = "js/main.js"></script> 
 </head>
 <body>
@@ -15,7 +16,7 @@
 <h1>Search Party</h1>
 <img src="images/searchpartybanner.jpg" id="Image"> 
     <div class="add event" id= "addevent">
-      <form id="form" action="event.php/addevent" method="post">
+      <form id="form">
         <div class="two-thirds column" id="main">
           <fieldset id="fieldSet">
             <legend>Create Event</legend>
@@ -66,7 +67,7 @@
             <label for="PostCode">PostCode:</label><br>
             <input type="text" id="PostCode" name="postcode" required/><br><br>
               
-            <input type="submit" id="submit" value="Create Event" />
+            <input type="button" id="submit" onclick="addnewevent()" value="Add Event"/>
           </fieldset>
             
           <div id="content">
@@ -76,13 +77,13 @@
     </div><!-- .container -->
 <div id = "search">
 <h2> Select what kind of event you would like to attend.</h2>
-<select>
+<select id = "desiredeventcategory" onchange = "find(this.value)">
   <option value="music">Music</option>
   <option value="sport">Sport</option>
   <option value="art">Art Exhibition</option>
   <option value="other">Other</option>
 </select>
-<input type=button name= "find" value= "search" onclick="find()"/>
+    <div id="txtHint"><b>Events will be listed here</b></div>
 </div>
 <div id = "attending">
 <p>(show list of events from database)</p>

@@ -107,34 +107,34 @@ function check_parameters_add_event($array){
 		$event[9] = $array["ticketenddate"];
 	}
     
-	if (($array["firstline"]==null)){
+	if (($array["FirstLine"]==null)){
 		$valid = False;
 	}else{
-		$address[0] = $array["firstline"];
+		$address[0] = $array["FirstLine"];
 	}
 	
-	if (($array["secondline"]==null)){
+	if (($array["SecondLine"]==null)){
 		$valid = False;
 	}else{
-		$address[1] = $array["secondline"];
+		$address[1] = $array["SecondLine"];
 	}
 	
-	if (($array["city"]==null)){
+	if (($array["City"]==null)){
 		$valid = False;
 	}else{
-		$address[2] = $array["city"];
+		$address[2] = $array["City"];
 	}
 
-	if (($array["county"]==null)){
+	if (($array["County"]==null)){
 		$valid = False;
 	}else{
-		$address[3] = $array["county"];
+		$address[3] = $array["County"];
 	}
 	
-	if (($array["postcode"]==null)){
+	if (($array["PostCode"]==null)){
 		$valid = False;
 	}else{
-		$address[4] = $array["postcode"];
+		$address[4] = $array["PostCode"];
 	}
 
 	return $valid;
@@ -227,17 +227,35 @@ function display_events(){
     //db connection
 	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+    global $url_pieces;
+    $category = $url_pieces[2];
     //query
-$sql= "SELECT title FROM event";
+$sql= "SELECT * FROM event WHERE category = '$category'";
 $result = $db->query($sql);
-//generate dropdown
-echo '<select name="unwantedevent">';
-while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-   echo '<option value="'.$row['title'].'">'.$row['title'].'</option>';
-}
-echo '</select>';
-    return True;
+//generate table
+echo "<table>
+<tr>
+<th>Title</th>
+<th>Start Date</th>
+<th>Start Time</th>
+<th>End Date</th>
+<th>End Time</th>
+<th>Description</th>
+<th>Category</th>
+</tr>";
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+    echo "<tr>";
+    echo "<td>" . $row['Title'] . "</td>";
+    echo "<td>" . $row['StartDate'] . "</td>";
+    echo "<td>" . $row['StartTime'] . "</td>";
+    echo "<td>" . $row['EndDate'] . "</td>";
+    echo "<td>" . $row['EndTime'] . "</td>";
+    echo "<td>" . $row['Description'] . "</td>";
+    echo "<td>" . $row['Category'] . "</td>";
+    echo "</tr>";
+    }
+echo "</table>";
+    $db = null;
 }
 
 function delete_event($unwantedevent){
@@ -278,12 +296,9 @@ if($url_pieces[1] == 'addevent'){
 	}
 }
 else if($url_pieces[1]=='showevents'){
-try{
-    $boolSuccess= True;
-} catch (UnexpectedValueException $e){
-				throw new Exception("Resource does not exist", 404);
-			}
-}
+        display_events();
+    }
+
 else if($url_pieces[1]=='deleteevent'){
     try{
     $boolSuccess = delete_event($_POST);  
@@ -294,10 +309,19 @@ else if($url_pieces[1]=='deleteevent'){
 else{
 	echo 'unknown path';
 }
+/* window output message */
+if($url_pieces[1] == 'addevent'){
+		if($boolSuccess){
+            echo "A new event with title $event[0] was added.";
+        }
+        else {
+            echo "An event with title $event[0] already exists.";
+        }
+}
+
 ?>
 
-<!-- Generate some HTML to indicate success or failure -->
-<!DOCTYPE html>
+<?php /*
 <html>
 <head>
 	<title>Add User</title>
@@ -364,4 +388,4 @@ else{
 	}
 ?>
 </body>	
-<? } ?>
+<? } ?>*/
