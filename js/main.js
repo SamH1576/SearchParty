@@ -1,8 +1,5 @@
 function addnewuser() {
-<<<<<<< HEAD
     //user variables
-=======
->>>>>>> origin/master
     var email = $('#email').val();
     var password = $('#password').val();
     var FirstName = $('#Firstname').val();
@@ -35,18 +32,23 @@ function addnewuser() {
             type: "POST",
             url: "user.php/adduser",
             data: dataString,
+            dataType: 'json',
             cache: false,
-            success: function(html) {
-// Returns successful data submission message when the entered information is stored in database.
-				window.location.assign('main.html');
-                alert(html);
-            }
-            }
-        )};
+            success: function (result) {
+// Returns message whether email already exists or not. when the entered information is stored in database.
+                alert(result['window_message']);
+//If email did not exist, then successful login and redirection to main.html
+                if (result['boolsuccess']){
+                    window.location.assign('main.html');
+                }
+                }
+            
+            })
+        };
     }
     return false;
 }
-function addnewevent(){
+function addnewevent() {
     //event variables
     var title = $('#title').val();
     var capacity = $('#capacity').val();
@@ -157,7 +159,7 @@ function find(str) {
   xmlhttp.send();
 
 }
-function check_passwords_match(){
+function check_passwords_match() {
     //check to see if password matches and assign variable passwordnotmatch
     if(document.getElementById('new-password').value === document.getElementById('confirm-password').value) {
         document.getElementById('form-messages').innerHTML = " Passwords are a match";
