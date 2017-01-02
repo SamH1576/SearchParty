@@ -95,56 +95,21 @@ function addnewevent() {
         )};
     return false;
 }
+//Shows hidden items when menu bar button is pressed
 function host() {
-	var form = document.getElementById("addevent");
-	if (form.style.display == "none"){
-		form.style.display = "block";
-	}
-	else{
-		form.style.display = "none";
-	}
-	var search = document.getElementById("search");
-	if (search.style.display == "block"){
-		search.style.display = "none";
-	}
-	var attending = document.getElementById("attending");
-	if (attending.style.display == "block"){
-		attending.style.display = "none";
-	}
+        $("#addevent").toggle();
+        $("#search").hide();
+        $("#attending").hide();
 }
 function search() {
-	var search = document.getElementById("search");
-	if (search.style.display == "none"){
-		search.style.display = "block";
-	}
-	else {
-		search.style.display = "none";
-	}
-	var form = document.getElementById("addevent");
-	if (form.style.display == "block"){
-		form.style.display = "none";
-	}
-	var attending = document.getElementById("attending");
-	if (attending.style.display == "block"){
-		attending.style.display = "none";
-	}
+        $("#addevent").hide();
+        $("#search").toggle();
+        $("#attending").hide();
 }
 function attending() {
-	var attending = document.getElementById("attending");
-	if (attending.style.display == "none"){
-		attending.style.display = "block";
-	}
-	else{
-		attending.style.display = "none";
-	}
-	var form = document.getElementById("addevent");
-	if (form.style.display == "block"){
-		form.style.display = "none";
-	}
-	var search = document.getElementById("search");
-	if (search.style.display == "block"){
-		search.style.display = "none";
-	}
+        $("#addevent").hide();
+        $("#search").hide();
+        $("#attending").toggle();
 }
 function find(str) {
     if (str=="") {
