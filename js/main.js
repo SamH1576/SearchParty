@@ -4,8 +4,8 @@ function addnewuser() {
 
 //=======
     var email = $('#email').val();
-    var password = $('#password').val();
-    var FirstName = $('#Firstname').val();
+    var new_password = $('#new-password').val();
+    var FirstName = $('#FirstName').val();
     var LastName = $('#LastName').val();
     var Phone = $('#Phone').val();
     //user address variables
@@ -16,9 +16,9 @@ function addnewuser() {
     var PostCode = $('#PostCode').val();
     
     // set AJAX datastring to be sent
-    var dataString = 'email1=' + email + '&password1=' + password + '&FirstName1=' + FirstName + '&LastName1=' + LastName + '&Phone1=' + Phone + '&FirstLine1=' + FirstLine + '&SecondLine1=' + SecondLine + '&City1=' + City + '&County1=' + County + '&PostCode1=' + PostCode;
+    var dataString = 'email1=' + email + '&password1=' + new_password + '&FirstName1=' + FirstName + '&LastName1=' + LastName + '&Phone1=' + Phone + '&FirstLine1=' + FirstLine + '&SecondLine1=' + SecondLine + '&City1=' + City + '&County1=' + County + '&PostCode1=' + PostCode;
     // Returns message stating fields are all not filled out
-    if (email == '' || password == '' || FirstName == '' || LastName == '' || Phone == '' || FirstLine == '' || SecondLine == '' || City == '' || County == '' || PostCode == '')
+    if (email == '' || new_password == '' || FirstName == '' || LastName == '' || Phone == '' || FirstLine == '' || SecondLine == '' || City == '' || County == '' || PostCode == '')
     {
         alert ("Please Fill All Fields ");
     }
