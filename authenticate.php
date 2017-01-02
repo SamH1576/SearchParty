@@ -30,8 +30,9 @@ function check_username_password_match($array){
 $verb = $_SERVER['REQUEST_METHOD'];
     if($verb == 'POST'){
 		if(check_username_password_match($_POST)){
-            echo "Login successful";
 			$_SESSION["loggedIn"] = True;
+			$_SESSION["username"] = $_POST['username'];	
+            echo "Login successful";
 			include 'main.html';
     }
         else{

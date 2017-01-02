@@ -1,13 +1,11 @@
 <?php
-include 'Database-config.php';
 //start session
 session_start();
 
 //code to check $_SESSION['loggedIn']
-if($_SESSION['loggedIn']){
-	return True;
-}
-else{
-	return False;
+if(isset($_SESSION["loggedIn"]) and $_SESSION["loggedIn"]){
+	echo $_SESSION["username"];
+}else{
+	echo 'null';
 }
 ?>
