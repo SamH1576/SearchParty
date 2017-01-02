@@ -1,5 +1,8 @@
 function addnewuser() {
+
     //user variables
+
+//=======
     var email = $('#email').val();
     var password = $('#password').val();
     var FirstName = $('#Firstname').val();
@@ -84,7 +87,10 @@ function addnewevent() {
             success: function(html) {
 // Returns successful data submission message when the entered information is stored in database.
                 alert(html);
-            }
+            },
+			error: function(){
+				alert('failed');
+			}
             }
         )};
     return false;
