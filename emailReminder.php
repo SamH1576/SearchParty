@@ -6,5 +6,5 @@ $message = "Line 1\r\nLine 2\r\nLine 3";
 $message = wordwrap($message, 70, "\r\n");
 
 // Send
-mail('caffeinated@example.com', 'My Subject', $message);
+mail('sam.hiscox@ntlworld.com', 'My Subject', $message);
 ?>
