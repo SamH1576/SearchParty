@@ -1,24 +1,56 @@
 body {
-    background: teal
+    background: #FFFF00;
 }
 h1 {
     text-align: center;
-    font-family: Algerian;
+    font-family: Stencil;
+    color: white;
+    background: #483d8b;
 }
 h2 {
     text-align: center;
-    font-family: Algerian;
+    font-family: Stencil;
+    color: white;
+    background:#483d8b;
+}
+h3 {
+    color:white;
+    font-family: Stencil;
+}
+input[type="text"] {
+    background-color: #FFFF00;
+    border-color: black;
+    margin-bottom: 5px;
+}
+input[type="email"] {
+    background-color: #FFFF00;
+    border-color: black;
+    margin-bottom: 5px;
+}
+input[type="password"] {
+    background-color: #FFFF00;
+    border-color: black;
+    margin-bottom: 5px;
 }
 #Image {
     width: 50%;
     display: block;
     margin: auto;
+    float:left;
 }
 #login {
     margin: auto;
+    color:white;
+    background-color:#483d8b;
+    height:200px;
+    width:300px; 
+    float:left;
+    padding-left: 20px;
+    margin-left:30px; 
+    margin-right: 60px;
 }
 #submit{
-     display: inline-block;
+    display: inline-block;
     color: #f2f2f2;
     background: black;
     text-align: center;
@@ -27,13 +59,38 @@ h2 {
     transition: 0.3s;
     font-size: 17px;
 }
+#register{
+   margin-top:550px;
+   background-color:#483d8b;
+   color: white;
+   outline-color: black;
+   width:1000px;
+   margin-left: 300px;
+}
+#fieldset{
+    border-color: #FFFF00;
+    padding-left: 40px;
+}
 .col1 {
-    float:left;
+    float: left;
     width:110px;
 }
+.text-box{
+    margin-right: 10px
+}
+.heading{
+    height:100px;
+    width: 200px;
+    margin:auto;
+}
+.heading2{
+    height:100px;
+    width:200px;
+    margin-left:90px;
+}
 #val1{
-display: none;
-color: red;
+    display: none;
+    color: red;
 }
 #val2{
     display: none;
@@ -50,4 +107,16 @@ color: red;
 #val5{
     display: none;
     color: red;
+}
+#emailandpass{
+    float: left;
+    position: relative;
+    margin-right: 40PX;
+}
+#person{
+    float: left;
+    margin-right: 40px;
+}
+#person2{
+    position:relative;
 }
