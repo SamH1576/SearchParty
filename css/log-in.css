@@ -20,17 +20,17 @@ h3 {
 input[type="text"] {
     background-color: #FFFF00;
     border-color: black;
-    margin-bottom: 5px;
+    margin-bottom: 2%;
 }
 input[type="email"] {
     background-color: #FFFF00;
     border-color: black;
-    margin-bottom: 5px;
+    margin-bottom: 2%;
 }
 input[type="password"] {
     background-color: #FFFF00;
     border-color: black;
-    margin-bottom: 5px;
+    margin-bottom: 2%;
 }
 #Image {
     width: 50%;
@@ -42,12 +42,12 @@ input[type="password"] {
     margin: auto;
     color:white;
     background-color:#483d8b;
-    height:200px;
-    width:300px; 
+    height:28%;
+    width:20%; 
     float:left;
-    padding-left: 20px;
-    margin-left:30px; 
-    margin-right: 60px;
+    padding-left: 2%;
+    margin-left: 2%; 
+    margin-right: 3%;
 }
 #submit{
     display: inline-block;
@@ -60,16 +60,16 @@ input[type="password"] {
     font-size: 17px;
 }
 #register{
-   margin-top:550px;
+   margin-top:35%;
    background-color:#483d8b;
    color: white;
    outline-color: black;
-   width:1000px;
-   margin-left: 300px;
+   width:70%;
+   margin-left: 18%;
 }
 #fieldset{
     border-color: #FFFF00;
-    padding-left: 40px;
+    padding-left: 5%;
 }
 .col1 {
     float: left;
@@ -111,12 +111,12 @@ input[type="password"] {
 #emailandpass{
     float: left;
     position: relative;
-    margin-right: 40PX;
+    margin-right: 2%;
 }
 #person{
     float: left;
-    margin-right: 40px;
+    margin-right: 2%;
 }
 #person2{
-    position:relative;
+    float:left;
 }
