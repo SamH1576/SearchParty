@@ -9,7 +9,7 @@ $address = array();
 $data = "";
 
 /***********************************************************************/
-//  Functions and Exception Handlers
+//  Exception Handlers
 /***********************************************************************/
 set_exception_handler(function($e){
 	$code = $e->getCode() ?: 400;
@@ -17,7 +17,9 @@ set_exception_handler(function($e){
 	echo json_encode(["error" => $e->getMessage()]);
 	exit;
 });
-
+/***********************************************************************/
+//  Functions 
+/***********************************************************************/
 function check_parameters_add_event($array){
 	global $event;
 	global $address;
@@ -241,12 +243,15 @@ function display_events(){
 $sql= "SELECT e.title AS Title, e.startdate AS StartDate, e.StartTime AS StartTime, e.EndDate AS EndDate, e.EndTime AS EndTime, e.Description AS Description, e.category AS Category, CONCAT(v.firstline ,', ', v.city ,' ', v.postcode) AS Address 
 FROM event AS e
 JOIN fkevent_venue AS fk ON fk.Event_ID = e.Event_ID
-JOIN venue_address AS v ON fk.Venue_Address_ID = v.Venue_Address_ID WHERE e.category = '$category';";
+JOIN venue_address AS v ON fk.Venue_Address_ID = v.Venue_Address_ID WHERE e.category = '$category'
+ORDER BY Title";
 $result = $db->query($sql);
     if($result->rowCount() > 0){
-//generate table
+//Generate table with details of events and a going button
+        /*Table headers*/
 echo "<table>
 <tr>
+<th> </th>
 <th>Title</th>
 <th>Start Date</th>
 <th>Start Time</th>
@@ -256,8 +261,12 @@ echo "<table>
 <th>Category</th>
 <th>Address</th>
 </tr>";
+        /*Table rows*/
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     echo "<tr>";
+     //Function to echo correct input type depending on user and event. If user is a host / already going, message will show as "User is a host/going". If user can be a participant, button will be displayed with "I am going to this event!"
+    echoinputforuser($category, $db);    
+    echo "<td><input type='button' id='goingtoevent' onclick='attendevent()' value='I am going to this event' /></td>";
     echo "<td>" . $row['Title'] . "</td>";
     echo "<td>" . $row['StartDate'] . "</td>";
     echo "<td>" . $row['StartTime'] . "</td>";
@@ -270,10 +279,14 @@ echo "<table>
     }
 echo "</table>";
     }
+// If no events of the category exist, display message
     else{
         echo "No events of this category.";
     }
     $db = null;
+}
+function echoinputforuser($category, $db) {
+    
 }
 
 function delete_event($unwantedevent){

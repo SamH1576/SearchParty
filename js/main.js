@@ -60,7 +60,7 @@ function addnewevent() {
     var enddate = $('#enddate').val();
     var endtime = $('#endtime').val();
     var description = $('#description').val();
-    var category = $('#category').val();
+    var category = $('#neweventcategory').val();
     var ticketstartdate = $('#ticketstartdate').val();
     var ticketenddate = $('#ticketenddate').val();
     //event address variables
@@ -112,6 +112,7 @@ function attending() {
         $("#search").hide();
         $("#attending").toggle();
 }
+//AJAX call to server to populate table with event details from database
 function find(str) {
     if (str=="") {
     $('#txtHint').innerHTML="";
@@ -124,12 +125,16 @@ function find(str) {
     xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
   }
   xmlhttp.onreadystatechange = function() {
-     if (this.readyState == 4 && this.status == 200) { document.getElementById('txtHint').innerHTML=this.responseText;
+     if (this.readyState == 4 && this.status == 200) { document.getElementById('events_table').innerHTML=this.responseText;
                                                      }
   };
   xmlhttp.open("GET","event.php/showevents/"+str,true);
   xmlhttp.send();
 
+}
+//AJAX to server to assign user as participant to event
+function attendevent(){
+    
 }
 function check_passwords_match() {
     //check to see if password matches and assign variable passwordnotmatch
