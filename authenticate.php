@@ -16,6 +16,8 @@ function check_username_password_match($array){
     $password = $array['password'];
     $result=$db->query("SELECT User_ID FROM user WHERE email= '$username' and password= '$password'");
     if($result->rowCount() > 0){
+        $rowdata = $result->fetch(PDO::FETCH_ASSOC);
+        $_SESSION["usernameID"] = $rowdata['User_ID'];
         $db = null;
         return True;
     }

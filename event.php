@@ -1,6 +1,8 @@
 <?php
 //Set connection parameters
 include 'Database-config.php';
+//start session
+session_start();
 
 $event = array();
 $address = array();
@@ -167,7 +169,6 @@ function create_event($eve, $addr){
         
 		//Update FKEvent_Venue with new Event_ID and Venue_Address_ID from previous query
 		dbAddEventAddressRecord($newEvent_ID, $venue_address_id, $db);
-		
 	}
     else{
 		//create the address
@@ -177,8 +178,10 @@ function create_event($eve, $addr){
 		$newEvent_ID = dbAddEvent($eve, $db);
 		
 		//Update FKEvent_Venue with new Event_ID and Venue_address_ID from previous query
-		dbAddEventAddressRecord($newEvent_ID, $newVenue_Address_ID, $db);				
+		dbAddEventAddressRecord($newEvent_ID, $newVenue_Address_ID, $db);	
 	}
+    //Update fkhost with new Event_ID and session variable
+    dbAssignEventHost($newEvent_ID, $db);
 	$db =null;
 	//return True to let the calling function know the update was successful
 	return True;
@@ -208,6 +211,11 @@ function dbCheckEventExists($title, $db){
 	}else{
 		return False;
 	}	
+}
+
+function dbAssignEventHost($hosteventID, $db) {
+        $catch = $db->exec("INSERT INTO fkhost(User_ID, Event_ID)
+							VALUES ('" . $_SESSION['usernameID'] . "', '$hosteventID')");
 }
 
 function dbCheckVenueAddressExists($firstline, $postcode, $db){

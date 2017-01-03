@@ -88,11 +88,12 @@ function addnewevent() {
 // Returns successful data submission message when the entered information is stored in database.
                 alert(html);
             },
-			error: function(){
+			error: function()
+            {
 				alert('failed');
 			}
-            }
-        )};
+            })
+    };
     return false;
 }
 //Shows hidden items when menu bar button is pressed
