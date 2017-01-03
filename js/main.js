@@ -87,6 +87,7 @@ function addnewevent() {
             success: function(html) {
 // Returns successful data submission message when the entered information is stored in database.
                 alert(html);
+				$('#form').trigger("reset");
             },
 			error: function()
             {
