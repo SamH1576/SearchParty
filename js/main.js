@@ -60,7 +60,7 @@ function addnewevent() {
     var enddate = $('#enddate').val();
     var endtime = $('#endtime').val();
     var description = $('#description').val();
-    var category = $('#neweventcategory').val();
+    var category = $('#desiredeventcategory').val();
     var ticketstartdate = $('#ticketstartdate').val();
     var ticketenddate = $('#ticketenddate').val();
     //event address variables
