@@ -9,7 +9,7 @@ $address = array();
 $data = "";
 
 /***********************************************************************/
-//  Exception Handlers
+//  Functions and Exception Handlers
 /***********************************************************************/
 set_exception_handler(function($e){
 	$code = $e->getCode() ?: 400;
@@ -17,9 +17,7 @@ set_exception_handler(function($e){
 	echo json_encode(["error" => $e->getMessage()]);
 	exit;
 });
-/***********************************************************************/
-//  Functions 
-/***********************************************************************/
+
 function check_parameters_add_event($array){
 	global $event;
 	global $address;
@@ -219,7 +217,19 @@ function dbAssignEventHost($hosteventID, $db) {
         $catch = $db->exec("INSERT INTO fkhost(User_ID, Event_ID)
 							VALUES ('" . $_SESSION['usernameID'] . "', '$hosteventID')");
 }
-
+function dbAssignUserasGuest($array){
+    global $dbname;
+	global $dbusername;
+	global $dbpassword;
+    //db connection
+	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
+	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    $eventID = $array['eventID'];
+    $sql = "INSERT INTO fkguest_list (Event_ID, User_ID) VALUES ($eventID, " . $_SESSION['usernameID'] . ")";
+    $catch = $db->exec($sql);
+    $db = null;
+}
 function dbCheckVenueAddressExists($firstline, $postcode, $db){
 	$result = $db->query("SELECT venue_address_id FROM venue_address WHERE postcode = '$postcode' AND firstline = '$firstline'");
 	if($result->rowCount() > 0){
@@ -240,55 +250,74 @@ function display_events(){
     global $url_pieces;
     $category = $url_pieces[2];
     //query to obtain key event details from two seperate tables using fkevent_venue constraint
-$sql= "SELECT e.title AS Title, e.startdate AS StartDate, e.StartTime AS StartTime, e.EndDate AS EndDate, e.EndTime AS EndTime, e.Description AS Description, e.category AS Category, CONCAT(v.firstline ,', ', v.city ,' ', v.postcode) AS Address 
+$sql= "SELECT e.Event_ID AS Event_ID, e.title AS Title, e.startdate AS StartDate, e.StartTime AS StartTime, e.EndDate AS EndDate, e.EndTime AS EndTime, e.Description AS Description, e.category AS Category, CONCAT(v.firstline ,', ', v.city ,' ', v.postcode) AS Address 
 FROM event AS e
 JOIN fkevent_venue AS fk ON fk.Event_ID = e.Event_ID
 JOIN venue_address AS v ON fk.Venue_Address_ID = v.Venue_Address_ID WHERE e.category = '$category'
 ORDER BY Title";
 $result = $db->query($sql);
+    
     if($result->rowCount() > 0){
-//Generate table with details of events and a going button
-        /*Table headers*/
-echo "<table>
-<tr>
-<th> </th>
-<th>Title</th>
-<th>Start Date</th>
-<th>Start Time</th>
-<th>End Date</th>
-<th>End Time</th>
-<th>Description</th>
-<th>Category</th>
-<th>Address</th>
-</tr>";
-        /*Table rows*/
-    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-    echo "<tr>";
-     //Function to echo correct input type depending on user and event. If user is a host / already going, message will show as "User is a host/going". If user can be a participant, button will be displayed with "I am going to this event!"
-    echoinputforuser($category, $db);    
-    echo "<td><input type='button' id='goingtoevent' onclick='attendevent()' value='I am going to this event' /></td>";
-    echo "<td>" . $row['Title'] . "</td>";
-    echo "<td>" . $row['StartDate'] . "</td>";
-    echo "<td>" . $row['StartTime'] . "</td>";
-    echo "<td>" . $row['EndDate'] . "</td>";
-    echo "<td>" . $row['EndTime'] . "</td>";
-    echo "<td>" . $row['Description'] . "</td>";
-    echo "<td>" . $row['Category'] . "</td>";
-    echo "<td>" . $row['Address'] . "</td>";
-    echo "</tr>";
+    //Generate table if events of wanted category exists       
+        echo "<table>
+        <tr>
+        <th> </th>
+        <th>Title</th>
+        <th>Start Date</th>
+        <th>Start Time</th>
+        <th>End Date</th>
+        <th>End Time</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Address</th>
+        </tr>";
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        echo "<tr>";
+        //Function to echo correct input type depending on user and event. If user is a host / already going, message will show as "User is a host/going". If user can be a participant, button will be displayed with "I am going to this event!"
+        echoinputforuser($category, $row, $db); 
+        echo "<td class='eventtoattend'>" . $row['Title'] . "</td>";
+        echo "<td>" . $row['StartDate'] . "</td>";
+        echo "<td>" . $row['StartTime'] . "</td>";
+        echo "<td>" . $row['EndDate'] . "</td>";
+        echo "<td>" . $row['EndTime'] . "</td>";
+        echo "<td>" . $row['Description'] . "</td>";
+        echo "<td>" . $row['Category'] . "</td>";
+        echo "<td>" . $row['Address'] . "</td>";
+        echo "</tr>";
+        }
+        echo "</table>";
     }
-echo "</table>";
-    }
-// If no events of the category exist, display message
     else{
         echo "No events of this category.";
     }
     $db = null;
 }
-function echoinputforuser($category, $db) {
+function echoinputforuser($category, $row, $db){
+    $eventtitle =  $row['Title'];
+    $eventID = $row['Event_ID'];
+    //Queries to database to check if user is host or participant
+    $sql = "SELECT * FROM fkhost WHERE User_ID = " . $_SESSION['usernameID'] . " AND Event_ID =   $eventID ";
+    $result = $db->query($sql);
+    $sql1 = "SELECT * FROM fkguest_list WHERE User_ID = " . $_SESSION['usernameID'] . " AND Event_ID =  $eventID ";
+    $result1 = $db->query($sql1);
+    //Query to database to check if capacity of event has been reached
+    //INSERT CODE HERE
     
+    //Check if User is a host. If true, display message saying User is host
+    if($result->rowCount() > 0){
+        echo "<td>User is a host for this event</td>";
+    }
+    //Check if User is going to event. If true, display message saying User is going
+    if($result1->rowCount() > 0){
+        echo "<td>User is going for this event</td>";
+        }
+    //Give button input to assign user as a guest
+    if ($result->rowCount() == 0 && $result1->rowCount() == 0) {
+        echo "<td><input type='button' id='submit' onclick= 'attendevent($eventID)' value= 'I want to go for  $eventtitle'/></td>";
+    }
+    //Give message saying event is Full
+    //INSERT CODE HERE
 }
-
 function delete_event($unwantedevent){
     global $dbname;
 	global $dbusername;
@@ -337,6 +366,9 @@ else if($url_pieces[1]=='deleteevent'){
 				throw new Exception("Resource does not exist", 404);
 			}
 }
+else if($url_pieces[1]=='addguest'){
+       dbAssignUserasGuest($_POST);
+    }
 else{
 	echo 'unknown path';
 }

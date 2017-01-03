@@ -115,7 +115,7 @@ function attending() {
 //AJAX call to server to populate table with event details from database
 function find(str) {
     if (str=="") {
-    $('#txtHint').innerHTML="";
+    $('#events_table').innerHTML="";
     return;
   } 
   if (window.XMLHttpRequest) {
@@ -128,13 +128,27 @@ function find(str) {
      if (this.readyState == 4 && this.status == 200) { document.getElementById('events_table').innerHTML=this.responseText;
                                                      }
   };
-  xmlhttp.open("GET","event.php/showevents/"+str,true);
+  xmlhttp.open("GET","event.php/showevents/"+ str,true);
   xmlhttp.send();
-
-}
+  }
 //AJAX to server to assign user as participant to event
-function attendevent(){
-    
+function attendevent(eventID) {
+    var dataString = 'eventID=' + eventID;
+    //AJAX code to submit form.
+    $.ajax({
+            type: "POST",
+            url: "event.php/addguest",
+            data: dataString,
+            cache: false,
+            success: function() {
+                //Reload table with 
+                find($('#desiredeventcategory').val());
+                },
+            error: function()
+            {
+				alert('failed');
+			}
+            })  
 }
 function check_passwords_match() {
     //check to see if password matches and assign variable passwordnotmatch
@@ -147,58 +161,3 @@ function check_passwords_match() {
         passwordnotmatch = 1;
     }
 }
-//checks input email address is in valid form (login)
-function ValidateEmail(inputText) { 
-	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
-	var valid = document.getElementById("val1");
-	if(inputText.value.match(mailformat)) { 
-		valid.style.display = "none";
-	}  
-	else {  
-		valid.style.display = "block";
-	}  
-}  
-//checks password is in valid form (login)
-function CheckPassword(inputText) {   
-	var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;  
-	var valid2 = document.getElementById("val2");
-	if(inputText.value.match(passw)) {  
-		valid2.style.display = "none"; 
-	}  
-	else {   
-		valid2.style.display = "block";
-	}  
-}  
-//checks input email is in valid form (for registration)
-function ValidateEmail2(inputText) { 
-	var mailformat2 = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
-	var valid3 = document.getElementById("val3");
-	if(inputText.value.match(mailformat2)) { 
-		valid3.style.display = "none";
-	}  
-	else {  
-		valid3.style.display = "block";
-	}  
-} 
-//checks the new password is in the valid form 
-function CheckPass(inputText) {   
-	var passw2 = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;  
-	var valid4 = document.getElementById("val4");
-	if(inputText.value.match(passw2)) {  
-		valid4.style.display = "none";
-	}  
-	else {   
-		valid4.style.display = "block";
-	}  
-}  
-//checks confirm password against new password
-function Confirm(inputText) {   
-	var newpass = document.getElementById("new-password").value;  
-	var valid5 = document.getElementById("val5");
-	if(inputText.value.match(newpass)) {  
-		valid5.style.display = "none";
-	}  
-	else {   
-		valid5.style.display = "block";
-	}  
-} 

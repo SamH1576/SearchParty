@@ -37,6 +37,6 @@ INSERT INTO FKCust_Address (Customer_ID, Cust_Address_ID)
 VALUES(2, 2);
 
 INSERT INTO FKGuest_List (Event_ID, User_ID)
-VALUES(1, 1);
+VALUES(1, 2);
 INSERT INTO FKGuest_List (Event_ID, User_ID)
-VALUES(2, 2);
+VALUES(2, 1);
