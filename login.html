@@ -6,9 +6,8 @@
 <script src = "js/main.js"></script> 
 </head>
 <body>
-	<h1> Search Party</h1>
-<<<<<<< HEAD
-	
+	 <h1> Search Party</h1>
+	 	
 	<img src="http://i2.mirror.co.uk/incoming/article5230502.ece/ALTERNATES/s1227b/Detectives-focus-on-the-alleyway-behind-the-house-of-missing-Claudia-Lawrence.jpg" id="Image"> 
 
 	<!-- Login form -->	
@@ -26,38 +25,10 @@
 		</form>
 	</div>
 	
-=======
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="css\log-in.css">
-<script src = "js/jquery-3.1.1.min.js"></script>
-<script src = "js/main.js"></script> 
-</head>
-<body>
-	<div class="heading">	
-		<h1> Search Party</h1>
-	</div> 
-
-	<!-- Login form -->	
-	<div id= "login">
-		<h2> Login</h2>
-		<form name="form1" action= "authenticate.php" method= "post">
-			<span class="col1">User email:</span>
-			<input type="email" class="text-box" name="username" onchange="ValidateEmail(document.form1.username)"/>
-			<span id="val1">(email address is not in the valid form)</span><br>
-			<span class="col1">User password:</span>
-			<input type="password" name="password" onchange="CheckPassword(document.form1.password)"/>
-			<span id="val2">(Password is not valid! Must be 6-20 characters, have 1 upper and lower case, 1 numerical digit.)</span><br><br>
-			<input id="submit" type="submit" value="Login" /> 
-		</form>
-	</div>
-	<img src="http://i2.mirror.co.uk/incoming/article5230502.ece/ALTERNATES/s1227b/Detectives-focus-on-the-alleyway-behind-the-house-of-missing-Claudia-Lawrence.jpg" id="Image">
->>>>>>> origin/master
 	<!-- Registration form --> 
 	<p> Not a member?<br> Register here.</p>
 	
 	<div id="register">
-<<<<<<< HEAD
         <div id="form-messages"></div>
        
         <form id="form">
@@ -126,62 +97,3 @@
 	</div>
 </body>
 </html>
-=======
-		<h2> Not a member? Register here.</h2>
-        	<div id="form-messages"></div>
-       
-        		<form name="form2" id="form">
-        			<div class="two-thirds column" id="main">
-					<!-- notifications that inouts are invalid -->	
-        				<p id="val3">(email address is not in the valid form)</p>
-        				<p id="val4">(Password is not valid! Must be 6-20 characters, have 1 upper and lower case, 1 numerical digit.)</p>
-        				<p id="val5">(Password does not match!)</p>
-          				<fieldset id="fieldSet">
-            					<legend>Create User</legend>
-              					<div id="emailandpass"> 
-            						<label for="email">Email:</label>
-           						<input type="text" id="email" name="email" onchange="ValidateEmail2(document.form2.email)" /><br>
-
-            						<label for ="password">Password:</label>
-            						<input type="password" class="text-box" id="new-password" name="password" onchange="CheckPass(document.form2.password)"/><br>
-
-							<label for="confirmpassword"><span class="col1"> Confirm Password:</span></label><br>
-							<input id ="confirm-password" type="password" name="confirmpassword" onchange="Confirm(document.form2.confirmpassword)"/><br>
-						</div>
-						<div id="person">
-							<label for="FirstName"><span class="col1">First Name:</span></label>
-            						<input type="text" id="FirstName" name="first_name" /><br>
-              
-							<label for="LastName"><span class="col1">Last Name:</span></label>
-            						<input type="text" id="LastName" name="last_name" /><br>
-              
-							<label for="Phone"><span class="col1">Phone:</span></label>
-            						<input type="text" id="Phone" name="phone" /><br>
-			
-							<label for="FirstLine"><span class="col1">FirstLine:</span></label>
-            						<input type="text" id="FirstLine" name="firstline" /><br>
-						</div>
-						<div id="person2">
-							<label for="SecondLine"><span class="col1">SecondLine:</span></label>
-            						<input type="text" id="SecondLine" name="secondline" /><br>
-              
-							<label for="City"><span class="col1">City:</span></label>
-            						<input type="text" id="City" name="city" /><br>
-              
-							<label for="County"><span class="col1">County:</span></label>
-            						<input type="text" id="County" name="county" /><br>
-              
-							<label for="PostCode"><span class="col1">PostCode:</span></label>
-            						<input type="text" id="PostCode" name="postcode" /><br><br>
-						</div>
-            						<input type="button" id="submit" onclick="return addnewuser()" value="Add User"/>
-          				</fieldset>
-            
-          				<div id="content">
-          				</div>
-        			</div><!-- .two-thirds -->
-      			</form>
-	</div>
-</body>
-</html>
->>>>>>> origin/master
