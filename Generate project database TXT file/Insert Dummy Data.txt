@@ -4,7 +4,7 @@
 INSERT INTO Event (Title, Capacity, StartDate, StartTime, EndDate, EndTime, Description, Category, Ticket_startdate, Ticket_enddate) 
 VALUES ('Dummy event 1', 420, '2017-01-01', '21:00:00', '2017-01-02', '04:00:00', 'Dummy event from 9pm-4am 1st Jan 2017 - 2nd Jan 2017', 'Music', '2017-01-01', '2017-01-02');
 INSERT INTO Event (Title, Capacity, StartDate, StartTime, EndDate, EndTime, Description, Category, Ticket_startdate, Ticket_enddate) 
-VALUES ('Dummy event 2', 421, '2017-01-02', '21:00:00', '2017-01-03', '04:00:00', 'Dummy event from 9pm-4am 2nd Jan 2017 - 3rd Jan 2017', 'Event', '2017-01-02', '2017-01-03');
+VALUES ('Dummy event 2', 421, '2017-01-02', '21:00:00', '2017-01-03', '04:00:00', 'Dummy event from 9pm-4am 2nd Jan 2017 - 3rd Jan 2017', 'Sport', '2017-01-02', '2017-01-03');
 
 INSERT INTO Venue_Address (FirstLine, SecondLine, City, County, PostCode)
 VALUES ('1st Dummy Address line 1', '1st Dummy Address line 2', '1st Dummy City', '1st Dummy County', 'WXX XXX');
