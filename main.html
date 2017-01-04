@@ -12,12 +12,21 @@
   <li><input type="button" name="search" value="Search Event" onclick="search()"></li>
   <li><input type="button" name="host" value="Host Event" onclick="host()"/></li>
   <li><input type="button" name="attending" value="Events I'm Attending" onclick="attending()"></li>
+  <div id="logoutbutton">
+    <li><input type="button" name="logout" value="Logout" onclick="logout()"></li>
+  </div>
   <li class="icon">
   </li>
 </ul>
 <h1>Search Party</h1>
 <img src="images/searchpartybanner.jpg" id="Image"> 
     <div class="add event" id= "addevent">
+      <div id="hosting">
+        <fieldset id="hostinfo">
+          <legend>Events I'm Hosting</legend>
+          <input type="button" id="showguests" value="Show Guests" onclick="showguests()"/>
+        </fieldset>
+      </div>
       <form id="form">
         <div class="two-thirds column" id="main">
           <fieldset id="fieldSet">
@@ -97,6 +106,10 @@
 <select>
 <option value="list of selected events">Events</option>
 </select>
+</div>
+<div id="logout">
+  <p> Are you sure you want to logout</p>
+  <input id="confirmlogout" type="button" name="confirmlogout" value="Logout" onclick="logoutconfirm()"/>
 </div>
 </body>
 </html>
