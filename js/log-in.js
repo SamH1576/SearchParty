@@ -42,13 +42,3 @@ function CheckPass(inputText) {
 		valid4.style.display = "block";
 	}  
 }  
-function Confirm(inputText) {   
-	var newpass = document.getElementById("new-password").value;  
-	var valid5 = document.getElementById("val5");
-	if(inputText.value.match(newpass)) {  
-		valid5.style.display = "none";
-	}  
-	else {   
-		valid5.style.display = "block";
-	}  
-}  
