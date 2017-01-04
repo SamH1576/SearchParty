@@ -102,6 +102,7 @@ function host() {
         $("#addevent").toggle();
         $("#search").hide();
         $("#attending").hide();
+        hostedevents();
 }
 function search() {
         $("#addevent").hide();
@@ -153,6 +154,21 @@ function attendevent(eventID) {
 				alert('failed');
 			}
             })  
+}
+//AJAX to server to show events hosted
+function hostedevents() {
+    if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else { // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange = function() {
+     if (this.readyState == 4 && this.status == 200) { document.getElementById('XXXX').innerHTML=this.responseText;
+                                                     }
+  };
+  xmlhttp.open("GET", "event.php/showhostedevents" ,true);
+  xmlhttp.send();
 }
 function check_passwords_match() {
     var valid5 = document.getElementById("val5");

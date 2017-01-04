@@ -249,8 +249,8 @@ function display_events(){
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     global $url_pieces;
     $category = $url_pieces[2];
-    //query to obtain key event details from two seperate tables using fkevent_venue constraint
-$sql= "SELECT e.Event_ID AS Event_ID, e.Capacity as Capacity, e.title AS Title, e.startdate AS StartDate, e.StartTime AS StartTime, e.EndDate AS EndDate, e.EndTime AS EndTime, e.Description AS Description, e.category AS Category, e.Ticket_enddate AS stopsaletime, CONCAT(v.firstline ,', ', v.city ,' ', v.postcode) AS Address 
+    //Query to obtain key event details from two seperate tables using fkevent_venue constraint
+$sql= "SELECT e.Event_ID AS Event_ID, e.Capacity as Capacity, e.title AS Title, e.startdate AS StartDate, e.StartTime AS StartTime, e.EndDate AS EndDate, e.EndTime AS EndTime, e.Description AS Description, e.category AS Category, e.Ticket_enddate AS stopsaledate, CONCAT(v.firstline ,', ', v.city ,' ', v.postcode) AS Address 
 FROM event AS e
 JOIN fkevent_venue AS fk ON fk.Event_ID = e.Event_ID
 JOIN venue_address AS v ON fk.Venue_Address_ID = v.Venue_Address_ID WHERE e.category = '$category'
@@ -273,7 +273,7 @@ ORDER BY Title";
         </tr>";
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         echo "<tr>";
-        //Function to echo correct input type depending on user and event. If user is a host / already going, message will show as "User is a host/going". If user can be a participant, button will be displayed with "I am going to this event!"
+        //Function to echo correct input type depending on user and event. If user is a host/already going, message will show as "User is a host/going". If user can be a participant, button will be displayed with "I am going to this event!"
         echoinputforuser($category, $row, $db); 
         echo "<td class='eventtoattend'>" . $row['Title'] . "</td>";
         echo "<td>" . $row['StartDate'] . "</td>";
@@ -308,7 +308,7 @@ function echoinputforuser($category, $row, $db){
     
     /*Output correct input message*/
     //Check if event sales has ended.
-    if(eventsalesended()){
+    if(eventsalesended($row)){
         echo "<td>The ticket sales for this event has ended</td>";
     }
     //If event is full, echo event full message
@@ -329,7 +329,18 @@ function echoinputforuser($category, $row, $db){
     }
 }
 
-function eventsalesended(){
+function eventsalesended($row) {
+    //Get date in correct format to compare
+    $todaysdate = date("Y-m-d");
+    //Check if date has passed ticket sale end date
+    if ($row['stopsaledate'] < $todaysdate){
+        return True;
+    }
+    else{
+        return False;
+    }
+}
+function dbShowhostedEvents() {
     
 }
 function delete_event($unwantedevent){
@@ -382,6 +393,9 @@ else if($url_pieces[1]=='deleteevent'){
 }
 else if($url_pieces[1]=='addguest'){
        dbAssignUserasGuest($_POST);
+    }
+else if($url_pieces[1]=='showhostedevents'){
+       dbShowhostedEvents();
     }
 else{
 	echo 'unknown path';
