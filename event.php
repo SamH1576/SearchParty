@@ -139,8 +139,7 @@ function check_parameters_add_event($array){
 		$address[4] = $array["PostCode"];
 	}
 
-	return $valid;
-}
+	return $valid;}
 
 function create_event($eve, $addr){
 	global $dbname;
@@ -184,25 +183,21 @@ function create_event($eve, $addr){
     dbAssignEventHost($newEvent_ID, $db);
 	$db =null;
 	//return True to let the calling function know the update was successful
-	return True;
-}
+	return True;}
 
 function dbAddEvent($eve, $db){
 		$catch = $db->exec("INSERT INTO event(title, capacity, startdate, starttime, enddate, endtime, description, category, ticket_startdate, ticket_enddate)
 							VALUES ('$eve[0]', '$eve[1]', '$eve[2]', '$eve[3]', '$eve[4]', '$eve[5]', '$eve[6]', '$eve[7]', '$eve[8]', '$eve[9]') ");
         
-		return $db->lastInsertId();
-}
+		return $db->lastInsertId();}
 
 function dbAddEventAddressRecord($newEvent_ID, $venue_address_id, $db){
 		$catch = $db->exec("INSERT INTO fkevent_venue(Event_id, Venue_Address_id)
-							VALUES ('$newEvent_ID', '$venue_address_id')");	
-}
+							VALUES ('$newEvent_ID', '$venue_address_id')");	}
 
 function dbAddVenueAddress($addr, $db){
 		$catch = $db->exec("INSERT INTO venue_address(firstline, secondline, city, county, postcode) VALUES ('$addr[0]', '$addr[1]', '$addr[2]', '$addr[3]', '$addr[4]') ");
-		return $db->lastInsertId();	
-}
+		return $db->lastInsertId();	}
 
 function dbCheckEventExists($title, $db){
 	$result = $db->query("SELECT title FROM event WHERE title = '$title'");
@@ -210,13 +205,12 @@ function dbCheckEventExists($title, $db){
 		return True;
 	}else{
 		return False;
-	}	
-}
+	}	}
 
 function dbAssignEventHost($hosteventID, $db) {
         $catch = $db->exec("INSERT INTO fkhost(User_ID, Event_ID)
-							VALUES ('" . $_SESSION['usernameID'] . "', '$hosteventID')");
-}
+							VALUES ('" . $_SESSION['usernameID'] . "', '$hosteventID')");}
+
 function dbAssignUserasGuest($array){
     global $dbname;
 	global $dbusername;
@@ -228,8 +222,8 @@ function dbAssignUserasGuest($array){
     $eventID = $array['eventID'];
     $sql = "INSERT INTO fkguest_list (Event_ID, User_ID) VALUES ($eventID, " . $_SESSION['usernameID'] . ")";
     $catch = $db->exec($sql);
-    $db = null;
-}
+    $db = null;}
+
 function dbCheckVenueAddressExists($firstline, $postcode, $db){
 	$result = $db->query("SELECT venue_address_id FROM venue_address WHERE postcode = '$postcode' AND firstline = '$firstline'");
 	if($result->rowCount() > 0){
@@ -237,10 +231,9 @@ function dbCheckVenueAddressExists($firstline, $postcode, $db){
 		return $rowdata["venue_address_id"];
 	}else{
 		return null;
-	}
-}
+	}}
 
-function display_events(){
+function display_events() {
     global $dbname;
 	global $dbusername;
 	global $dbpassword;
@@ -250,15 +243,15 @@ function display_events(){
     global $url_pieces;
     $category = $url_pieces[2];
     //Query to obtain key event details from two seperate tables using fkevent_venue constraint
-$sql= "SELECT e.Event_ID AS Event_ID, e.Capacity as Capacity, e.title AS Title, e.startdate AS StartDate, e.StartTime AS StartTime, e.EndDate AS EndDate, e.EndTime AS EndTime, e.Description AS Description, e.category AS Category, e.Ticket_enddate AS stopsaledate, CONCAT(v.firstline ,', ', v.city ,' ', v.postcode) AS Address 
-FROM event AS e
-JOIN fkevent_venue AS fk ON fk.Event_ID = e.Event_ID
-JOIN venue_address AS v ON fk.Venue_Address_ID = v.Venue_Address_ID WHERE e.category = '$category'
-ORDER BY Title";
+	$sql= "SELECT e.Event_ID AS Event_ID, e.Capacity as Capacity, e.title AS Title, e.startdate AS StartDate, e.StartTime AS StartTime, e.EndDate AS EndDate, e.EndTime AS EndTime, e.Description AS Description, e.category AS Category, e.Ticket_enddate AS stopsaledate, CONCAT(v.firstline ,', ', v.city ,' ', v.postcode) AS Address 
+	FROM event AS e
+	JOIN fkevent_venue AS fk ON fk.Event_ID = e.Event_ID
+	JOIN venue_address AS v ON fk.Venue_Address_ID = v.Venue_Address_ID WHERE e.category = '$category'
+	ORDER BY Title";
     $result = $db->query($sql);
     
     if($result->rowCount() > 0){
-    //Generate table if events of wanted category exists       
+    	//Generate table if events of wanted category exists       
         echo "<table>
         <tr>
         <th> </th>
@@ -290,8 +283,8 @@ ORDER BY Title";
     else{
         echo "No events of this category.";
     }
-    $db = null;
-}
+    $db = null;}
+
 function echoinputforuser($category, $row, $db){
     $eventtitle =  $row['Title'];
     $eventID = $row['Event_ID'];
@@ -308,7 +301,7 @@ function echoinputforuser($category, $row, $db){
     
     /*Output correct input message*/
     //Check if event sales has ended.
-    if(eventsalesended($row)){
+    if(datepassed($row['stopsaledate'])){
         echo "<td>The ticket sales for this event has ended</td>";
     }
     //If event is full, echo event full message
@@ -324,24 +317,71 @@ function echoinputforuser($category, $row, $db){
         echo "<td>User is going for this event</td>";
         }
     //Give button input to assign user as a guest
-    if ($result->rowCount() == 0 && $result1->rowCount() == 0) {
+    else if ($result->rowCount() == 0 && $result1->rowCount() == 0) {
         echo "<td><input type='button' id='submit' onclick= 'attendevent($eventID)' value= 'I want to go for  $eventtitle'/></td>";
-    }
-}
+    }}
 
-function eventsalesended($row) {
+function datepassed($date) {
     //Get date in correct format to compare
     $todaysdate = date("Y-m-d");
     //Check if date has passed ticket sale end date
-    if ($row['stopsaledate'] < $todaysdate){
+    if ($date < $todaysdate){
         return True;
     }
     else{
         return False;
-    }
-}
+    }}
+
 function dbShowhostedEvents() {
-    
+    global $dbname;
+	global $dbusername;
+	global $dbpassword;
+	$userID = $_SESSION['usernameID'];
+    //db connection
+	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
+	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$sql = "SELECT e.Event_ID AS Event_ID, e.StartDate AS StartDate, e.title AS Title, e.Capacity as Capacity
+	FROM event AS e
+	JOIN fkhost AS fk ON fk.Event_ID = e.Event_ID WHERE fk.User_ID =  $userID ORDER BY Title";
+	$result = $db->query($sql);
+
+		if($result->rowCount() > 0){
+		echo "<table>
+        <tr>
+        <th>Event Title</th>
+        <th>Event Date</th>
+        <th>Capacity</th>
+        </tr>";
+		}
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        echo "<tr>";
+        echo "<td>" . $row['Title'] . "</td>";
+
+        //Convert date to better format
+        $displaydate = date_format(new DateTime($row['StartDate']),"d F Y");
+        echo "<td> $displaydate ";
+        if(datepassed($row['StartDate'])){
+        	echo "-event passed";
+        }
+        	"</td>";
+
+        //Check number of participants
+        $guests = guestsattending($row, $db);
+        $maxnum = $row['Capacity'];
+        echo "<td> $guests / $maxnum";
+        if ($guests==$maxnum){
+        	echo "-sold out";
+ 		}
+        echo "</td>";
+        echo "</tr>";
+        }
+}
+function guestsattending($row, $db) {
+	$eventID = $row['Event_ID'];
+	$sql = "SELECT * FROM fkguest_list WHERE Event_ID = $eventID";
+	$result = $db->query($sql);
+	$guests = $result->rowCount();
+	return $guests;
 }
 function delete_event($unwantedevent){
     global $dbname;
@@ -357,8 +397,7 @@ function delete_event($unwantedevent){
 		return True;
 	}else{
 		return False;
-	}
-}
+	}}
 
 /*****************************************************/
 // main

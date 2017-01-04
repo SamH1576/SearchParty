@@ -15,7 +15,6 @@ $(function(){
 					window.location.assign('login.html');
 					alert('You are not logged in, please log in');
 				}
-
             }
 		});
 });
