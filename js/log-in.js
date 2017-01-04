@@ -43,7 +43,7 @@ function CheckPass(inputText) {
 	}  
 }  
 function Confirm(inputText) {   
-	var newpass = document.getElementById("newpass").value;  
+	var newpass = document.getElementById("new-password").value;  
 	var valid5 = document.getElementById("val5");
 	if(inputText.value.match(newpass)) {  
 		valid5.style.display = "none";

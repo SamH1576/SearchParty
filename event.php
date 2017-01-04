@@ -250,12 +250,12 @@ function display_events(){
     global $url_pieces;
     $category = $url_pieces[2];
     //query to obtain key event details from two seperate tables using fkevent_venue constraint
-$sql= "SELECT e.Event_ID AS Event_ID, e.title AS Title, e.startdate AS StartDate, e.StartTime AS StartTime, e.EndDate AS EndDate, e.EndTime AS EndTime, e.Description AS Description, e.category AS Category, CONCAT(v.firstline ,', ', v.city ,' ', v.postcode) AS Address 
+$sql= "SELECT e.Event_ID AS Event_ID, e.Capacity as Capacity, e.title AS Title, e.startdate AS StartDate, e.StartTime AS StartTime, e.EndDate AS EndDate, e.EndTime AS EndTime, e.Description AS Description, e.category AS Category, CONCAT(v.firstline ,', ', v.city ,' ', v.postcode) AS Address 
 FROM event AS e
 JOIN fkevent_venue AS fk ON fk.Event_ID = e.Event_ID
 JOIN venue_address AS v ON fk.Venue_Address_ID = v.Venue_Address_ID WHERE e.category = '$category'
 ORDER BY Title";
-$result = $db->query($sql);
+    $result = $db->query($sql);
     
     if($result->rowCount() > 0){
     //Generate table if events of wanted category exists       
@@ -295,17 +295,20 @@ $result = $db->query($sql);
 function echoinputforuser($category, $row, $db){
     $eventtitle =  $row['Title'];
     $eventID = $row['Event_ID'];
+    $capacity = $row['Capacity'];
     //Queries to database to check if user is host or participant
     $sql = "SELECT * FROM fkhost WHERE User_ID = " . $_SESSION['usernameID'] . " AND Event_ID =   $eventID ";
     $result = $db->query($sql);
     $sql1 = "SELECT * FROM fkguest_list WHERE User_ID = " . $_SESSION['usernameID'] . " AND Event_ID =  $eventID ";
     $result1 = $db->query($sql1);
     //Query to database to check if capacity of event has been reached
+    //$sql2 = "SQL QUERY";
+    //$result2 = $db->query($sql2);
     //INSERT CODE HERE
     
     //Check if User is a host. If true, display message saying User is host
     if($result->rowCount() > 0){
-        echo "<td>User is a host for this event</td>";
+        echo "<td>User is a host for this event </td>";
     }
     //Check if User is going to event. If true, display message saying User is going
     if($result1->rowCount() > 0){

@@ -152,13 +152,14 @@ function attendevent(eventID) {
             })  
 }
 function check_passwords_match() {
+    var valid5 = document.getElementById("val5");
     //check to see if password matches and assign variable passwordnotmatch
     if(document.getElementById('new-password').value === document.getElementById('confirm-password').value) {
-        document.getElementById('form-messages').innerHTML = " Passwords are a match";
         passwordnotmatch = null;
+        valid5.style.display = "none";
     } 
     else {
-        document.getElementById('form-messages').innerHTML = " Passwords are not a match!";
         passwordnotmatch = 1;
+        valid5.style.display = "block";
     }
 }
