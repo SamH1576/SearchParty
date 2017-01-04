@@ -44,6 +44,14 @@ ul.topnav li input {
     transition: 0.3s;
     font-size: 17px;
 }
+#usernameheader {
+    float:left;
+    padding-top: 1%;
+    padding-left: 10%;
+    color: white;
+    font-family: Stencil;
+    font-size: 20px;
+}
 #addevent {
 float: left;
 display: none;
