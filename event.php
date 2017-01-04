@@ -259,8 +259,8 @@ ORDER BY Title";
     
     if($result->rowCount() > 0){
     //Generate table if events of wanted category exists       
-        echo "<table>
-        <tr>
+        echo "<table id="eventtable">
+        <tr id="tableheads">
         <th> </th>
         <th>Title</th>
         <th>Start Date</th>
@@ -272,7 +272,7 @@ ORDER BY Title";
         <th>Address</th>
         </tr>";
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-        echo "<tr>";
+        echo "<tr id='tableinfo'>";
         //Function to echo correct input type depending on user and event. If user is a host/already going, message will show as "User is a host/going". If user can be a participant, button will be displayed with "I am going to this event!"
         echoinputforuser($category, $row, $db); 
         echo "<td class='eventtoattend'>" . $row['Title'] . "</td>";
@@ -288,7 +288,7 @@ ORDER BY Title";
         echo "</table>";
     }
     else{
-        echo "No events of this category.";
+        echo "<p id='noevent'>No events of this category.</p>";
     }
     $db = null;
 }
@@ -309,23 +309,23 @@ function echoinputforuser($category, $row, $db){
     /*Output correct input message*/
     //Check if event sales has ended.
     if(eventsalesended($row)){
-        echo "<td>The ticket sales for this event has ended</td>";
+        echo "<td class='eventerror'>Ticket sales have ended</td>";
     }
     //If event is full, echo event full message
     else if($result2->rowCount()==$capacity){
-        echo "<td>Event is full</td>";
+        echo "<td class='eventerror'>Event is full</td>";
     }
     //Check if User is a host. If true, display message saying User is host
     else if($result->rowCount() > 0){
-        echo "<td>User is a host for this event </td>";
+        echo "<td class='eventerror'>You are hosting this event </td>";
     }
     //Check if User is going to event. If true, display message saying User is going
     else if($result1->rowCount() > 0){
-        echo "<td>User is going for this event</td>";
+        echo "<td id='going'>You are going for this event</td>";
         }
     //Give button input to assign user as a guest
     if ($result->rowCount() == 0 && $result1->rowCount() == 0) {
-        echo "<td><input type='button' id='submit' onclick= 'attendevent($eventID)' value= 'I want to go for  $eventtitle'/></td>";
+        echo "<td id='eventselect'><input type='button' id='submit' onclick= 'attendevent($eventID)' value= 'I'm down for  $eventtitle'/></td>";
     }
 }
 
