@@ -250,7 +250,7 @@ function display_events(){
     global $url_pieces;
     $category = $url_pieces[2];
     //query to obtain key event details from two seperate tables using fkevent_venue constraint
-$sql= "SELECT e.Event_ID AS Event_ID, e.Capacity as Capacity, e.title AS Title, e.startdate AS StartDate, e.StartTime AS StartTime, e.EndDate AS EndDate, e.EndTime AS EndTime, e.Description AS Description, e.category AS Category, CONCAT(v.firstline ,', ', v.city ,' ', v.postcode) AS Address 
+$sql= "SELECT e.Event_ID AS Event_ID, e.Capacity as Capacity, e.title AS Title, e.startdate AS StartDate, e.StartTime AS StartTime, e.EndDate AS EndDate, e.EndTime AS EndTime, e.Description AS Description, e.category AS Category, e.Ticket_enddate AS stopsaletime, CONCAT(v.firstline ,', ', v.city ,' ', v.postcode) AS Address 
 FROM event AS e
 JOIN fkevent_venue AS fk ON fk.Event_ID = e.Event_ID
 JOIN venue_address AS v ON fk.Venue_Address_ID = v.Venue_Address_ID WHERE e.category = '$category'
@@ -307,8 +307,12 @@ function echoinputforuser($category, $row, $db){
     $result2 = $db->query($sql2);
     
     /*Output correct input message*/
+    //Check if event sales has ended.
+    if(eventsalesended()){
+        echo "<td>The ticket sales for this event has ended</td>";
+    }
     //If event is full, echo event full message
-    if($result2->rowCount()==$capacity){
+    else if($result2->rowCount()==$capacity){
         echo "<td>Event is full</td>";
     }
     //Check if User is a host. If true, display message saying User is host
@@ -323,6 +327,10 @@ function echoinputforuser($category, $row, $db){
     if ($result->rowCount() == 0 && $result1->rowCount() == 0) {
         echo "<td><input type='button' id='submit' onclick= 'attendevent($eventID)' value= 'I want to go for  $eventtitle'/></td>";
     }
+}
+
+function eventsalesended(){
+    
 }
 function delete_event($unwantedevent){
     global $dbname;

@@ -34,7 +34,6 @@ $verb = $_SERVER['REQUEST_METHOD'];
 		if(check_username_password_match($_POST)){
 			$_SESSION["loggedIn"] = True;
 			$_SESSION["username"] = $_POST['username'];	
-            echo "Login successful";
 			include 'main.html';
     }
         else{

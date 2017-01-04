@@ -7,8 +7,9 @@ $(function(){
             success: function(returned) {
 // Returns successful data submission message when the entered information is stored in database.
 				if(returned != 'null'){
-					alert('Welcome to SearchParty ' + returned);
-					//welcome message
+                    //welcome message
+                    alert('Welcome to SearchParty ' + returned);
+                   document.getElementById('usernameheader').innerHTML = returned;
 				}
 				else{
 					window.location.assign('login.html');
