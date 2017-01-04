@@ -4,6 +4,8 @@
 /***********************************************************************/
 //Set connection parameters
 include 'Database-config.php';
+//start session
+session_start();
 
 $customer = array();
 $address = array();
@@ -284,9 +286,12 @@ if($url_pieces[1] == 'adduser'){
 /* window output message */
 if($url_pieces[1] == 'adduser'){
 		if($boolSuccess){
+			$_SESSION["loggedIn"] = True;
+			$_SESSION["username"] = $customer[0];	
             $registeruserajaxvars['window_message'] = "Success, a new user with email address $customer[0] was added.";
         }
         else {
+        	$_SESSION["loggedIn"] = False;
             $registeruserajaxvars['window_message'] = "Sorry, a user with the address $customer[0] already exists. Please use another email.";
         }
     echo json_encode($registeruserajaxvars);
