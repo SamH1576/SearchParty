@@ -24,6 +24,7 @@ CREATE TABLE Event (
   Category VARCHAR(255),
   Ticket_startdate DATE,
   Ticket_enddate DATE,
+  Reminder_sent BIT DEFAULT 0,
   creation_time      DATETIME DEFAULT CURRENT_TIMESTAMP,
   modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

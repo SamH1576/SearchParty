@@ -1,42 +1,47 @@
 /* DUMMY DATA */
 /* DUMMY DATA */
 /* DUMMY DATA */
+
 INSERT INTO Event (Title, Capacity, StartDate, StartTime, EndDate, EndTime, Description, Category, Ticket_startdate, Ticket_enddate) 
-VALUES ('Dummy event 1', 420, '2017-01-01', '21:00:00', '2017-01-02', '04:00:00', 'Dummy event from 9pm-4am 1st Jan 2017 - 2nd Jan 2017', 'Music', '2017-01-01', '2017-01-02');
-INSERT INTO Event (Title, Capacity, StartDate, StartTime, EndDate, EndTime, Description, Category, Ticket_startdate, Ticket_enddate) 
-VALUES ('Dummy event 2', 421, '2017-01-02', '21:00:00', '2017-01-03', '04:00:00', 'Dummy event from 9pm-4am 2nd Jan 2017 - 3rd Jan 2017', 'Sport', '2017-01-02', '2017-01-03');
+VALUES 
+('Pure Hard Dance event', 300, '2017-01-10', '21:00:00', '2017-01-01', '04:00:00', 'Pure hard dance feat Ben Nicky', 'Music', '2017-01-01', '2017-01-09'),
+('Jazz Rock', 15, '2017-01-11', '21:00:00', '2017-01-12', '02:00:00', 'Jazz night brought to you by Sam Konig', 'Music', '2017-01-02', '2017-01-10'),
+('Muzzing Bonanza', 6, '2017-01-15', '17:00:00', '2017-01-15', '19:00:00', 'Muzzking in the quad', 'Music', '2017-01-02', '2017-01-14');
 
 INSERT INTO Venue_Address (FirstLine, SecondLine, City, County, PostCode)
-VALUES ('1st Dummy Address line 1', '1st Dummy Address line 2', '1st Dummy City', '1st Dummy County', 'WXX XXX');
-INSERT INTO Venue_Address (FirstLine, SecondLine, City, County, PostCode)
-VALUES ('2nd Dummy Address line 1', '2nd Dummy Address line 2', '2nd Dummy City', '2nd Dummy County', 'WXX XXZ');
+VALUES 
+('O2 Academy', 'Brixton', 'London', 'LDN', 'WXX XXX'),
+('The Jazz Bowl', 'Soho', 'Greater London', 'LDN', 'WXX XXZ'),
+('UCL Main Quad', 'Gower St', 'London', 'LDN', 'W1CE 7HZ');
 
 INSERT INTO User (Email, Password, FirstName, LastName, Phone)
-VALUES ('notarealemail1@ucl.com', 'password1', 'Dummy FirstName1', 'Dummy LastName1', '000111222333');
-INSERT INTO User (Email, Password, FirstName, LastName, Phone)
-VALUES ('notarealemail2@ucl.com', 'password2', 'Dummy FirstName2', 'Dummy LastName2', '0001313654');
+VALUES 
+('notarealemail1@ucl.com', 'password1', 'Hywell', 'Davies', '000111222333'),
+('notarealemail2@ucl.com', 'password2', 'Sam', 'Konig', '0001313654');
 
 INSERT INTO Cust_Address (FirstLine, SecondLine, City, County, PostCode)
-VALUES ('1st Dummy Address line 1', '1st Dummy Address line 2', '1st Dummy City', '1st Dummy County', 'WXX XXX');
-INSERT INTO Cust_Address (FirstLine, SecondLine, City, County, PostCode)
-VALUES ('2nd Dummy Address line 1', '2nd Dummy Address line 2', '2nd Dummy City', '2nd Dummy County', 'WXX XXZ');
+VALUES 
+('Private Home 1', 'Fake Street ', 'London', 'Silly County', 'WCX XXX'),
+('8a My Home', 'My street', 'London', 'Billy County', 'WCE XXZ');
 
 INSERT INTO FKHost (User_ID, Event_ID)
-VALUES(1, 1);
-INSERT INTO FKHost (User_ID, Event_ID)
-VALUES(2, 2);
+VALUES
+(1, 1), 
+(2, 2),
+(1, 3);
 
 INSERT INTO FKEvent_Venue (Event_ID, Venue_Address_ID)
-VALUES(1, 1);
-INSERT INTO FKEvent_Venue (Event_ID, Venue_Address_ID)
-VALUES(2, 2);
+VALUES
+(1, 1), 
+(2, 2),
+(3, 3);
 
 INSERT INTO FKCust_Address (Customer_ID, Cust_Address_ID)
-VALUES(1, 1);
-INSERT INTO FKCust_Address (Customer_ID, Cust_Address_ID)
-VALUES(2, 2);
+VALUES
+(1, 1), 
+(2, 2);
 
 INSERT INTO FKGuest_List (Event_ID, User_ID)
-VALUES(1, 2);
-INSERT INTO FKGuest_List (Event_ID, User_ID)
-VALUES(2, 1);
+VALUES
+(1, 2), 
+(2, 1);
