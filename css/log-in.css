@@ -33,9 +33,9 @@ input[type="password"] {
     margin-bottom: 2%;
 }
 #Image {
-    width: 50%;
+    width: 40%;
     display: block;
-    margin: auto;
+    margin-left: 3%;
     float:left;
 }
 #login {
@@ -60,7 +60,7 @@ input[type="password"] {
     font-size: 17px;
 }
 #register{
-   margin-top:35%;
+   margin-top:28%;
    background-color:#483d8b;
    color: white;
    outline-color: black;
