@@ -259,8 +259,8 @@ ORDER BY Title";
     
     if($result->rowCount() > 0){
     //Generate table if events of wanted category exists       
-        echo "<table id="eventtable">
-        <tr id="tableheads">
+        echo "<table id='eventtable'>
+        <tr id='tableheads'>
         <th> </th>
         <th>Title</th>
         <th>Start Date</th>
