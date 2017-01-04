@@ -252,8 +252,10 @@ function display_events() {
     
     if($result->rowCount() > 0){
     	//Generate table if events of wanted category exists       
-        echo "<table>
-        <tr>
+ 
+    //Generate table if events of wanted category exists       
+        echo "<table id='eventtable'>
+        <tr id='tableheads'>
         <th> </th>
         <th>Title</th>
         <th>Start Date</th>
@@ -265,7 +267,7 @@ function display_events() {
         <th>Address</th>
         </tr>";
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-        echo "<tr>";
+        echo "<tr id='tableinfo'>";
         //Function to echo correct input type depending on user and event. If user is a host/already going, message will show as "User is a host/going". If user can be a participant, button will be displayed with "I am going to this event!"
         echoinputforuser($category, $row, $db); 
         echo "<td class='eventtoattend'>" . $row['Title'] . "</td>";
@@ -281,7 +283,7 @@ function display_events() {
         echo "</table>";
     }
     else{
-        echo "No events of this category.";
+        echo "<p id='noevent'>No events of this category.</p>";
     }
     $db = null;}
 
@@ -302,24 +304,25 @@ function echoinputforuser($category, $row, $db){
     /*Output correct input message*/
     //Check if event sales has ended.
     if(datepassed($row['stopsaledate'])){
-        echo "<td>The ticket sales for this event has ended</td>";
+        echo "<td class='eventerror'>The ticket sales for this event has ended</td>";
     }
     //If event is full, echo event full message
     else if($result2->rowCount()==$capacity){
-        echo "<td>Event is full</td>";
+        echo "<td class='eventerror'>Event is full</td>";
     }
     //Check if User is a host. If true, display message saying User is host
     else if($result->rowCount() > 0){
-        echo "<td>User is a host for this event </td>";
+        echo "<td class='eventerror'>You are hosting this event </td>";
     }
     //Check if User is going to event. If true, display message saying User is going
     else if($result1->rowCount() > 0){
-        echo "<td>User is going for this event</td>";
+        echo "<td id='going'>You are going for this event</td>";
         }
     //Give button input to assign user as a guest
     else if ($result->rowCount() == 0 && $result1->rowCount() == 0) {
-        echo "<td><input type='button' id='submit' onclick= 'attendevent($eventID)' value= 'I want to go for  $eventtitle'/></td>";
-    }}
+        echo "<td id='eventselect'><input type='button' id='submit' onclick= 'attendevent($eventID)' value= 'I'm down for  $eventtitle'/></td>";
+    }
+}
 
 function datepassed($date) {
     //Get date in correct format to compare
@@ -351,32 +354,37 @@ function dbShowhostedEvents() {
         <th>Event Title</th>
         <th>Event Date</th>
         <th>Capacity</th>
+        <th> </th>
         </tr>";
 		}
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-        echo "<tr>";
-        echo "<td>" . $row['Title'] . "</td>";
+	        echo "<tr>";
+	        echo "<td>" . $row['Title'] . "</td>";
+			//Convert date to better format
+	        $displaydate = date_format(new DateTime($row['StartDate']),"d F Y");
+	        echo "<td> $displaydate ";
+	        if(datepassed($row['StartDate'])){
+	        	echo "-event passed";
+	        }
+	        	"</td>";
+	        //Check number of participants
+	        $guests = numberofguestsattending($row, $db);
+	        $maxnum = $row['Capacity'];
+	        echo "<td> $guests / $maxnum";
+	        if ($guests==$maxnum){
+	        	echo "-sold out";
+	 		}
+	        echo "</td>";
+	        $eventID = $row['Event_ID'];
+	        echo "<td><input type='button' id='submit' onclick= 'showguests($eventID)' value= 'Display guests'/></td>";
 
-        //Convert date to better format
-        $displaydate = date_format(new DateTime($row['StartDate']),"d F Y");
-        echo "<td> $displaydate ";
-        if(datepassed($row['StartDate'])){
-        	echo "-event passed";
-        }
-        	"</td>";
-
-        //Check number of participants
-        $guests = guestsattending($row, $db);
-        $maxnum = $row['Capacity'];
-        echo "<td> $guests / $maxnum";
-        if ($guests==$maxnum){
-        	echo "-sold out";
- 		}
-        echo "</td>";
-        echo "</tr>";
+	        echo "</tr>";
         }
 }
-function guestsattending($row, $db) {
+function showguests($eventID){
+	//List guests attending
+}
+function numberofguestsattending($row, $db) {
 	$eventID = $row['Event_ID'];
 	$sql = "SELECT * FROM fkguest_list WHERE Event_ID = $eventID";
 	$result = $db->query($sql);
