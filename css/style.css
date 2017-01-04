@@ -67,6 +67,10 @@ display: none;
     margin-top:5%;
     margin-left: 12%;
 }
+#eventtable, th, td {
+    border: 2px solid black;
+    color: white;
+}
 #desiredeventcategory {
     background-color: #FFFF00;
 }
