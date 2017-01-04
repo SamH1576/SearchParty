@@ -296,30 +296,33 @@ function echoinputforuser($category, $row, $db){
     $eventtitle =  $row['Title'];
     $eventID = $row['Event_ID'];
     $capacity = $row['Capacity'];
-    //Queries to database to check if user is host or participant
+    //Queries to database to check if user is host 
     $sql = "SELECT * FROM fkhost WHERE User_ID = " . $_SESSION['usernameID'] . " AND Event_ID =   $eventID ";
     $result = $db->query($sql);
+    //Queries to database to check if user is participant
     $sql1 = "SELECT * FROM fkguest_list WHERE User_ID = " . $_SESSION['usernameID'] . " AND Event_ID =  $eventID ";
     $result1 = $db->query($sql1);
     //Query to database to check if capacity of event has been reached
-    //$sql2 = "SQL QUERY";
-    //$result2 = $db->query($sql2);
-    //INSERT CODE HERE
+    $sql2 = "SELECT * FROM fkguest_list WHERE Event_ID = $eventID";
+    $result2 = $db->query($sql2);
     
+    /*Output correct input message*/
+    //If event is full, echo event full message
+    if($result2->rowCount()==$capacity){
+        echo "<td>Event is full</td>";
+    }
     //Check if User is a host. If true, display message saying User is host
-    if($result->rowCount() > 0){
+    else if($result->rowCount() > 0){
         echo "<td>User is a host for this event </td>";
     }
     //Check if User is going to event. If true, display message saying User is going
-    if($result1->rowCount() > 0){
+    else if($result1->rowCount() > 0){
         echo "<td>User is going for this event</td>";
         }
     //Give button input to assign user as a guest
     if ($result->rowCount() == 0 && $result1->rowCount() == 0) {
         echo "<td><input type='button' id='submit' onclick= 'attendevent($eventID)' value= 'I want to go for  $eventtitle'/></td>";
     }
-    //Give message saying event is Full
-    //INSERT CODE HERE
 }
 function delete_event($unwantedevent){
     global $dbname;
