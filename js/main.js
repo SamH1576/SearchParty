@@ -113,6 +113,9 @@ function attending() {
         $("#search").hide();
         $("#attending").toggle();
 }
+function logout() {
+    $("#logout").toggle();
+}
 //AJAX call to server to populate table with event details from database
 function find(str) {
     if (str=="") {
