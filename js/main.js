@@ -199,7 +199,7 @@ function showguests(eventID, eventtitle) {
 	 if (this.readyState == 4 && this.status == 200) { 
 		var data2=this.responseText;
 		var data = data1 + data2;
-	 	document.getElementById('content').innerHTML=data;
+	 	document.getElementById('eventguests').innerHTML=data;
 													 }
   };
   xmlhttp.open("GET","event.php/showparticipants/"+ eventID,true);
