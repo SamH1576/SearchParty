@@ -11,6 +11,9 @@ function addnewuser() {
 	var City = $('#City').val();
 	var County = $('#County').val();
 	var PostCode = $('#PostCode').val();
+
+	//Variables to authenticate
+	//var info = {username:email, password:new_password};
 	
 	// set AJAX datastring to be sent
 	var dataString = 'email1=' + email + '&password1=' + new_password + '&FirstName1=' + FirstName + '&LastName1=' + LastName + '&Phone1=' + Phone + '&FirstLine1=' + FirstLine + '&SecondLine1=' + SecondLine + '&City1=' + City + '&County1=' + County + '&PostCode1=' + PostCode;
@@ -37,10 +40,29 @@ function addnewuser() {
 			success: function (result) {
 			// Returns message whether email already exists or not. when the entered information is stored in database.
 				alert(result['window_message']);
+				//Input to login form details from create form
+				$("#username").val(email);
+				$("#password").val(new_password);
 				//If email did not exist, then successful login and redirection to main.html
-				if (result['boolsuccess']){
-					window.location.assign('main.html');
+				if (result['login']){
+				document.form1.submit();
 				}
+				/*if (result['boolsuccess']){
+
+					$.ajax({
+					    type: "GET",
+					    data:{ 'username': email,
+      						'password': new_password,
+      					},
+					    url: 'authenticate.php',
+					    success: function(){
+					    	alert ("success");
+					    },
+					    error: function (){
+					    	alert("fail");
+					    }
+					});
+				}*/
 				}
 			
 			})
