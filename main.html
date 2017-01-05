@@ -29,7 +29,7 @@
 <div id = "search">
 <h2> Select what kind of event you would like to attend.</h2>
   <h3>Search for events by Category</h3>
-    <select id = "desiredeventcategory" onchange = "find(this.value)">
+    <select id = "desiredeventcategory" onchange = find("bycategory");>
       <option value="default" selected>Choose</option>
       <option value="music">Music</option>
       <option value="sport">Sport</option>
@@ -38,10 +38,10 @@
     </select>
   <h3>Search for events between the dates</h3>
     <label for="startdate">Between</label><br>
-    <input class="box" type="date" id="date1" /><br>
+    <input class="box" type="date" id="searchdate1" name="searchdate1"/><br>
     <label for="starttime">And</label><br>
-    <input class="box" type="date" id="date2" /><br>
-    <input type = "button" onclick = JAVASCRIPT-FUNCTION()/>
+    <input class="box" type="date" id="searchdate2" name="searchdate2" onchange=isdatelater("SearchEvent") required/><br>
+    <input type = "button" onclick = find("bydate") value = "Search!"/>
   <div id="events_table"><br><b>Events will be listed here</b></div>
 </div>
 
@@ -73,7 +73,7 @@
 
       <div id="end">
         <label for="enddate">End Date:</label><br>
-        <input class="box" type="date" id="enddate" name="enddate" required/><br>
+        <input class="box" type="date" id="enddate" name="enddate" onchange=isdatelater("EventDate") required/><br>
         <label for="endtime">End Time:</label><br>
         <input class="box" type="time" id="endtime" name="endtime" required/><br>
       </div>
@@ -82,7 +82,7 @@
         <label for="description">Description:</label><br>
         <textarea class="box" rows="4" cols="20" id="description" name="description" required></textarea><br>
         <label for="category">Category:</label><br>
-        <select class="box" id = "neweventcategory" onchange = "find(this.value)">
+        <select class="box" id = "neweventcategory">
           <option value="Music">Music</option>
           <option value="Sport">Sport</option>
           <option value="Art">Art Exhibition</option>
@@ -94,7 +94,7 @@
         <label for="ticketstartdate">Ticket Start Date:</label><br>
         <input class="box" type="date" id="ticketstartdate" name="ticketstartdate" required/><br>
         <label for="ticketenddate">Ticket End Date:</label><br>
-        <input class="box" type="date" id="ticketenddate" name="ticketenddate" required/><br>
+        <input class="box" type="date" id="ticketenddate" name="ticketenddate" onchange=isdatelater("EventTicket") required/><br>
       </div>
         
       <!-- Event Address data -->

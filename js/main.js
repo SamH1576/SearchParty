@@ -122,25 +122,58 @@ function attending() {
 function logout() {
 	$("#logout").toggle();
 }
-//AJAX call to server to populate table with event details from database
+//* Search events, str signifies if by date or by category					*//
+//*	AJAX call to server to populate table with event details from database	*//
 function find(str) {
-	if (str=="") {
-	$('#events_table').innerHTML="";
-	return;
-  } 
-  if (window.XMLHttpRequest) {
-	// code for IE7+, Firefox, Chrome, Opera, Safari
-	xmlhttp=new XMLHttpRequest();
-  } else { // code for IE6, IE5
-	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  xmlhttp.onreadystatechange = function() {
-	 if (this.readyState == 4 && this.status == 200) { document.getElementById('events_table').innerHTML=this.responseText;
-													 }
-  };
-  xmlhttp.open("GET","event.php/showevents/"+ str,true);
-  xmlhttp.send();
-  }
+	var dataA = "showevents" + str;
+
+	if (str == "bydate") {
+		var data1 = $('#searchdate1').val();
+		var data2 = $('#searchdate2').val();
+		var dataB = data1 + "." + data2;
+	}
+	if (str == "bycategory") {
+		var dataB = $('#desiredeventcategory').val();
+	}
+	if (str =="" || dataB=="." ) {
+		$('#events_table').innerHTML="";
+		return;
+  	} 
+  	alert (dataA + dataB);
+  	if (window.XMLHttpRequest) {
+		// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+  	} else { // code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+  	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) { 
+			document.getElementById('events_table').innerHTML=this.responseText;
+	}};
+  	xmlhttp.open("GET","event.php/" + dataA + "/"+ dataB,true);
+  	xmlhttp.send();
+}
+// Function returns true if date 2 is later than date 1
+function isdatelater(str){
+	if (str == "EventDate"){
+		var date1 = $('#startdate').val();
+		var date2 = $('#enddate').val();
+	}
+	if (str == "EventTicket"){
+		var date1 = $('#ticketstartdate').val();
+		var date2 = $('ticketenddate').val();
+	}
+	if (str == "SearchEvent"){
+		var date1 = $('#searchdate1').val();
+		var date2 = $('#searchdate2').val();
+	}
+	if (date2 > date1){
+		//Insert response to date 2 being later than date 1
+		return true;
+	}else{
+		//Insert response to date 2 being earlier than date 1
+	}
+}
 //AJAX to server to assign user as participant to event
 function attendevent(eventID) {
 	var dataString = 'eventID=' + eventID;
@@ -185,7 +218,6 @@ $(document).ready(function(){
          var eventtitle=currentRow.find(".hostedeventtitle").html(); // get current row table cell TD class= 'hostedeventtitle' value
          showguests(eventID, eventtitle);
     });
-
  });
 function showguests(eventID, eventtitle) {
 	var data1 = "<p>"+eventtitle+"</p>";

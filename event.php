@@ -233,7 +233,7 @@ function dbCheckVenueAddressExists($firstline, $postcode, $db){
 		return null;
 	}}
 
-function display_events() {
+function display_events($type) {
     global $dbname;
 	global $dbusername;
 	global $dbpassword;
@@ -241,19 +241,22 @@ function display_events() {
 	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     global $url_pieces;
-    $category = $url_pieces[2];
-    //Query to obtain key event details from two seperate tables using fkevent_venue constraint
-	$sql= "SELECT e.Event_ID AS Event_ID, e.Capacity as Capacity, e.title AS Title, e.startdate AS StartDate, e.StartTime AS StartTime, e.EndDate AS EndDate, e.EndTime AS EndTime, e.Description AS Description, e.category AS Category, e.Ticket_enddate AS stopsaledate, CONCAT(v.firstline ,', ', v.city ,' ', v.postcode) AS Address 
-	FROM event AS e
-	JOIN fkevent_venue AS fk ON fk.Event_ID = e.Event_ID
-	JOIN venue_address AS v ON fk.Venue_Address_ID = v.Venue_Address_ID WHERE e.category = '$category'
-	ORDER BY Title";
+    if ($type = "bycategory"){
+    	$category = $url_pieces[2];
+    	//Query to obtain key event details from two seperate tables using fkevent_venue constraint by category
+		$sql= "SELECT e.Event_ID AS Event_ID, e.Capacity as Capacity, e.title AS Title, e.startdate AS StartDate, e.StartTime AS StartTime, e.EndDate AS EndDate, e.EndTime AS EndTime, e.Description AS Description, e.category AS Category, e.Ticket_enddate AS stopsaledate, CONCAT(v.firstline ,', ', v.city ,' ', v.postcode) AS Address 
+		FROM event AS e
+		JOIN fkevent_venue AS fk ON fk.Event_ID = e.Event_ID
+		JOIN venue_address AS v ON fk.Venue_Address_ID = v.Venue_Address_ID WHERE e.category = '$category'
+		ORDER BY Title";
+	}else if ($type = "bydate"){
+		//data handling of $url_pieces[2] to date in order to compare with MySQL database
+		//Query to obtain key event details from two seperate tables using fkevent_venue constraint by event date
+		//$sql = MYSQL QUERY CODE HERE!!!!!!
+    }
     $result = $db->query($sql);
-    
     if($result->rowCount() > 0){
-    	//Generate table if events of wanted category exists       
- 
-    //Generate table if events of wanted category exists       
+    	//Generate table of events wrt constraints       
         echo "<table id='eventtable'>
         <tr>
         <th class='tableheads'>Book Tickets</th>
@@ -271,7 +274,7 @@ function display_events() {
         //Function to echo correct input type depending on user and event. If user is a host/already going, message will show as "User is a host/going". If user can be a participant, button will be displayed with "I am going to this event!"
         echoinputforuser($category, $row, $db); 
         echo "<td class='eventtoattend'>" . $row['Title'] . "</td>";
-       echo "<td class='eventtoattend'>" . $row['StartDate'] . "</td>";
+       	echo "<td class='eventtoattend'>" . $row['StartDate'] . "</td>";
         echo "<td class='eventtoattend'>" . $row['StartTime'] . "</td>";
         echo "<td class='eventtoattend'>" . $row['EndDate'] . "</td>";
         echo "<td class='eventtoattend'>" . $row['EndTime'] . "</td>";
@@ -458,8 +461,11 @@ if($url_pieces[1] == 'addevent'){
 		}
 	}
 }
-else if($url_pieces[1]=='showevents'){
-        display_events();
+else if($url_pieces[1]=='showeventsbycategory'){
+        display_events("bycategory");
+    }
+else if($url_pieces[1]=='showeventsbydate'){
+        display_events("bydate");
     }
 
 else if($url_pieces[1]=='deleteevent'){
