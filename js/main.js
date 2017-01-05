@@ -47,24 +47,7 @@ function addnewuser() {
 				if (result['login']){
 				document.form1.submit();
 				}
-				/*if (result['boolsuccess']){
-
-					$.ajax({
-					    type: "GET",
-					    data:{ 'username': email,
-      						'password': new_password,
-      					},
-					    url: 'authenticate.php',
-					    success: function(){
-					    	alert ("success");
-					    },
-					    error: function (){
-					    	alert("fail");
-					    }
-					});
-				}*/
 				}
-			
 			})
 		};
 	}
