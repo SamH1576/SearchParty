@@ -9,7 +9,6 @@ session_start();
 
 $customer = array();
 $address = array();
-$registerusereajaxvars = array('boolsuccess', 'window_message');
 $data = "";
 
 /***********************************************************************/
@@ -288,10 +287,12 @@ if($url_pieces[1] == 'adduser'){
 		if($boolSuccess){
 			$_SESSION["loggedIn"] = True;
 			$_SESSION["username"] = $customer[0];	
+			$registeruserajaxvars['login'] = True;
             $registeruserajaxvars['window_message'] = "Success, a new user with email address $customer[0] was added.";
         }
         else {
         	$_SESSION["loggedIn"] = False;
+        	$registeruserajaxvars['login'] = False;
             $registeruserajaxvars['window_message'] = "Sorry, a user with the address $customer[0] already exists. Please use another email.";
         }
     echo json_encode($registeruserajaxvars);

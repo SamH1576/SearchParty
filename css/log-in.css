@@ -49,7 +49,7 @@ input[type="password"] {
     margin-left: 2%; 
     margin-right: 3%;
 }
-#submit{
+#submitbutton{
     display: inline-block;
     color: #f2f2f2;
     background: black;
