@@ -20,70 +20,75 @@
 </ul>
   <div id="heading1"><h1>Search Party</h1></div>
 <img src="images/searchpartybanner.jpg" id="Image"> 
+    <div id="hosting">
+      <fieldset id="hostinfo">
+        <legend><h3>Events I'm Hosting</h3></legend>
+        <input type="button" class="submit" id="showguests" value="Show Guests" onclick="showguests()"/>
+       </fieldset>
+    </div>
     <div class="add event" id= "addevent">
-      <div id="hosting">
-        <fieldset id="hostinfo">
-          <legend>Events I'm Hosting</legend>
-          <input type="button" id="showguests" value="Show Guests" onclick="showguests()"/>
-        </fieldset>
-      </div>
       <form id="form">
         <div class="two-thirds column" id="main">
           <fieldset id="fieldSet">
-            <legend>Create Event</legend>
+            <legend><h3>Create Event</h3></legend>
+            <div id="eventtitle">  
+              <label for="title">Title:</label><br>
+              <input class="box" type="text" id="title" name="title" required/><br>
               
-            <label for="title">Title:</label><br>
-            <input type="text" id="title" name="title" required/><br>
+              <label for="capacity">Capacity:</label><br>
+              <input class="box" type="number" id="capacity" name="capacity" required/><br>
+            </div>
+            <div id="start"> 
+              <label for="startdate">Start Date:</label><br>
+              <input class="box" type="date" id="startdate" name="startdate" required/><br>
               
-            <label for="capacity">Capacity:</label><br>
-            <input type="number" id="capacity" name="capacity" required/><br>
+                <label for="starttime">Start Time:</label><br>
+            <input class="box" type="time" id="starttime" name="starttime" required/><br>
+            </div>
+            <div id="end">
+              <label for="enddate">End Date:</label><br>
+              <input class="box" type="date" id="enddate" name="enddate" required/><br>
               
-            <label for="startdate">Start Date:</label><br>
-            <input type="date" id="startdate" name="startdate" required/><br>
+              <label for="endtime">End Time:</label><br>
+              <input class="box" type="time" id="endtime" name="endtime" required/><br>
+            </div>
+            <div id="description">
+              <label for="description">Description:</label><br>
+              <textarea class="box" rows="4" cols="20" id="description" name="description" required></textarea><br>
               
-            <label for="starttime">Start Time:</label><br>
-            <input type="time" id="starttime" name="starttime" required/><br>
+              <label for="category">Category:</label><br>
+              <select class="box" id = "neweventcategory" onchange = "find(this.value)">
+              <option value="Music">Music</option>
+              <option value="Sport">Sport</option>
+              <option value="Art">Art Exhibition</option>
+              <option value="Other">Other</option>
+              </select><br>
+            </div>
+            <div id="ticket">
+              <label for="ticketstartdate">Ticket Start Date:</label><br>
+              <input class="box" type="date" id="ticketstartdate" name="ticketstartdate" required/><br>
               
-            <label for="enddate">End Date:</label><br>
-            <input type="date" id="enddate" name="enddate" required/><br>
-              
-            <label for="endtime">End Time:</label><br>
-            <input type="time" id="endtime" name="endtime" required/><br>
-            
-            <label for="description">Description:</label><br>
-            <textarea rows="4" cols="20" id="description" name="description" required></textarea><br>
-              
-            <label for="category">Category:</label><br>
-            <select id = "neweventcategory" onchange = "find(this.value)">
-            <option value="Music">Music</option>
-            <option value="Sport">Sport</option>
-            <option value="Art">Art Exhibition</option>
-            <option value="Other">Other</option>
-            </select><br>
-            
-            <label for="ticketstartdate">Ticket Start Date:</label><br>
-            <input type="date" id="ticketstartdate" name="ticketstartdate" required/><br>
-              
-            <label for="ticketenddate">Ticket End Date:</label><br>
-            <input type="date" id="ticketenddate" name="ticketenddate" required/><br>
-            
+              <label for="ticketenddate">Ticket End Date:</label><br>
+              <input class="box" type="date" id="ticketenddate" name="ticketenddate" required/><br>
+            </div>
             <!-- Event Address data -->
-            <label for="FirstLine">FirstLine:</label><br>
-            <input type="text" id="FirstLine" name="firstline" required/><br>
+            <div id="address">
+              <label for="FirstLine">FirstLine:</label><br>
+              <input class="box" type="text" id="FirstLine" name="firstline" required/><br>
               
-            <label for="SecondLine">SecondLine:</label><br>
-            <input type="text" id="SecondLine" name="secondline" required/><br>
+              <label for="SecondLine">SecondLine:</label><br>
+              <input class="box" type="text" id="SecondLine" name="secondline" required/><br>
               
-            <label for="City">City:</label><br>
-            <input type="text" id="City" name="city" required/><br>
+              <label for="City">City:</label><br>
+              <input class="box" type="text" id="City" name="city" required/><br>
               
-            <label for="County">County:</label><br>
-            <input type="text" id="County" name="county" required/><br>
+              <label for="County">County:</label><br>
+              <input class="box" type="text" id="County" name="county" required/><br>
               
-            <label for="PostCode">PostCode:</label><br>
-            <input type="text" id="PostCode" name="postcode" required/><br><br>
-              
-            <input type="button" id="submit" onclick="addnewevent()" value="Add Event"/>
+              <label for="PostCode">PostCode:</label><br>
+              <input class="box" type="text" id="PostCode" name="postcode" required/><br><br>
+             </div> 
+            <input type="button" class= "submit" id="submit" onclick="addnewevent()" value="Add Event"/>
           </fieldset>
             
           <div id="content">
@@ -100,7 +105,7 @@
   <option value="art">Art Exhibition</option>
   <option value="other">Other</option>
 </select>
-    <div id="events_table"><b>Events will be listed here</b></div>
+    <div id="events_table"><br><b>Events will be listed here</b></div>
 </div>
 <div id = "attending">
 <fieldset id="eventsattending">

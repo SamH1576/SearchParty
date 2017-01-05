@@ -260,29 +260,29 @@ ORDER BY Title";
     if($result->rowCount() > 0){
     //Generate table if events of wanted category exists       
         echo "<table id='eventtable'>
-        <tr id='tableheads'>
-        <th> </th>
-        <th>Title</th>
-        <th>Start Date</th>
-        <th>Start Time</th>
-        <th>End Date</th>
-        <th>End Time</th>
-        <th>Description</th>
-        <th>Category</th>
-        <th>Address</th>
+        <tr>
+        <th class='tableheads'>Book Tickets</th>
+        <th class='tableheads'>Title</th>
+        <th class='tableheads'>Start Date</th>
+        <th class='tableheads'>Start Time</th>
+        <th class='tableheads'>End Date</th>
+        <th class='tableheads'>End Time</th>
+        <th class='tableheads'>Description</th>
+        <th class='tableheads'>Category</th>
+        <th class='tableheads'>Address</th>
         </tr>";
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         echo "<tr id='tableinfo'>";
         //Function to echo correct input type depending on user and event. If user is a host/already going, message will show as "User is a host/going". If user can be a participant, button will be displayed with "I am going to this event!"
         echoinputforuser($category, $row, $db); 
         echo "<td class='eventtoattend'>" . $row['Title'] . "</td>";
-        echo "<td>" . $row['StartDate'] . "</td>";
-        echo "<td>" . $row['StartTime'] . "</td>";
-        echo "<td>" . $row['EndDate'] . "</td>";
-        echo "<td>" . $row['EndTime'] . "</td>";
-        echo "<td>" . $row['Description'] . "</td>";
-        echo "<td>" . $row['Category'] . "</td>";
-        echo "<td>" . $row['Address'] . "</td>";
+        echo "<td class='eventtoattend'>" . $row['StartDate'] . "</td>";
+        echo "<td class='eventtoattend'>" . $row['StartTime'] . "</td>";
+        echo "<td class='eventtoattend'>" . $row['EndDate'] . "</td>";
+        echo "<td class='eventtoattend'>" . $row['EndTime'] . "</td>";
+        echo "<td class='eventtoattend'>" . $row['Description'] . "</td>";
+        echo "<td class='eventtoattend'>" . $row['Category'] . "</td>";
+        echo "<td class='eventtoattend'>" . $row['Address'] . "</td>";
         echo "</tr>";
         }
         echo "</table>";
