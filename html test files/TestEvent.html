@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Testevent HTML</title>
+      <script src= "http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script src = "../js/jquery-3.1.1.min.js"></script>
+      <script src = "../js/main.js"></script>
+  </head>
+  <body>
+    <div class="add event" id= "addevent">
+      <form id="form">
+        <div class="two-thirds column" id="main">
+          <fieldset id="fieldSet">
+            <legend>Create Event</legend>
+              
+            <label for="title">Title:</label><br>
+            <input type="text" id="title" name="title" required/><br>
+              
+            <label for="capacity">Capacity:</label><br>
+            <input type="number" id="capacity" name="capacity" required/><br>
+              
+            <label for="startdate">Start Date:</label><br>
+            <input type="date" id="startdate" name="startdate" required/><br>
+              
+            <label for="starttime">Start Time:</label><br>
+            <input type="time" id="starttime" name="starttime" required/><br>
+              
+            <label for="enddate">End Date:</label><br>
+            <input type="date" id="enddate" name="enddate" required/><br>
+              
+            <label for="endtime">End Time:</label><br>
+            <input type="time" id="endtime" name="endtime" required/><br>
+            
+            <label for="description">Description:</label><br>
+            <textarea rows="4" cols="20" id="description" name="description" required></textarea><br>
+              
+            <label for="category">Category:</label><br>
+            <input type="text" id="category" name="category" required/><br>
+            
+            <label for="ticketstartdate">Ticket Start Date:</label><br>
+            <input type="date" id="ticketstartdate" name="ticketstartdate" required/><br>
+              
+            <label for="ticketenddate">Ticket End Date:</label><br>
+            <input type="date" id="ticketenddate" name="ticketenddate" required/><br>
+            
+            <!-- Event Address data -->
+            <label for="FirstLine">FirstLine:</label><br>
+            <input type="text" id="FirstLine" name="firstline" required/><br>
+              
+            <label for="SecondLine">SecondLine:</label><br>
+            <input type="text" id="SecondLine" name="secondline" required/><br>
+              
+            <label for="City">City:</label><br>
+            <input type="text" id="City" name="city" required/><br>
+              
+            <label for="County">County:</label><br>
+            <input type="text" id="County" name="county" required/><br>
+              
+            <label for="PostCode">PostCode:</label><br>
+            <input type="text" id="PostCode" name="postcode" required/><br>
+              
+            <input type="button" id="submit" onclick="addnewevent()" value="Add Event"/>
+          </fieldset>
+            
+          <div id="content">
+          </div>
+        </div><!-- .two-thirds -->
+      </form>
+    </div><!-- .container -->
+      
+      <form action="../event.php/showevents">
+    <input type="submit" value="show events" />
+      </form>
+
+  </body>
+</html>
