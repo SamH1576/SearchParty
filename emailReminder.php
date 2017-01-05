@@ -65,5 +65,5 @@ foreach ($result as $row) {
 		}
 	}
 }
-
+$db = null;
 ?>

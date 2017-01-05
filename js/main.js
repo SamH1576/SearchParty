@@ -122,6 +122,23 @@ function attending() {
 function logout() {
 	$("#logout").toggle();
 }
+
+function logoutconfirm(){
+	$.ajax({
+				type: "POST",
+				url: "logout.php",
+				data: '',
+				cache: false,
+				success: function() {
+					window.location.assign('login.html');
+				},
+				error: function()
+				{
+					alert('failed');
+				}
+				})  
+}
+
 //AJAX call to server to populate table with event details from database
 function find(str) {
 	if (str=="") {
