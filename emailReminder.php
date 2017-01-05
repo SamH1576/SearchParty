@@ -1,4 +1,14 @@
 <?php
+//Set connection parameters
+include 'Database-config.php';
+//start session
+session_start();
+
+//Login to database
+$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+//GET HUANY MIN TO WRITE SQL QUERIES FOR GETTING IST OF EMAILZ
 
 require '/PHPMailer/PHPMailerAutoload.php';
 
