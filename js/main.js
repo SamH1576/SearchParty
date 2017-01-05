@@ -102,17 +102,20 @@ function addnewevent() {
 //Shows hidden items when menu bar button is pressed
 function host() {
 		$("#addevent").toggle();
+        $("#hosting").toggle();
 		$("#search").hide();
 		$("#attending").hide();
 		hostedevents();
 }
 function search() {
 		$("#addevent").hide();
+        $("#hosting").hide();
 		$("#search").toggle();
 		$("#attending").hide();
 }
 function attending() {
 		$("#addevent").hide();
+        $("#hosting").hide();
 		$("#search").hide();
 		$("#attending").toggle();
 }
