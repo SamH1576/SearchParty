@@ -316,7 +316,7 @@ function echoinputforuser($category, $row, $db){
     }
     //Check if User is going to event. If true, display message saying User is going
     else if($result1->rowCount() > 0){
-        echo "<td id='going'>You are going for this event</td>";
+        echo "<td id='going'>You are going to this event</td>";
         }
     //Give button input to assign user as a guest
     else if ($result->rowCount() == 0 && $result1->rowCount() == 0) {
