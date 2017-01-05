@@ -175,6 +175,36 @@ function hostedevents() {
   xmlhttp.open("GET","event.php/showhostedevents",true);
   xmlhttp.send();
   }
+//Listen for button click in hosted events table to pass eventID to showguests()
+$(document).ready(function(){
+ 
+ $("#hostedevents").on('click','.btndisplayguests',function(){
+         // get the current row
+         var currentRow=$(this).closest("tr"); 
+         var eventID=currentRow.find(".hostedeventID").html(); // get current row table cell TD class= 'hostedeventID' value
+         var eventtitle=currentRow.find(".hostedeventtitle").html(); // get current row table cell TD class= 'hostedeventtitle' value
+         showguests(eventID, eventtitle);
+    });
+
+ });
+function showguests(eventID, eventtitle) {
+	var data1 = "<p>"+eventtitle+"</p>";
+	if (window.XMLHttpRequest) {
+	// code for IE7+, Firefox, Chrome, Opera, Safari
+	xmlhttp=new XMLHttpRequest();
+  } else { // code for IE6, IE5
+	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange = function() {
+	 if (this.readyState == 4 && this.status == 200) { 
+		var data2=this.responseText;
+		var data = data1 + data2;
+	 	document.getElementById('content').innerHTML=data;
+													 }
+  };
+  xmlhttp.open("GET","event.php/showparticipants/"+ eventID,true);
+  xmlhttp.send();
+}
 function check_passwords_match() {
 	var valid5 = document.getElementById("val5");
 	//check to see if password matches and assign variable passwordnotmatch

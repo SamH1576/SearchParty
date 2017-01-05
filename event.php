@@ -349,17 +349,19 @@ function dbShowhostedEvents() {
 	$result = $db->query($sql);
 
 		if($result->rowCount() > 0){
-		echo "<table>
+		echo "<table id='hostedevents'>
         <tr>
+        <th>Event ID</th>
         <th>Event Title</th>
         <th>Event Date</th>
         <th>Capacity</th>
         <th> </th>
         </tr>";
-		}
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 	        echo "<tr>";
-	        echo "<td>" . $row['Title'] . "</td>";
+	        $eventID = $row['Event_ID'];
+	        echo "<td class='hostedeventID'>$eventID</td>";
+	        echo "<td class='hostedeventtitle'>" . $row['Title'] . "</td>";
 			//Convert date to better format
 	        $displaydate = date_format(new DateTime($row['StartDate']),"d F Y");
 	        echo "<td> $displaydate ";
@@ -375,14 +377,43 @@ function dbShowhostedEvents() {
 	        	echo "-sold out";
 	 		}
 	        echo "</td>";
-	        $eventID = $row['Event_ID'];
-	        echo "<td><input type='button' id='submit' onclick= 'showguests($eventID)' value= 'Display guests'/></td>";
+	        echo "<td><input type='button' id='submit' class='btndisplayguests' value= 'Display guests'/></td>";
 
 	        echo "</tr>";
         }
+    }else{
+    	echo "You currently aren't hosting any events";
+    }
 }
-function showguests($eventID){
-	//List guests attending
+//List guests attending
+function dbShowEventParticipants(){
+	global $dbname;
+	global $dbusername;
+	global $dbpassword;
+    //db connection
+	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
+	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    global $url_pieces;
+    $eventID = $url_pieces[2];
+	$sql = "SELECT u.email AS Guest_Email, CONCAT(u.firstname , ' ', u.lastname) AS Name 
+	FROM user AS u
+	JOIN fkguest_list AS fk ON fk.User_ID = u.User_ID WHERE fk.event_ID =  $eventID ORDER BY Name";
+	$result = $db->query($sql);
+	if ($result->rowCount() > 0){
+		echo "<table>
+        <tr>
+        <th>Guest Email</th>
+        <th>Name</th>
+        </tr>";
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        	echo "<tr>";
+	        echo "<td>" . $row['Guest_Email'] . "</td>";
+	        echo "<td>" . $row['Name'] . "</td>";
+	        echo "</tr>";
+        }
+	}else{
+		echo "No guests are attending this event";
+	}
 }
 function numberofguestsattending($row, $db) {
 	$eventID = $row['Event_ID'];
@@ -444,6 +475,9 @@ else if($url_pieces[1]=='addguest'){
 else if($url_pieces[1]=='showhostedevents'){
        dbShowhostedEvents();
     }
+else if($url_pieces[1]=='showparticipants'){
+       dbShowEventParticipants();
+    }    
 else{
 	echo 'unknown path';
 }
