@@ -356,19 +356,20 @@ function dbShowhostedEvents() {
 		if($result->rowCount() > 0){
 		echo "<table id='hostedevents'>
         <tr>
-        <th>Event ID</th>
-        <th>Event Title</th>
-        <th>Event Date</th>
-        <th>Capacity</th>
-        <th> </th>
+        <th class='tablehead'>Event ID</th>
+        <th class='tablehead'>Event Title</th>
+        <th class='tablehead'>Event Date</th>
+        <th class='tablehead'>Capacity</th>
+        <th class='tablehead'>Input Type</th>
         </tr>";
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 	        echo "<tr>";
 	        echo "<td class='roweventID'>" . $row['Event_ID'] . "</td>";
 	        echo "<td class='roweventtitle'>" . $row['Title'] . "</td>";
+
 			//Convert date to better format
 	        $displaydate = date_format(new DateTime($row['StartDate']),"d F Y");
-	        echo "<td> $displaydate ";
+	        echo "<td id='info' class='hostdate'> $displaydate ";
 	        if(datepassed($row['StartDate'])){
 	        	echo "-event passed";
 	        }
@@ -376,13 +377,12 @@ function dbShowhostedEvents() {
 	        //Check number of participants
 	        $guests = numberofguestsattending($row, $db);
 	        $maxnum = $row['Capacity'];
-	        echo "<td> $guests / $maxnum";
+	        echo "<td id='info' class='guestnum'> $guests / $maxnum";
 	        if ($guests==$maxnum){
 	        	echo "-sold out";
 	 		}
 	        echo "</td>";
-	        echo "<td><input type='button' id='submit' class='btndisplayguests' value= 'Display $guests guest(s)'/></td>";
-
+	        echo "<td id='info'><input type='button' id='submit' class='btndisplayguests' value= 'Display $guests guest(s)'/></td>";
 	        echo "</tr>";
         }
     }else{
@@ -403,15 +403,15 @@ function dbShowEventParticipants(){
 	JOIN fkguest_list AS fk ON fk.User_ID = u.User_ID WHERE fk.event_ID =  $eventID ORDER BY Name";
 	$result = $db->query($sql);
 	if ($result->rowCount() > 0){
-		echo "<table>
+		echo "<table id='guesttable'>
         <tr>
-        <th>Guest Email</th>
-        <th>Name</th>
+        <th class='tableheads'>Guest Email</th>
+        <th class='tableheads'>Name</th>
         </tr>";
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         	echo "<tr>";
-	        echo "<td>" . $row['Guest_Email'] . "</td>";
-	        echo "<td>" . $row['Name'] . "</td>";
+	        echo "<td class='info2'>" . $row['Guest_Email'] . "</td>";
+	        echo "<td class='info2'>" . $row['Name'] . "</td>";
 	        echo "</tr>";
         }
 	}else{
