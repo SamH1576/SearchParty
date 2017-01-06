@@ -245,7 +245,7 @@ function display_events($type) {
 		FROM event AS e
 		JOIN fkevent_venue AS fk ON fk.Event_ID = e.Event_ID
 		JOIN venue_address AS v ON fk.Venue_Address_ID = v.Venue_Address_ID WHERE e.startdate >= '$date[0]' AND e.startdate <= '$date[1]'
-		ORDER BY Title";
+		ORDER BY StartDate ASC";
     }
     $result = $db->query($sql);
     //Generate table of events wrt constraints 
