@@ -103,9 +103,9 @@ CREATE TABLE FKGuest_List (
 /* Create User hyminsa */ 
 /* Create User hyminsa */ 
 /* Create User hyminsa */ 
-DROP USER IF EXISTS 'hyminsa'@'52.212.165.195';
-CREATE USER 'hyminsa'@'52.212.165.195' identified by 'hyminsa';
-GRANT ALL PRIVILEGES ON projectdb.* to 'hyminsa'@'52.212.165.195';
+DROP USER IF EXISTS 'hyminsa'@'%';
+CREATE USER 'hyminsa'@'%' identified by 'hyminsa';
+GRANT ALL PRIVILEGES ON projectdb.* to 'hyminsa'@'%';
 
 /* DUMMY DATA */
 /* DUMMY DATA */

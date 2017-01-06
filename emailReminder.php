@@ -5,7 +5,7 @@ include 'Database-config.php';
 session_start();
 
 date_default_timezone_set('Etc/UTC');
-require '/PHPMailer/PHPMailerAutoload.php';
+require 'PHPMailer/PHPMailerAutoload.php';
 
 
 $mail = new PHPMailer;
