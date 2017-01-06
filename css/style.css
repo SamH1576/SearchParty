@@ -84,6 +84,11 @@ font-family: Arial;
     float: left;
     margin-right: 1%;
 }
+#dateerror {
+    display: none;
+    color: red;
+    font-size: 10px;
+}
 #description{
     float: left;
     margin-right: 1%;

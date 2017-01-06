@@ -81,6 +81,7 @@
       <div id="end">
         <label for="enddate">End Date:</label><br>
         <input class="box" type="date" id="enddate" name="enddate" onchange=isdatelater("EventDate") required/><br>
+        <span id="dateerror"><p>The end date must be after the start date!</p></span>
         <label for="endtime">End Time:</label><br>
         <input class="box" type="time" id="endtime" name="endtime" required/><br>
       </div>

@@ -187,9 +187,11 @@ function isdatelater(str){
 	}
 	if (date2 > date1){
 		//Insert response to date 2 being later than date 1
+        $("#dateerror").hide();
 		return true;
 	}else{
 		//Insert response to date 2 being earlier than date 1
+        $("#dateerror").show();
 	}
 }
 //AJAX to server to assign user as participant to event
