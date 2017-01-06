@@ -110,17 +110,42 @@ font-family: Arial;
     transition: 0.3s;
     font-size: 17px;
 }
+.btndisplayguests {
+    display: inline-block;
+    color: #f2f2f2;
+    background: black;
+    text-align: center;
+    padding: 50% 1%;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 15px;
+}
 #hosting {
     position: absolute;
     top:10%;
     left:2%;
     display: none;
-    width:20%;
+    width:25%;
     background-color: #483d8b;
     padding-left: 1%;
     padding-right: 1%;
     padding-top: 1%;
     padding-bottom: 1%;
+}
+#hostedevents, .tablehead, #info {
+    border: 2px solid black;
+    color: white;
+    border-collapse: collapse;
+    border-color: #FFFF00;
+    font-family: Arial;   
+}
+.tablehead, #info {
+    width:5%;
+    text-align: center;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    padding-right: 0.5%;
+    padding-left: 0.5%;
 }
 #search {
 	float: left;

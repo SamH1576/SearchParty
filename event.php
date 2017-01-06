@@ -356,20 +356,20 @@ function dbShowhostedEvents() {
 		if($result->rowCount() > 0){
 		echo "<table id='hostedevents'>
         <tr>
-        <th>Event ID</th>
-        <th>Event Title</th>
-        <th>Event Date</th>
-        <th>Capacity</th>
-        <th> </th>
+        <th class='tablehead'>Event ID</th>
+        <th class='tablehead'>Event Title</th>
+        <th class='tablehead'>Event Date</th>
+        <th class='tablehead'>Capacity</th>
+        <th class='tablehead'>Input Type</th>
         </tr>";
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-	        echo "<tr>";
+	        echo "<tr class='hostedinfo'>";
 	        $eventID = $row['Event_ID'];
-	        echo "<td class='hostedeventID'>$eventID</td>";
-	        echo "<td class='hostedeventtitle'>" . $row['Title'] . "</td>";
+	        echo "<td id='info' class='hostedeventID'>$eventID</td>";
+	        echo "<td id'info' class='hostedeventtitle'>" . $row['Title'] . "</td>";
 			//Convert date to better format
 	        $displaydate = date_format(new DateTime($row['StartDate']),"d F Y");
-	        echo "<td> $displaydate ";
+	        echo "<td id='info' class='hostdate'> $displaydate ";
 	        if(datepassed($row['StartDate'])){
 	        	echo "-event passed";
 	        }
@@ -377,12 +377,12 @@ function dbShowhostedEvents() {
 	        //Check number of participants
 	        $guests = numberofguestsattending($row, $db);
 	        $maxnum = $row['Capacity'];
-	        echo "<td> $guests / $maxnum";
+	        echo "<td id='info' class='guestnum'> $guests / $maxnum";
 	        if ($guests==$maxnum){
 	        	echo "-sold out";
 	 		}
 	        echo "</td>";
-	        echo "<td><input type='button' id='submit' class='btndisplayguests' value= 'Display guests'/></td>";
+	        echo "<td id='info' ><input type='button' id='submit' class='btndisplayguests' value= 'Display guests'/></td>";
 
 	        echo "</tr>";
         }
