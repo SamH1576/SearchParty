@@ -99,6 +99,8 @@ function addnewevent() {
 	};
 	return false;
 }
+
+//*Functions in top bar of HTML page*//
 //Shows hidden items when menu bar button is pressed
 function host() {
 		$("#addevent").toggle();
@@ -119,11 +121,28 @@ function attending() {
 		$("#search").hide();
 		$("#attending").toggle();
 }
+// Logout Functiions
 function logout() {
 	$("#logout").toggle();
 }
-//* Search events, str signifies if by date or by category					*//
-//*	AJAX call to server to populate table with event details from database	*//
+function logoutconfirm(){
+	$.ajax({
+				type: "POST",
+				url: "logout.php",
+				data: '',
+				cache: false,
+				success: function() {
+					window.location.assign('login.html');
+				},
+				error: function()
+				{
+					alert('failed');
+				}
+				})  
+}
+//*Search Events Functions*//
+//*Search events by date or by category					*//
+//*AJAX GET to server to populate table with event details from database	*//
 function find(str) {
 	var dataA = "showevents" + str;
 
@@ -193,7 +212,10 @@ function attendevent(eventID) {
 			}
 			})  
 }
-//AJAX to server to show events hosted
+
+//* Host Events Functions					*//
+//*AJAX call to server to populate table with event details from database	*//
+//AJAX GET to server to show events hosted *//
 function hostedevents() {
 	if (window.XMLHttpRequest) {
 	// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -237,6 +259,8 @@ function showguests(eventID, eventtitle) {
   xmlhttp.open("GET","event.php/showparticipants/"+ eventID,true);
   xmlhttp.send();
 }
+
+//*Form Validation*//
 function check_passwords_match() {
 	var valid5 = document.getElementById("val5");
 	//check to see if password matches and assign variable passwordnotmatch
