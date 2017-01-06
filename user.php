@@ -135,9 +135,9 @@ function create_user($cust, $addr){
 	global $dbname;
 	global $dbusername;
 	global $dbpassword;
-	
+	global $dbhost;
 	//Login to database
-	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
+	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
 	//Check if User already exists - ie check email
@@ -230,9 +230,9 @@ function delete_user($cust_info){
 	global $dbname;
 	global $dbusername;
 	global $dbpassword;
-	
+	global $dbhost
 	//Login to database
-	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
+	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
 	if(dbCheckUserExists($cust_info[0], $db)){

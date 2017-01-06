@@ -8,9 +8,10 @@ function check_username_password_match($array){
     global $dbname;
 	global $dbusername;
 	global $dbpassword;
+    global $dbhost;
 	
     //Login to database
-	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
+	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $username = $array['username']; 
     $password = $array['password'];

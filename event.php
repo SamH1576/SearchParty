@@ -145,9 +145,9 @@ function create_event($eve, $addr){
 	global $dbname;
 	global $dbusername;
 	global $dbpassword;
-	
+	global $dbhost;
 	//Login to database
-	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
+	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
 	//Check if Event already exists - ie check title
@@ -226,8 +226,9 @@ function display_events($type) {
     global $dbname;
 	global $dbusername;
 	global $dbpassword;
+	global $dbhost;
     //db connection
-	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
+	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     global $url_pieces;
     if ($type == "bycategory"){
@@ -330,8 +331,9 @@ function dbAssignUserasGuest($array){
     global $dbname;
 	global $dbusername;
 	global $dbpassword;
+	global $dbhost;
     //db connection
-	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
+	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     $eventID = $array['eventID'];
@@ -344,9 +346,10 @@ function dbShowhostedEvents() {
     global $dbname;
 	global $dbusername;
 	global $dbpassword;
+	global $dbhost;
 	$userID = $_SESSION['usernameID'];
     //db connection
-	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
+	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	$sql = "SELECT e.Event_ID AS Event_ID, e.StartDate AS StartDate, e.title AS Title, e.Capacity as Capacity
 	FROM event AS e
@@ -393,8 +396,9 @@ function dbShowEventParticipants(){
 	global $dbname;
 	global $dbusername;
 	global $dbpassword;
+	global $dbhost;
     //db connection
-	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
+	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     global $url_pieces;
     $eventID = $url_pieces[2];
@@ -424,9 +428,10 @@ function dbShowEventsAttending(){
 	global $dbname;
 	global $dbusername;
 	global $dbpassword;
+	global $dbhost;
 	$userID = $_SESSION['usernameID'];
     //db connection
-	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
+	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	$sql = "SELECT e.Event_ID AS Event_ID, e.StartDate AS StartDate, e.title AS Title, e.description AS Description 
 	FROM event AS e
@@ -482,9 +487,9 @@ function delete_event($unwantedevent){
     global $dbname;
 	global $dbusername;
 	global $dbpassword;
-	
+	global $dbhost;
 	//Login to database
-	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
+	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $eventtodelete= $unwantedevent['unwantedevent'];
     $result = $db->exec("DELETE FROM event WHERE title = '$eventtodelete'");
