@@ -17,7 +17,7 @@ set_exception_handler(function($e){
 	echo json_encode(["error" => $e->getMessage()]);
 	exit;
 });
-
+//Adding an event to database with appropriate corresponding data such as event host, event address, event details
 function check_parameters_add_event($array){
 	global $event;
 	global $address;
@@ -211,19 +211,6 @@ function dbAssignEventHost($hosteventID, $db) {
         $catch = $db->exec("INSERT INTO fkhost(User_ID, Event_ID)
 							VALUES ('" . $_SESSION['usernameID'] . "', '$hosteventID')");}
 
-function dbAssignUserasGuest($array){
-    global $dbname;
-	global $dbusername;
-	global $dbpassword;
-    //db connection
-	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
-	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-    $eventID = $array['eventID'];
-    $sql = "INSERT INTO fkguest_list (Event_ID, User_ID) VALUES ($eventID, " . $_SESSION['usernameID'] . ")";
-    $catch = $db->exec($sql);
-    $db = null;}
-
 function dbCheckVenueAddressExists($firstline, $postcode, $db){
 	$result = $db->query("SELECT venue_address_id FROM venue_address WHERE postcode = '$postcode' AND firstline = '$firstline'");
 	if($result->rowCount() > 0){
@@ -233,6 +220,8 @@ function dbCheckVenueAddressExists($firstline, $postcode, $db){
 		return null;
 	}}
 
+
+//Functions to search for event and assign user as participant to event
 function display_events($type) {
     global $dbname;
 	global $dbusername;
@@ -241,7 +230,7 @@ function display_events($type) {
 	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     global $url_pieces;
-    if ($type = "bycategory"){
+    if ($type == "bycategory"){
     	$category = $url_pieces[2];
     	//Query to obtain key event details from two seperate tables using fkevent_venue constraint by category
 		$sql= "SELECT e.Event_ID AS Event_ID, e.Capacity as Capacity, e.title AS Title, e.startdate AS StartDate, e.StartTime AS StartTime, e.EndDate AS EndDate, e.EndTime AS EndTime, e.Description AS Description, e.category AS Category, e.Ticket_enddate AS stopsaledate, CONCAT(v.firstline ,', ', v.city ,' ', v.postcode) AS Address 
@@ -249,14 +238,19 @@ function display_events($type) {
 		JOIN fkevent_venue AS fk ON fk.Event_ID = e.Event_ID
 		JOIN venue_address AS v ON fk.Venue_Address_ID = v.Venue_Address_ID WHERE e.category = '$category'
 		ORDER BY Title";
-	}else if ($type = "bydate"){
+	}else if ($type == "bydate"){
 		//data handling of $url_pieces[2] to date in order to compare with MySQL database
+		$date = explode('.', $url_pieces[2]);
 		//Query to obtain key event details from two seperate tables using fkevent_venue constraint by event date
-		//$sql = MYSQL QUERY CODE HERE!!!!!!
+		$sql= "SELECT e.Event_ID AS Event_ID, e.Capacity as Capacity, e.title AS Title, e.startdate AS StartDate, e.StartTime AS StartTime, e.EndDate AS EndDate, e.EndTime AS EndTime, e.Description AS Description, e.category AS Category, e.Ticket_enddate AS stopsaledate, CONCAT(v.firstline ,', ', v.city ,' ', v.postcode) AS Address 
+		FROM event AS e
+		JOIN fkevent_venue AS fk ON fk.Event_ID = e.Event_ID
+		JOIN venue_address AS v ON fk.Venue_Address_ID = v.Venue_Address_ID WHERE e.startdate >= 'date[1]' AND e.startdate <= 'date[2]'
+		ORDER BY Title";
     }
     $result = $db->query($sql);
-    if($result->rowCount() > 0){
-    	//Generate table of events wrt constraints       
+    //Generate table of events wrt constraints 
+    if($result->rowCount() > 0){    
         echo "<table id='eventtable'>
         <tr>
         <th class='tableheads'>Book Tickets</th>
@@ -286,9 +280,16 @@ function display_events($type) {
         echo "</table>";
     }
     else{
+    	if ($type == "bycategory"){
         echo "<p id='noevent'>No events of this category.</p>";
+    	}
+    	if ($type == "bydate"){
+    	$displaydate[0] =date("d F Y", strtotime($date[0]));
+    	$displaydate[1] =date("d F Y", strtotime($date[1]));
+        echo "<p id='noevent'>No events between the $displaydate[0] and the $displaydate[1].</p>";
+    	}
     }
-    $db = null;}
+	$db = null;}
 
 function echoinputforuser($category, $row, $db){
     $eventtitle =  $row['Title'];
@@ -326,18 +327,20 @@ function echoinputforuser($category, $row, $db){
         echo "<td id='eventselect'><input type='button' id='submit' onclick= 'attendevent($eventID)' value= 'I'm down for  $eventtitle'/></td>";
     }
 }
+function dbAssignUserasGuest($array){
+    global $dbname;
+	global $dbusername;
+	global $dbpassword;
+    //db connection
+	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
+	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    $eventID = $array['eventID'];
+    $sql = "INSERT INTO fkguest_list (Event_ID, User_ID) VALUES ($eventID, " . $_SESSION['usernameID'] . ")";
+    $catch = $db->exec($sql);
+    $db = null;}
 
-function datepassed($date) {
-    //Get date in correct format to compare
-    $todaysdate = date("Y-m-d");
-    //Check if date has passed ticket sale end date
-    if ($date < $todaysdate){
-        return True;
-    }
-    else{
-        return False;
-    }}
-
+//Function to show hosted events and guestlist for said events
 function dbShowhostedEvents() {
     global $dbname;
 	global $dbusername;
@@ -388,7 +391,6 @@ function dbShowhostedEvents() {
     	echo "You currently aren't hosting any events";
     }
 }
-//List guests attending
 function dbShowEventParticipants(){
 	global $dbname;
 	global $dbusername;
@@ -418,6 +420,8 @@ function dbShowEventParticipants(){
 		echo "No guests are attending this event";
 	}
 }
+
+//General functions
 function numberofguestsattending($row, $db) {
 	$eventID = $row['Event_ID'];
 	$sql = "SELECT * FROM fkguest_list WHERE Event_ID = $eventID";
@@ -425,6 +429,16 @@ function numberofguestsattending($row, $db) {
 	$guests = $result->rowCount();
 	return $guests;
 }
+function datepassed($date) {
+    //Get date in correct format to compare
+    $todaysdate = date("Y-m-d");
+    //Check if date has passed ticket sale end date
+    if ($date < $todaysdate){
+        return True;
+    }
+    else{
+        return False;
+    }}
 function delete_event($unwantedevent){
     global $dbname;
 	global $dbusername;
@@ -459,6 +473,13 @@ if($url_pieces[1] == 'addevent'){
 		}else{
 			$boolSuccess = False;
 		}
+		/* window output message */
+		if($boolSuccess){
+            echo "A new event with title $event[0] was added.";
+        }
+        else {
+            echo "An event with title $event[0] already exists.";
+        }
 	}
 }
 else if($url_pieces[1]=='showeventsbycategory'){
@@ -471,7 +492,7 @@ else if($url_pieces[1]=='showeventsbydate'){
 else if($url_pieces[1]=='deleteevent'){
     try{
     $boolSuccess = delete_event($_POST);  
-} catch (UnexpectedValueException $e){
+	} catch (UnexpectedValueException $e){
 				throw new Exception("Resource does not exist", 404);
 			}
 }
@@ -486,16 +507,7 @@ else if($url_pieces[1]=='showparticipants'){
     }    
 else{
 	echo 'unknown path';
-}
-/* window output message */
-if($url_pieces[1] == 'addevent'){
-		if($boolSuccess){
-            echo "A new event with title $event[0] was added.";
-        }
-        else {
-            echo "An event with title $event[0] already exists.";
-        }
-}
+	}
 
 ?>
 

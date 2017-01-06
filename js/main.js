@@ -145,7 +145,6 @@ function logoutconfirm(){
 //*AJAX GET to server to populate table with event details from database	*//
 function find(str) {
 	var dataA = "showevents" + str;
-
 	if (str == "bydate") {
 		var data1 = $('#searchdate1').val();
 		var data2 = $('#searchdate2').val();
@@ -158,7 +157,6 @@ function find(str) {
 		$('#events_table').innerHTML="";
 		return;
   	} 
-  	alert (dataA + dataB);
   	if (window.XMLHttpRequest) {
 		// code for IE7+, Firefox, Chrome, Opera, Safari
 		xmlhttp=new XMLHttpRequest();
