@@ -61,7 +61,7 @@ function addnewevent() {
 	var starttime = $('#starttime').val();
 	var enddate = $('#enddate').val();
 	var endtime = $('#endtime').val();
-	var description = $('#description').val();
+	var description = $('#neweventdescription').val();
 	var category = $('#neweventcategory').val();
 	var ticketstartdate = $('#ticketstartdate').val();
 	var ticketenddate = $('#ticketenddate').val();
@@ -74,7 +74,6 @@ function addnewevent() {
 	
 	// set AJAX datastring to be sent
 	var dataString = 'title=' + title + '&capacity=' + capacity + '&startdate=' + startdate + '&starttime=' + starttime + '&enddate=' + enddate + '&endtime=' + endtime + '&description=' + description + '&category=' + category + '&ticketstartdate=' + ticketstartdate + '&ticketenddate=' + ticketenddate +  '&FirstLine=' + FirstLine + '&SecondLine=' + SecondLine + '&City=' + City + '&County=' + County + '&PostCode=' + PostCode;
-	
 	if (title == '' || capacity == '' || startdate == '' || starttime == '' || enddate == '' || endtime == '' || description == '' || category == '' || ticketstartdate == '' || ticketenddate == '' || FirstLine == '' || SecondLine == '' || City == '' || County == '' || PostCode == '')
 	{
 		alert ("Please Fill All Fields ");
@@ -252,7 +251,6 @@ function getrowdata(currentRow){
     var eventdata = [];
     eventdata['ID'] = eventID;
     eventdata['title'] = eventtitle;
-    alert (eventdata['ID']+eventdata['title'] );
 	return eventdata;
 }
 function showguests(eventID, eventtitle) {
@@ -289,6 +287,26 @@ function eventsattending(){
   };
   xmlhttp.open("GET","event.php/showeventsattending",true);
   xmlhttp.send();
+}
+function submitfeedback(){
+	var comments = $('#comments').val();
+	var ratings = $('#ratings').val();
+	var dataString = 'comments=' + comments +'&ratings' + ratings;
+	//AJAX code to submit form.
+	$.ajax({
+			type: "POST",
+			url: "event.php/addguest",
+			data: dataString,
+			cache: false,
+			success: function() {
+				//Reload table with 
+				find("bycategory");
+				},
+			error: function()
+			{
+				alert('failed');
+			}
+			})	
 }
 //*Form Validation*//
 function check_passwords_match() {
