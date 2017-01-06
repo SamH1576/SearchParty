@@ -120,6 +120,7 @@ function attending() {
         $("#hosting").hide();
 		$("#search").hide();
 		$("#attending").toggle();
+		eventsattending();
 }
 // Logout Functiions
 function logout() {
@@ -202,7 +203,7 @@ function attendevent(eventID) {
 			cache: false,
 			success: function() {
 				//Reload table with 
-				find($('#desiredeventcategory').val());
+				find("bycategory");
 				},
 			error: function()
 			{
@@ -212,8 +213,7 @@ function attendevent(eventID) {
 }
 
 //* Host Events Functions					*//
-//*AJAX call to server to populate table with event details from database	*//
-//AJAX GET to server to show events hosted *//
+//*AJAX GET to server to populate table with event details from database	*//
 function hostedevents() {
 	if (window.XMLHttpRequest) {
 	// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -238,6 +238,13 @@ $(document).ready(function(){
          var eventtitle=currentRow.find(".hostedeventtitle").html(); // get current row table cell TD class= 'hostedeventtitle' value
          showguests(eventID, eventtitle);
     });
+ $("#eventsattending").on('click','.btngivefeedback',function(){
+         // get the current row
+         var currentRow=$(this).closest("tr"); 
+         var eventID=currentRow.find(".hostedeventID").html(); // get current row table cell TD class= 'hostedeventID' value
+         var eventtitle=currentRow.find(".hostedeventtitle").html(); // get current row table cell TD class= 'hostedeventtitle' value
+         // show feedback form
+    });
  });
 function showguests(eventID, eventtitle) {
 	var data1 = "<p>"+eventtitle+"</p>";
@@ -258,6 +265,22 @@ function showguests(eventID, eventtitle) {
   xmlhttp.send();
 }
 
+//* Events I'm Attending Functions *//
+//*AJAX GET to server to populate table with event details from database *//
+function eventsattending(){
+	if (window.XMLHttpRequest) {
+	// code for IE7+, Firefox, Chrome, Opera, Safari
+	xmlhttp=new XMLHttpRequest();
+  } else { // code for IE6, IE5
+	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange = function() {
+	 if (this.readyState == 4 && this.status == 200) { document.getElementById('eventsattending').innerHTML=this.responseText;
+													 }
+  };
+  xmlhttp.open("GET","event.php/showeventsattending",true);
+  xmlhttp.send();
+}
 //*Form Validation*//
 function check_passwords_match() {
 	var valid5 = document.getElementById("val5");

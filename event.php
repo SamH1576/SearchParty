@@ -434,6 +434,7 @@ function dbShowEventsAttending(){
 	$result = $db->query($sql);
 
 		if($result->rowCount() > 0){
+		echo "<table id='eventsattending'>
         <tr>
         <th>Event ID</th>
         <th>Event Title</th>
@@ -451,6 +452,7 @@ function dbShowEventsAttending(){
 	        //Check number of participants
 	        echo "<td>".$row['Description']."</td>";
 	        if(datepassed($row['StartDate'])){
+	        	echo "<td><input type='button' id='submit' class='btngivefeedback' value= 'Give Feedback'/></td>";
 	        }
 	        echo "</tr>";
         }
