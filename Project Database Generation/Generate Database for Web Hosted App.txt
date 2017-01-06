@@ -1,0 +1,156 @@
+DROP DATABASE IF EXISTS projectdb;
+CREATE DATABASE projectdb;
+
+USE projectdb;
+
+DROP TABLE IF EXISTS FKHost;
+DROP TABLE IF EXISTS FKGuest_List;
+DROP TABLE IF EXISTS FKEvent_Venue;
+DROP TABLE IF EXISTS FKCust_Address;
+DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS Venue_Address;
+DROP TABLE IF EXISTS Event;
+DROP TABLE IF EXISTS Cust_Address;
+
+CREATE TABLE Event (
+  Event_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
+  Title VARCHAR(255),
+  Capacity INT,
+  StartDate DATE,
+  StartTime TIME,
+  EndDate DATE,
+  EndTime TIME,
+  Description TEXT,
+  Category VARCHAR(255),
+  Ticket_startdate DATE,
+  Ticket_enddate DATE,
+  Reminder_sent BIT DEFAULT 0,
+  creation_time      DATETIME DEFAULT CURRENT_TIMESTAMP,
+  modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Venue_Address (
+  Venue_Address_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
+  FirstLine TEXT,
+  SecondLine TEXT,
+  City VARCHAR(255),
+  County VARCHAR(255),
+  PostCode VARCHAR(255),
+  creation_time      DATETIME DEFAULT CURRENT_TIMESTAMP,
+  modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE User (
+  User_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
+  Email VARCHAR(255),
+  Password VARCHAR(255),
+  FirstName VARCHAR(255),
+  LastName VARCHAR(255),
+  Phone VARCHAR(13),
+  creation_time      DATETIME DEFAULT CURRENT_TIMESTAMP,
+  modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Cust_Address (
+  Cust_Address_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
+  FirstLine TEXT,
+  SecondLine TEXT,
+  City VARCHAR(255),
+  County VARCHAR(255),
+  PostCode VARCHAR(255),
+  creation_time      DATETIME DEFAULT CURRENT_TIMESTAMP,
+  modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE FKHost (
+   User_ID INT,
+   Event_ID INT,
+   creation_time      DATETIME DEFAULT CURRENT_TIMESTAMP,
+   modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   FOREIGN KEY (User_ID) REFERENCES User(User_ID) ON DELETE CASCADE,
+   FOREIGN KEY (Event_ID) REFERENCES Event(Event_ID) ON DELETE CASCADE
+);
+
+CREATE TABLE FKEvent_Venue (
+  Event_ID INT,
+  Venue_Address_ID INT,
+  creation_time      DATETIME DEFAULT CURRENT_TIMESTAMP,
+  modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (Event_ID) REFERENCES Event(Event_ID) ON DELETE CASCADE,
+  FOREIGN KEY (Venue_Address_ID) REFERENCES Venue_Address(Venue_Address_ID) ON DELETE CASCADE
+);
+
+CREATE TABLE FKCust_Address (
+  Customer_ID INT,
+  Cust_Address_ID INT,
+  creation_time      DATETIME DEFAULT CURRENT_TIMESTAMP,
+  modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (Customer_ID) REFERENCES User(User_ID) ON DELETE CASCADE,
+  FOREIGN KEY (Cust_Address_ID) REFERENCES Cust_Address(Cust_Address_ID) ON DELETE CASCADE
+);
+
+CREATE TABLE FKGuest_List (
+  Event_ID INT,
+  User_ID INT,
+  Comments TEXT,
+  Rating INT,
+  creation_time      DATETIME DEFAULT CURRENT_TIMESTAMP,
+  modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (Event_ID) REFERENCES Event(Event_ID) ON DELETE CASCADE,
+  FOREIGN KEY (User_ID) REFERENCES User(User_ID) ON DELETE CASCADE
+);
+
+/* Create User hyminsa */ 
+/* Create User hyminsa */ 
+/* Create User hyminsa */ 
+DROP USER IF EXISTS 'hyminsa'@'52.212.165.195';
+CREATE USER 'hyminsa'@'52.212.165.195' identified by 'hyminsa';
+GRANT ALL PRIVILEGES ON projectdb.* to 'hyminsa'@'52.212.165.195';
+
+/* DUMMY DATA */
+/* DUMMY DATA */
+/* DUMMY DATA */
+
+INSERT INTO Event (Title, Capacity, StartDate, StartTime, EndDate, EndTime, Description, Category, Ticket_startdate, Ticket_enddate) 
+VALUES 
+('Pure Hard Dance event', 300, '2017-01-01', '21:00:00', '2017-01-02', '04:00:00', 'Pure hard dance feat Ben Nicky', 'Music', '2017-01-01', '2017-01-09'),
+('Jazz Rock', 15, '2017-01-11', '21:00:00', '2017-01-12', '02:00:00', 'Jazz night brought to you by Sam Konig', 'Music', '2017-01-02', '2017-01-10'),
+('Muzzing Bonanza', 6, '2017-01-15', '17:00:00', '2017-01-15', '19:00:00', 'Muzzking in the quad', 'Music', '2017-01-02', '2017-01-14');
+
+INSERT INTO Venue_Address (FirstLine, SecondLine, City, County, PostCode)
+VALUES 
+('O2 Academy', 'Brixton', 'London', 'LDN', 'WXX XXX'),
+('The Jazz Bowl', 'Soho', 'Greater London', 'LDN', 'WXX XXZ'),
+('UCL Main Quad', 'Gower St', 'London', 'LDN', 'W1CE 7HZ');
+
+INSERT INTO User (Email, Password, FirstName, LastName, Phone)
+VALUES 
+('notarealemail1@ucl.com', 'password1', 'Hywell', 'Davies', '000111222333'),
+('notarealemail2@ucl.com', 'password2', 'Sam', 'Konig', '0001313654');
+
+INSERT INTO Cust_Address (FirstLine, SecondLine, City, County, PostCode)
+VALUES 
+('Private Home 1', 'Fake Street ', 'London', 'Silly County', 'WCX XXX'),
+('8a My Home', 'My street', 'London', 'Billy County', 'WCE XXZ');
+
+INSERT INTO FKHost (User_ID, Event_ID)
+VALUES
+(1, 1), 
+(2, 2),
+(1, 3);
+
+INSERT INTO FKEvent_Venue (Event_ID, Venue_Address_ID)
+VALUES
+(1, 1), 
+(2, 2),
+(3, 3);
+
+INSERT INTO FKCust_Address (Customer_ID, Cust_Address_ID)
+VALUES
+(1, 1), 
+(2, 2);
+
+INSERT INTO FKGuest_List (Event_ID, User_ID)
+VALUES
+(1, 2), 
+(2, 1);
