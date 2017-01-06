@@ -364,8 +364,8 @@ function dbShowhostedEvents() {
         </tr>";
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 	        echo "<tr>";
-	        echo "<td class='hostedeventID'>" . $row['Event_ID'] . "</td>";
-	        echo "<td class='hostedeventtitle'>" . $row['Title'] . "</td>";
+	        echo "<td class='roweventID'>" . $row['Event_ID'] . "</td>";
+	        echo "<td class='roweventtitle'>" . $row['Title'] . "</td>";
 			//Convert date to better format
 	        $displaydate = date_format(new DateTime($row['StartDate']),"d F Y");
 	        echo "<td> $displaydate ";
@@ -444,8 +444,8 @@ function dbShowEventsAttending(){
         </tr>";
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 	        echo "<tr>";
-	        echo "<td class='hostedeventID'>" . $row['Event_ID'] . "</td>";
-	        echo "<td class='hostedeventtitle'>" . $row['Title'] . "</td>";
+	        echo "<td class='roweventID'>" . $row['Event_ID'] . "</td>";
+	        echo "<td class='roweventtitle'>" . $row['Title'] . "</td>";
 			//Convert date to better format
 	        $displaydate = date_format(new DateTime($row['StartDate']),"d F Y");
 	        echo "<td> $displaydate </td>";

@@ -233,19 +233,26 @@ $(document).ready(function(){
  
  $("#hostedevents").on('click','.btndisplayguests',function(){
          // get the current row
-         var currentRow=$(this).closest("tr"); 
-         var eventID=currentRow.find(".hostedeventID").html(); // get current row table cell TD class= 'hostedeventID' value
-         var eventtitle=currentRow.find(".hostedeventtitle").html(); // get current row table cell TD class= 'hostedeventtitle' value
-         showguests(eventID, eventtitle);
+        var currentRow=$(this).closest("tr"); 
+        var eventdata = getrowdata(currentRow);
+        showguests(eventdata['ID'], eventdata['title']);
     });
  $("#eventsattending").on('click','.btngivefeedback',function(){
          // get the current row
-         var currentRow=$(this).closest("tr"); 
-         var eventID=currentRow.find(".hostedeventID").html(); // get current row table cell TD class= 'hostedeventID' value
-         var eventtitle=currentRow.find(".hostedeventtitle").html(); // get current row table cell TD class= 'hostedeventtitle' value
+        var currentRow=$(this).closest("tr"); 
+        var eventdata = getrowdata(currentRow);
          // show feedback form
     });
  });
+function getrowdata(currentRow){
+    var eventID= currentRow.find(".roweventID").html(); // get current row table cell TD class= 'hostedeventID' value
+    var eventtitle= currentRow.find(".roweventtitle").html(); // get current row table cell TD class= 'hostedeventtitle' value
+    var eventdata = [];
+    eventdata['ID'] = eventID;
+    eventdata['title'] = eventtitle;
+    alert (eventdata['ID']+eventdata['title'] );
+	return eventdata;
+}
 function showguests(eventID, eventtitle) {
 	var data1 = "<p>"+eventtitle+"</p>";
 	if (window.XMLHttpRequest) {
