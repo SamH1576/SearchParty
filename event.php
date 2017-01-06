@@ -404,15 +404,15 @@ function dbShowEventParticipants(){
 	JOIN fkguest_list AS fk ON fk.User_ID = u.User_ID WHERE fk.event_ID =  $eventID ORDER BY Name";
 	$result = $db->query($sql);
 	if ($result->rowCount() > 0){
-		echo "<table>
+		echo "<table id='guesttable'>
         <tr>
-        <th>Guest Email</th>
-        <th>Name</th>
+        <th class='tableheads'>Guest Email</th>
+        <th class='tableheads'>Name</th>
         </tr>";
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         	echo "<tr>";
-	        echo "<td>" . $row['Guest_Email'] . "</td>";
-	        echo "<td>" . $row['Name'] . "</td>";
+	        echo "<td class='info2'>" . $row['Guest_Email'] . "</td>";
+	        echo "<td class='info2'>" . $row['Name'] . "</td>";
 	        echo "</tr>";
         }
 	}else{

@@ -132,20 +132,34 @@ font-family: Arial;
     padding-top: 1%;
     padding-bottom: 1%;
 }
-#hostedevents, .tablehead, #info {
+#hostedevents, .tablehead, #info, .info2, #guesttable {
     border: 2px solid black;
     color: white;
     border-collapse: collapse;
     border-color: #FFFF00;
     font-family: Arial;   
 }
-.tablehead, #info {
+.tablehead, #info, .info2 {
     width:5%;
     text-align: center;
     padding-top: 0.5%;
     padding-bottom: 0.5%;
     padding-right: 0.5%;
     padding-left: 0.5%;
+}
+#eventguests {
+    float: left;
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 3%;
+    margin-bottom: 5%;
+    background-color: #483d8b;
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    color: white;
+    font-family: Arial;
 }
 #search {
 	float: left;
