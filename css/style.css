@@ -137,7 +137,7 @@ font-family: Arial;
     padding-top: 1%;
     padding-bottom: 1%;
 }
-#hostedevents, .tablehead, #info, .info2, #guesttable {
+#hostedevents, .tablehead, #info, .info2, #eventsattending, #info3, #guesttable {
     border: 2px solid black;
     color: white;
     border-collapse: collapse;
@@ -151,6 +151,14 @@ font-family: Arial;
     padding-bottom: 0.5%;
     padding-right: 0.5%;
     padding-left: 0.5%;
+}
+#info3 {
+    width:8%;
+    text-align: center;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    padding-right: 0.5%;
+    padding-left: 0.5%; 
 }
 #eventguests {
     float: left;
@@ -214,11 +222,37 @@ font-family: Arial;
     background-color: #FFFF00;
 }
 #attending {
-  display: none;
+    display: none;
 }
+#attendingtable{
+    background-color: #483d8b;
+    margin-top: 3%;
+    padding:1% 1% 1% 1%;
+    font-family: Arial;
+    color: white;
+    width: 60%;
+    margin-left: 20%;
+}
+#feedbacktext {
+    background-color: #483d8b;
+    padding:1% 1% 1% 1%;
+    font-family: Arial;
+    color: white;
+    width: 25%;
+    height: 20%;
+    position: absolute;
+    top: 30%;
+    right:1%;
+    display: none;
+}
+#textbox {
+    width:100%;
+    height:60%;
+}
+
 #logoutbutton {
-float:right;
-margin-right: 2%;
+    float:right;
+    margin-right: 2%;
 }
 #logout {
     background-color: #483d8b;

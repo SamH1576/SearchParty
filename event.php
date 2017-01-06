@@ -441,23 +441,23 @@ function dbShowEventsAttending(){
 		if($result->rowCount() > 0){
 		echo "<table id='eventsattending'>
         <tr>
-        <th>Event ID</th>
-        <th>Event Title</th>
-        <th>Event Date</th>
-        <th>Description</th>
-        <th> </th>
+        <th class='tableheads'>Event ID</th>
+        <th class='tableheads'>Event Title</th>
+        <th class='tableheads'>Event Date</th>
+        <th class='tableheads'>Description</th>
+        <th class='tableheads'>Feedback</th>
         </tr>";
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 	        echo "<tr>";
-	        echo "<td class='roweventID'>" . $row['Event_ID'] . "</td>";
-	        echo "<td class='roweventtitle'>" . $row['Title'] . "</td>";
+	        echo "<td id='info3' class='roweventID'>" . $row['Event_ID'] . "</td>";
+	        echo "<td id='info3' class='roweventtitle'>" . $row['Title'] . "</td>";
 			//Convert date to better format
 	        $displaydate = date_format(new DateTime($row['StartDate']),"d F Y");
-	        echo "<td> $displaydate </td>";
+	        echo "<td id='info3'> $displaydate </td>";
 	        //Check number of participants
-	        echo "<td>".$row['Description']."</td>";
+	        echo "<td id='info3'>".$row['Description']."</td>";
 	        if(datepassed($row['StartDate'])){
-	        	echo "<td><input type='button' id='submit' class='btngivefeedback' value= 'Give Feedback'/></td>";
+	        	echo "<td id='info3'><input type='button' id='submit' class='btngivefeedback' value= 'Give Feedback'/></td>";
 	        }
 	        echo "</tr>";
         }

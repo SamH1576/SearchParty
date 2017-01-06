@@ -242,6 +242,8 @@ $(document).ready(function(){
          // get the current row
         var currentRow=$(this).closest("tr"); 
         var eventdata = getrowdata(currentRow);
+        $("#feedbacktext").show();
+        document.getElementById("eventname").innerHTML = eventdata['title'];
          // show feedback form
     });
  });
@@ -321,3 +323,9 @@ function check_passwords_match() {
 		valid5.style.display = "block";
 	}
 }
+//*Text box for feedback*//
+//function feedbackbox() {
+//    var eventtitle= currentRow.find(".roweventtitle").html();
+  //  $("#feedbacktext").show();
+    //document.getElementById("eventname").innerHTML = eventtitle;
+//}
