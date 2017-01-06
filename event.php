@@ -239,13 +239,12 @@ function display_events($type) {
 		JOIN venue_address AS v ON fk.Venue_Address_ID = v.Venue_Address_ID WHERE e.category = '$category'
 		ORDER BY Title";
 	}else if ($type == "bydate"){
-		//data handling of $url_pieces[2] to date in order to compare with MySQL database
 		$date = explode('.', $url_pieces[2]);
 		//Query to obtain key event details from two seperate tables using fkevent_venue constraint by event date
 		$sql= "SELECT e.Event_ID AS Event_ID, e.Capacity as Capacity, e.title AS Title, e.startdate AS StartDate, e.StartTime AS StartTime, e.EndDate AS EndDate, e.EndTime AS EndTime, e.Description AS Description, e.category AS Category, e.Ticket_enddate AS stopsaledate, CONCAT(v.firstline ,', ', v.city ,' ', v.postcode) AS Address 
 		FROM event AS e
 		JOIN fkevent_venue AS fk ON fk.Event_ID = e.Event_ID
-		JOIN venue_address AS v ON fk.Venue_Address_ID = v.Venue_Address_ID WHERE e.startdate >= 'date[1]' AND e.startdate <= 'date[2]'
+		JOIN venue_address AS v ON fk.Venue_Address_ID = v.Venue_Address_ID WHERE e.startdate >= '$date[0]' AND e.startdate <= '$date[1]'
 		ORDER BY Title";
     }
     $result = $db->query($sql);
@@ -266,7 +265,7 @@ function display_events($type) {
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         echo "<tr id='tableinfo'>";
         //Function to echo correct input type depending on user and event. If user is a host/already going, message will show as "User is a host/going". If user can be a participant, button will be displayed with "I am going to this event!"
-        echoinputforuser($category, $row, $db); 
+        echoinputforuser($row, $db); 
         echo "<td class='eventtoattend'>" . $row['Title'] . "</td>";
        	echo "<td class='eventtoattend'>" . $row['StartDate'] . "</td>";
         echo "<td class='eventtoattend'>" . $row['StartTime'] . "</td>";
@@ -291,7 +290,7 @@ function display_events($type) {
     }
 	$db = null;}
 
-function echoinputforuser($category, $row, $db){
+function echoinputforuser($row, $db){
     $eventtitle =  $row['Title'];
     $eventID = $row['Event_ID'];
     $capacity = $row['Capacity'];
