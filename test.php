@@ -1,10 +1,14 @@
 <?php
+require_once('FirePHPCore/FirePHP.class.php');
+$firephp = FirePHP::getInstance(true);
+
 include 'Database-config.php';	
     //Login to database
 	try{
 	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
 	}catch{
-		echo 'Connection failed: ' . $db->getMessage();	
+		$msg = $db->getMessage();	
+		$firephp->info($msg);
 	}
 
 
