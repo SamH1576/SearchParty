@@ -92,7 +92,7 @@ CREATE TABLE FKCust_Address (
 CREATE TABLE FKGuest_List (
   Event_ID INT,
   User_ID INT,
-  Feedback TEXT,
+  CommentsTEXT,
   Rating INT,
   creation_time      DATETIME DEFAULT CURRENT_TIMESTAMP,
   modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

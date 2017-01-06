@@ -465,6 +465,17 @@ function dbShowEventsAttending(){
     	echo "You currently aren't hosting any events";
     }
 }
+function dbSubmitFeedback($array){
+	global $dbname;
+	global $dbusername;
+	global $dbpassword;
+	global $dbhost;
+	$userID = $_SESSION['usernameID'];
+    //db connection
+	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
+	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$sql = "UPDATE fkguest_list SET comments =  '".$array['comments']."', rating =  '".$array['ratings']."' WHERE User_ID = $userID AND Event_ID = '".$array['eventID']."' ";
+}
 //General functions
 function numberofguestsattending($row, $db) {
 	$eventID = $row['Event_ID'];
@@ -549,11 +560,14 @@ else if($url_pieces[1]=='showhostedevents'){
 else if($url_pieces[1]=='showeventsattending'){
        dbShowEventsAttending();
     }
+else if($url_pieces[1]=='submitfeedback'){
+       dbSubmitFeedback($_POST);
+    } 
 else if($url_pieces[1]=='showparticipants'){
        dbShowEventParticipants();
     }    
 else{
-	echo 'unknownadsf path';
+	echo 'unknown path';
 	}
 
 ?>

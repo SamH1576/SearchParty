@@ -297,18 +297,12 @@ function submitfeedback(){
 	//AJAX code to submit form.
 	$.ajax({
 			type: "POST",
-			url: "event.php/addguest",
+			url: "event.php/submitfeedback",
 			data: dataString,
 			cache: false,
 			success: function() {
-				//Reload table with 
-				find("bycategory");
-				},
-			error: function()
-			{
-				alert('failed');
-			}
-			})	
+				alert ("Feedback successfully submitted");
+			}})
 }
 //*Form Validation*//
 function check_passwords_match() {
