@@ -111,7 +111,7 @@ GRANT ALL PRIVILEGES ON projectdb.* to 'hyminsa'@'localhost';
 
 INSERT INTO Event (Title, Capacity, StartDate, StartTime, EndDate, EndTime, Description, Category, Ticket_startdate, Ticket_enddate) 
 VALUES 
-('Pure Hard Dance event', 300, '2017-01-04', '21:00:00', '2017-01-06', '04:00:00', 'Pure hard dance feat Ben Nicky', 'Music', '2017-01-01', '2017-01-09'),
+('Pure Hard Dance event', 300, '2017-01-01', '21:00:00', '2017-01-02', '04:00:00', 'Pure hard dance feat Ben Nicky', 'Music', '2017-01-01', '2017-01-09'),
 ('Jazz Rock', 15, '2017-01-11', '21:00:00', '2017-01-12', '02:00:00', 'Jazz night brought to you by Sam Konig', 'Music', '2017-01-02', '2017-01-10'),
 ('Muzzing Bonanza', 6, '2017-01-15', '17:00:00', '2017-01-15', '19:00:00', 'Muzzking in the quad', 'Music', '2017-01-02', '2017-01-14');
 

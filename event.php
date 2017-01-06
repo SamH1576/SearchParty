@@ -323,7 +323,7 @@ function echoinputforuser($row, $db){
         }
     //Give button input to assign user as a guest
     else if ($result->rowCount() == 0 && $result1->rowCount() == 0) {
-        echo "<td id='eventselect'><input type='button' id='submit' onclick= 'attendevent($eventID)' value= 'I'm down for  $eventtitle'/></td>";
+        echo "<td id='eventselect'><input type='button' id='submit' onclick= 'attendevent(".$eventID.")' value= 'I am going for $eventtitle'/></td>";
     }
 }
 function dbAssignUserasGuest($array){
@@ -364,8 +364,7 @@ function dbShowhostedEvents() {
         </tr>";
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 	        echo "<tr>";
-	        $eventID = $row['Event_ID'];
-	        echo "<td class='hostedeventID'>$eventID</td>";
+	        echo "<td class='hostedeventID'>" . $row['Event_ID'] . "</td>";
 	        echo "<td class='hostedeventtitle'>" . $row['Title'] . "</td>";
 			//Convert date to better format
 	        $displaydate = date_format(new DateTime($row['StartDate']),"d F Y");
@@ -382,7 +381,7 @@ function dbShowhostedEvents() {
 	        	echo "-sold out";
 	 		}
 	        echo "</td>";
-	        echo "<td><input type='button' id='submit' class='btndisplayguests' value= 'Display guests'/></td>";
+	        echo "<td><input type='button' id='submit' class='btndisplayguests' value= 'Display $guests guest(s)'/></td>";
 
 	        echo "</tr>";
         }
@@ -420,6 +419,45 @@ function dbShowEventParticipants(){
 	}
 }
 
+//Function to show events attending
+function dbShowEventsAttending(){
+	global $dbname;
+	global $dbusername;
+	global $dbpassword;
+	$userID = $_SESSION['usernameID'];
+    //db connection
+	$db = new PDO("mysql:dbname=$dbname", "$dbusername", "$dbpassword");
+	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$sql = "SELECT e.Event_ID AS Event_ID, e.StartDate AS StartDate, e.title AS Title, e.description AS Description 
+	FROM event AS e
+	JOIN fkguest_list AS fk ON fk.Event_ID = e.Event_ID WHERE fk.User_ID =  $userID ORDER BY Title";
+	$result = $db->query($sql);
+
+		if($result->rowCount() > 0){
+        <tr>
+        <th>Event ID</th>
+        <th>Event Title</th>
+        <th>Event Date</th>
+        <th>Description</th>
+        <th> </th>
+        </tr>";
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+	        echo "<tr>";
+	        echo "<td class='hostedeventID'>" . $row['Event_ID'] . "</td>";
+	        echo "<td class='hostedeventtitle'>" . $row['Title'] . "</td>";
+			//Convert date to better format
+	        $displaydate = date_format(new DateTime($row['StartDate']),"d F Y");
+	        echo "<td> $displaydate </td>";
+	        //Check number of participants
+	        echo "<td>".$row['Description']."</td>";
+	        if(datepassed($row['StartDate'])){
+	        }
+	        echo "</tr>";
+        }
+    }else{
+    	echo "You currently aren't hosting any events";
+    }
+}
 //General functions
 function numberofguestsattending($row, $db) {
 	$eventID = $row['Event_ID'];
@@ -501,11 +539,14 @@ else if($url_pieces[1]=='addguest'){
 else if($url_pieces[1]=='showhostedevents'){
        dbShowhostedEvents();
     }
+else if($url_pieces[1]=='showeventsattending'){
+       dbShowEventsAttending();
+    }
 else if($url_pieces[1]=='showparticipants'){
        dbShowEventParticipants();
     }    
 else{
-	echo 'unknown path';
+	echo 'unknownadsf path';
 	}
 
 ?>

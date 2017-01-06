@@ -46,7 +46,7 @@
       <input class="box" type="date" id="searchdate2" name="searchdate2" onchange=isdatelater("SearchEvent") required/><br><br>
   </div>
   <div id="searchbutton">
-    <input class="submit" type = "button" onclick = find("bydate") value = "Search!"/>
+    <input class="submit" type = "button" onclick = find("bydate") value = "Filter!"/>
   </div>
   <div id="events_table"><br><b>Events will be listed here</b></div>
 </div>
@@ -124,8 +124,9 @@
 
 <!--Attending Tab-->
 <div id = "attending">
-  <fieldset id="eventsattending">
-    <legend>Events I'm Attending</legend>
+  <fieldset id="attendinfo">
+    <legend>Events I'm Attending / Attended</legend>
+    <div id = "eventsattending"> </div>
   </fieldset>
 </div>
 
