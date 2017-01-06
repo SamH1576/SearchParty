@@ -137,6 +137,21 @@ font-family: Arial;
     margin-bottom: 5%;
     font-family: Arial;
 }
+#searchcategory {
+    float: left;
+    margin-right: 5%;
+}
+#searchdates {
+    float: left;
+    margin-right: 1%;
+}
+#events_table {
+    margin-top: 3%;
+
+}
+#searchbutton {
+    margin-top: 7%;
+}
 #eventtable, .tableheads, .eventtoattend {
     border: 2px solid black;
     color: white;

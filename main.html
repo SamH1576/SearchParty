@@ -28,20 +28,26 @@
 <!--Search Events tab-->
 <div id = "search">
 <h2> Select what kind of event you would like to attend.</h2>
-  <h3>Search for events by Category</h3>
-    <select id = "desiredeventcategory" onchange = find("bycategory");>
-      <option value="default" selected>Choose</option>
-      <option value="music">Music</option>
-      <option value="sport">Sport</option>
-      <option value="art">Art Exhibition</option>
-      <option value="other">Other</option>
-    </select>
-  <h3>Search for events between the dates</h3>
-    <label for="startdate">Between</label><br>
-    <input class="box" type="date" id="searchdate1" name="searchdate1"/><br>
-    <label for="starttime">And</label><br>
-    <input class="box" type="date" id="searchdate2" name="searchdate2" onchange=isdatelater("SearchEvent") required/><br>
-    <input type = "button" onclick = find("bydate") value = "Search!"/>
+  <div id="searchcategory">
+    <h3>Search for events by Category</h3>
+      <select id = "desiredeventcategory" onchange = find("bycategory");>
+        <option value="default" selected>Choose</option>
+        <option value="music">Music</option>
+        <option value="sport">Sport</option>
+        <option value="art">Art Exhibition</option>
+        <option value="other">Other</option>
+      </select>
+  </div>
+  <div id="searchdates">
+    <h3>Search for events between the dates</h3>
+      <label for="startdate">Between</label><br>
+      <input class="box" type="date" id="searchdate1" name="searchdate1"/><br>
+      <label for="starttime">And</label><br>
+      <input class="box" type="date" id="searchdate2" name="searchdate2" onchange=isdatelater("SearchEvent") required/><br><br>
+  </div>
+  <div id="searchbutton">
+    <input class="submit" type = "button" onclick = find("bydate") value = "Search!"/>
+  </div>
   <div id="events_table"><br><b>Events will be listed here</b></div>
 </div>
 
