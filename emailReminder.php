@@ -63,6 +63,7 @@ foreach ($result as $row) {
 			$stmt->execute();
 			//echo "Sending email to '".$row2['Email']."' Success";
 		}
+		$mail->clearAddresses();
 	}
 }
 $db = null;
