@@ -212,6 +212,11 @@ function attendevent(eventID) {
 			}
 			})  
 }
+//*Display past events with option to see reviews*//
+//*AJAX GET to server to populate table with past event details from database	*//
+function displaypastevents() {
+
+}
 
 //* Host Events Functions					*//
 //*AJAX GET to server to populate table with event details from database	*//

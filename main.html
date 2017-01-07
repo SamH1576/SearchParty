@@ -40,16 +40,20 @@
   </div>
   <div id="searchdates">
     <h3>Search for events between the dates</h3>
-      <label for="startdate">Between</label><br>
-      <input class="box" type="date" id="searchdate1" name="searchdate1"/><br>
-      <label for="starttime">And</label><br>
-      <input class="box" type="date" id="searchdate2" name="searchdate2" onchange=isdatelater("SearchEvent") required/><br><br>
+    <label for="startdate">Between</label><br>
+    <input class="box" type="date" id="searchdate1" name="searchdate1"/><br>
+    <label for="starttime">And</label><br>
+    <input class="box" type="date" id="searchdate2" name="searchdate2" onchange=isdatelater("SearchEvent") required/><br><br>
+    <div id="searchbutton">
+      <input class="submit" type = "button" onclick = find("bydate") value = "Search!"/>
+    </div>
   </div>
-  <div id="searchbutton">
-    <input class="submit" type = "button" onclick = find("bydate") value = "Search!"/>
+  <div id="pastevents">
+    <h3>Past Events</h3>
+    <input class="submit" type = "button" onclick = "displaypastevents()"" value = "Past Events"/>
   </div>
   <div id="events_table"><br><b>Events will be listed here</b></div>
-</div>
+
 
 <!--Host Events tab-->
 <div id="hosting">
