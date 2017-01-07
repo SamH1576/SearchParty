@@ -92,8 +92,8 @@ CREATE TABLE FKCust_Address (
 CREATE TABLE FKGuest_List (
   Event_ID INT,
   User_ID INT,
-  CommentsTEXT,
-  Rating INT,
+  Comments TEXT DEFAULT null,
+  Rating INT DEFAULT null,
   creation_time      DATETIME DEFAULT CURRENT_TIMESTAMP,
   modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (Event_ID) REFERENCES Event(Event_ID) ON DELETE CASCADE,

@@ -457,13 +457,41 @@ function dbShowEventsAttending(){
 	        //Check number of participants
 	        echo "<td id='info3'>".$row['Description']."</td>";
 	        if(datepassed($row['StartDate'])){
+	        	$feedbackdata=dbCheckFeedbackSubmitted($row['Event_ID'], $db, $userID);
+
+	        	if($feedbackdata['submitted']){
+	        		echo "<td id='info3'><input type='button' id='submit' class='btngivefeedback' value= 'Feedback has been submitted. Edit Feedback?'/>";
+	        		echo "<p>Comments: ".$feedbackdata['comments']." </p>";
+		        	echo "<p>Rating: ".$feedbackdata['rating']."</p>";
+		        	echo "</td>";
+	        	}
+	        	else{
 	        	echo "<td id='info3'><input type='button' id='submit' class='btngivefeedback' value= 'Give Feedback'/></td>";
+	        	}
+	        }
+	        else{
+	        	echo "<td id='info3'>Please wait until after the event to give feedback!</td>";
 	        }
 	        echo "</tr>";
         }
     }else{
     	echo "You currently aren't hosting any events";
     }
+    $db = null;
+}
+function dbCheckFeedbackSubmitted($eventID, $db, $userID){
+	$sql = "SELECT fk.Event_ID AS event_id, fk.User_ID AS user_id, fk.Comments AS Comments, fk.Rating AS Rating FROM fkguest_list AS fk WHERE fk.event_id = '$eventID' AND fk.user_id = '$userID'";
+	$result = $db->query($sql);
+	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		if ($row['Comments'] == null && $row['Rating']== null){
+			$feedbackdata['submitted']=false;
+		}else{
+			$feedbackdata['submitted']=true;
+			$feedbackdata['comments'] = $row['Comments'];
+			$feedbackdata['rating'] = $row['Rating'];
+	}
+	}
+	return $feedbackdata; 
 }
 function dbSubmitFeedback($array){
 	global $dbname;
@@ -474,7 +502,8 @@ function dbSubmitFeedback($array){
     //db connection
 	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	$sql = "UPDATE fkguest_list SET comments =  '".$array['comments']."', rating =  '".$array['ratings']."' WHERE User_ID = $userID AND Event_ID = '".$array['eventID']."' ";
+	$sql = "UPDATE fkguest_list SET comments =  '" . $array['comments'] . "', rating =  '" . $array['ratings'] . "' WHERE User_ID = '$userID' AND Event_ID = '" . $array['eventID'] . "'";
+	$db->exec($sql);
 }
 //General functions
 function numberofguestsattending($row, $db) {

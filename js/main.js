@@ -242,9 +242,14 @@ $(document).ready(function(){
          // get the current row
         var currentRow=$(this).closest("tr"); 
         var eventdata = getrowdata(currentRow);
+        // show feedback form
+        var html = '<h3 id="eventname"></h3>' + 
+    	'<input type="textarea" id="comments"/>' +
+    	'<input type="number" id="ratings" min="0" max="5">' +
+    	'<input type="box" class= "submit" id="submit" onclick="submitfeedback(' + eventdata['ID'] + ')" value="Submit Feedback!"/>'	
+    	$("div#feedbacktext").empty();
+        $("#feedbacktext").append(html);
         $("#feedbacktext").show();
-        document.getElementById("eventname").innerHTML = eventdata['title'];
-         // show feedback form
     });
  });
 function getrowdata(currentRow){
@@ -290,20 +295,27 @@ function eventsattending(){
   xmlhttp.open("GET","event.php/showeventsattending",true);
   xmlhttp.send();
 }
-function submitfeedback(){
+function submitfeedback(eventID){
 	var comments = $('#comments').val();
 	var ratings = $('#ratings').val();
-	var dataString = 'comments=' + comments +'&ratings' + ratings;
-	//AJAX code to submit form.
-	$.ajax({
+	if(comments == '' || ratings == ''){
+		alert ("Please fill in all fields");
+	}
+	else{
+		var dataString = 'comments=' + comments + '&ratings=' + ratings +'&eventID=' + eventID;
+		//AJAX code to submit form.
+		$.ajax({
 			type: "POST",
 			url: "event.php/submitfeedback",
 			data: dataString,
 			cache: false,
 			success: function() {
-				alert ("Feedback successfully submitted");
-			}})
+				eventsattending();
+			}
+		})
+	}
 }
+
 //*Form Validation*//
 function check_passwords_match() {
 	var valid5 = document.getElementById("val5");
