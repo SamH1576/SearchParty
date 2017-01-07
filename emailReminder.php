@@ -67,4 +67,5 @@ foreach ($result as $row) {
 	}
 }
 $db = null;
+$mail = null;
 ?>
