@@ -50,7 +50,7 @@ foreach ($result as $row) {
 		// echo $row2['Name'];
 		//Set address
 		$mail->addAddress($row2['Email'], $row2['Name']);
-		$body = "<p>Dear '".$row2['Name']."',</p>
+		$body = "<p>Dear ".$row2['Name'].",</p>
 		<p>This is a reminder that your event '".$row['Title']."' is tomorrow!</p>
 		<p>From SearchParty</p>";
 		$mail->msgHTML($body);
