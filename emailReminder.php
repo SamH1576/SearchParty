@@ -7,6 +7,7 @@ session_start();
 date_default_timezone_set('Etc/UTC');
 require 'PHPMailer/PHPMailerAutoload.php';
 
+$mailfrom = "testsearchpartytest@mail.com";
 
 $mail = new PHPMailer;
 $mail->isSMTP();
@@ -22,11 +23,11 @@ $mail->SMTPSecure = 'tls';
 $mail->SMTPAuth = true;
 $mail->SMTPKeepAlive = true; // SMTP connection will not close after each email sent, reduces SMTP overhead
 //Username to use for SMTP authentication - use full email address for gmail
-$mail->Username = "searchparty@engineer.com";
+$mail->Username = $mailfrom;
 //Password to use for SMTP authentication
 $mail->Password = "COMP310P";
 //Set who the message is to be sent from
-$mail->setFrom('searchparty@engineer.com', 'SearchParty');
+$mail->setFrom($mailfrom, 'SearchParty');
 //Set an alternative reply-to address
 $mail->addReplyTo('searchparty@engineer.com', 'SearchParty');
 $mail->Subject = "Event Reminder!";
