@@ -5,7 +5,7 @@ include 'Database-config.php';
 session_start();
 
 date_default_timezone_set('Etc/UTC');
-require 'PHPMailer/PHPMailerAutoload.php';
+require '	PHPMailer/PHPMailerAutoload.php';
 
 
 $mail = new PHPMailer;
@@ -37,7 +37,7 @@ $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
 //Get list of events where a reminder hasn't been sent and it is the day before the startdate
-$result=$db->query("SELECT Event_ID, Title FROM event WHERE Reminder_sent= 0 AND StartDate = CURDATE() - INTERVAL 1 DAY");
+$result=$db->query("SELECT Event_ID, Title FROM event WHERE Reminder_sent= 0 AND CURDATE() = StartDate - INTERVAL 1 DAY");
 //LOOP OVER EVENTS
 foreach ($result as $row) {
 	//echo $row['Event_ID'];
