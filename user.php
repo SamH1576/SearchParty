@@ -230,7 +230,7 @@ function delete_user($cust_info){
 	global $dbname;
 	global $dbusername;
 	global $dbpassword;
-	global $dbhost
+	global $dbhost;
 	//Login to database
 	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
