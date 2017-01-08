@@ -351,9 +351,8 @@ function dbShowPastEvents(){
     //db connection
 	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	$sql = "SELECT e.Event_ID AS Event_ID, e.StartDate AS Date, e.title AS Title, e.description AS Description, e.EndDate AS EndDate, fk.rating AS Rating, fk.comments AS Comments
-	FROM event AS e
-	JOIN fkguest_list AS fk ON fk.Event_ID = e.Event_ID WHERE e.EndDate <= CURDATE() ORDER BY StartDate";
+	$sql = "SELECT e.Event_ID AS Event_ID, e.StartDate AS Date, e.title AS Title, e.description AS Description, e.EndDate AS EndDate
+	FROM event AS e  WHERE e.EndDate <= CURDATE()";
 	$result = $db->query($sql);
 		if($result->rowCount() > 0){
 		echo "<table id='pastevents'>
@@ -398,27 +397,27 @@ function dbShowEventFeedback(){
 	$result1 = $db->query($sql);
 		if($result->rowCount() > 0){
 			//Display table heads
-			while ($row = $result1->fetch(PDO::FETCH_ASSOC)) {
-				echo "<fieldset><legend><h3>".$row['Title']."</h3></legend>
-				<table id='eventfeedback'>
-		        <tr>
-		        <th class='tableheads'>User</th>
-		        <th class='tableheads'>Rating</th>
-		        <th class='tableheads'>Comments</th>
-		        </tr>";
-		    }
+			$row = $result1->fetch(PDO::FETCH_ASSOC);
+			echo "<fieldset><legend><h3>".$row['Title']."</h3></legend>
+			<table id='eventfeedback'>
+	        <tr>
+	        <th class='tableheads'>User</th>
+	        <th class='tableheads'>Rating</th>
+	        <th class='tableheads'>Comments</th>
+	        </tr>";
+		    //Display user feedback
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-		        echo "<tr>";
-		        echo "<td id='info3' >" . $row['User']. "</td>";
-		        echo "<td id='info3' >" . $row['Rating'] . "</td>";
-		        //Check number of participants
-		        echo "<td id='info3'>".$row['Comments']."</td>";
-		        echo "</tr>";
+	        echo "<tr>";
+	        echo "<td id='info3' >" . $row['User']. "</td>";
+	        echo "<td id='info3' >" . $row['Rating'] . "</td>";
+	        //Check number of participants
+	        echo "<td id='info3'>".$row['Comments']."</td>";
+	        echo "</tr>";
 	        }
 	        echo "</fieldset>";
-    }else{
-    	echo "Feedback has not been submitted for this event!";
-    }
+    	}else{
+    		echo "Feedback has not been submitted for this event!";
+    	}	
     $db = null;
 }
 
