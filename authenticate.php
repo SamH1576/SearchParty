@@ -38,8 +38,7 @@ $verb = $_SERVER['REQUEST_METHOD'];
 			include 'main.html';
     }
         else{
-            echo "Username or password incorrect <br>
-            If you have not signed up, sign up below<br>";
+            echo "<div id= 'alertbox'> Username or password incorrect, if you have not signed up please sign up below</div>";
 			$_SESSION["loggedIn"] = False;
             include 'login.html';
         } 

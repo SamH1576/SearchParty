@@ -38,6 +38,17 @@ input[type="password"] {
     margin-left: 3%;
     float:left;
 }
+#alertbox {
+    margin: auto;
+    color:white;
+    background-color: red;
+    height:10%;
+    width:15%; 
+    float:left;
+    padding-left: 2%;
+    margin-left: 2%; 
+    margin-right: 3%;
+}
 #login {
     margin: auto;
     color:white;
