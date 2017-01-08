@@ -283,5 +283,5 @@ display: inline-block;
     transition: 0.3s;
     font-size: 17px;    
 }
-ul.topnav li a:hover {background-color: #555;}
+ul.topnav li input:hover {background-color: #555;}
 ul.topnav li.icon {display: none;}

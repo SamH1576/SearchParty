@@ -106,18 +106,24 @@ function addnewevent() {
 
 //*Functions in top bar of HTML page*//
 //Shows hidden items when menu bar button is pressed
+function search() {
+		$("#addevent").hide();
+        $("#hosting").hide();
+		$("#search").toggle();
+		$("#attending").hide();
+		$('#searchbtn').css({"background-color":"green"});
+		$('#hostbtn').css({"background-color":"#483d8b"});
+		$('#attendingbtn').css({"background-color":"#483d8b"});
+}
 function host() {
 		$("#addevent").toggle();
         $("#hosting").toggle();
 		$("#search").hide();
 		$("#attending").hide();
 		hostedevents();
-}
-function search() {
-		$("#addevent").hide();
-        $("#hosting").hide();
-		$("#search").toggle();
-		$("#attending").hide();
+		$('#searchbtn').css({"background-color": "#483d8b"});
+		$('#hostbtn').css({"background-color":"green"});
+		$('#attendingbtn').css({"background-color":"#483d8b"});
 }
 function attending() {
 		$("#addevent").hide();
@@ -125,6 +131,9 @@ function attending() {
 		$("#search").hide();
 		$("#attending").toggle();
 		eventsattending();
+		$('#searchbtn').css({"background-color":"#483d8b"});
+		$('#hostbtn').css({"background-color":"#483d8b"});
+		$('#attendingbtn').css({"background-color":"green"});
 }
 // Logout Functiions
 function logout() {

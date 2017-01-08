@@ -10,9 +10,9 @@
 
 <!--Navigation Bar-->
 <ul class="topnav" id="myTopnav">
-  <li><input type="button" name="search" value="Search Event" onclick="search()"></li>
-  <li><input type="button" name="host" value="Host Event" onclick="host()"/></li>
-  <li><input type="button" name="attending" value="Events I'm Attending" onclick="attending()"></li>
+  <li><input type="button" name="search" id = "searchbtn" value="Search Event" onclick="search()"></li>
+  <li><input type="button" name="host" id = "hostbtn" value="Host Event" onclick="host()"/></li>
+  <li><input type="button" name="attending" id = "attendingbtn" value="Events I'm Attending" onclick="attending()"></li>
   <div id = "usernameheader"><!--Username is displayed here--></div>
   <div id="logoutbutton">
   <li><input type="button" name="logout" value="Logout" onclick="logout()"></li>
@@ -113,9 +113,9 @@
         
       <!-- Event Address data -->
       <div id="address">
-        <label for="FirstLine">FirstLine:</label><br>
+        <label for="FirstLine">First Line:</label><br>
         <input class="box" type="text" id="FirstLine" name="firstline" required/><br>          
-        <label for="SecondLine">SecondLine:</label><br>
+        <label for="SecondLine">Second Line:</label><br>
         <input class="box" type="text" id="SecondLine" name="secondline" required/><br>
         <label for="City">City:</label><br>
         <input class="box" type="text" id="City" name="city" required/><br>
