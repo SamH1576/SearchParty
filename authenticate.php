@@ -38,7 +38,8 @@ $verb = $_SERVER['REQUEST_METHOD'];
 			include 'main.html';
     }
         else{
-            echo "Username and password not a match <br><br>";
+            echo "Username or password incorrect <br>
+            If you have not signed up, sign up below<br>";
 			$_SESSION["loggedIn"] = False;
             include 'login.html';
         } 
