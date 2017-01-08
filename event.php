@@ -103,6 +103,7 @@ function check_parameters_add_event($array){
 	}
     
     if (($array["ticketenddate"]==null)){
+
 		$valid = False;
 	}
     else{
@@ -340,6 +341,86 @@ function dbAssignUserasGuest($array){
     $sql = "INSERT INTO fkguest_list (Event_ID, User_ID) VALUES ($eventID, " . $_SESSION['usernameID'] . ")";
     $catch = $db->exec($sql);
     $db = null;}
+
+function dbShowPastEvents(){
+	global $dbname;
+	global $dbusername;
+	global $dbpassword;
+	global $dbhost;
+	$todaysdate = date("Y-m-d");
+    //db connection
+	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
+	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$sql = "SELECT e.Event_ID AS Event_ID, e.StartDate AS Date, e.title AS Title, e.description AS Description, e.EndDate AS EndDate, fk.rating AS Rating, fk.comments AS Comments
+	FROM event AS e
+	JOIN fkguest_list AS fk ON fk.Event_ID = e.Event_ID WHERE e.EndDate <= CURDATE() ORDER BY StartDate";
+	$result = $db->query($sql);
+		if($result->rowCount() > 0){
+		echo "<table id='pastevents'>
+        <tr>
+        <th class='tableheads'>Event Date</th>
+        <th class='tableheads'>Event Title</th>
+        <th class='tableheads'>Description</th>
+        <th class='tableheads'>Display Feedback</th>
+        </tr>";
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+	        echo "<tr>";
+	        echo "<td id='info3' >" .  date_format(new DateTime($row['Date']),"d F Y") . "</td>";
+	        echo "<td id='info3' >" . $row['Title'] . "</td>";
+	        //Check number of participants
+	        echo "<td id='info3'>".$row['Description']."</td>";
+	       	echo "<td id='info3'><input type = 'button' onclick = 'showfeedback(".$row['Event_ID'].")' value = 'Show what users have said about this event!' </td>";
+	        echo "</tr>";
+        }
+    }else{
+    	echo "There are no past events!";
+    }
+    $db = null;
+}
+function dbShowEventFeedback(){
+	global $dbname;
+	global $dbusername;
+	global $dbpassword;
+	global $dbhost;
+	global $url_pieces;
+	$todaysdate = date("Y-m-d");
+    //db connection
+	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
+	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$sql = "SELECT e.Event_ID AS Event_ID, e.StartDate AS Date, e.title AS Title, e.description AS Description, e.EndDate AS EndDate, fk.rating AS Rating, fk.comments AS Comments, u.email AS User
+	FROM event AS e
+	JOIN fkguest_list AS fk ON fk.Event_ID = e.Event_ID
+	JOIN user AS u ON u.user_ID = fk.user_ID WHERE fk.event_ID ='".$url_pieces[2]."'";
+	$result = $db->query($sql);
+	//Get Event Title
+	$sql1 = "SELECT e.event_ID AS Event_ID, e.title AS Title 
+	FROM event AS e WHERE e.event_ID= '".$url_pieces[2]."'";
+	$result1 = $db->query($sql);
+		if($result->rowCount() > 0){
+			//Display table heads
+			while ($row = $result1->fetch(PDO::FETCH_ASSOC)) {
+				echo "<fieldset><legend><h3>".$row['Title']."</h3></legend>
+				<table id='eventfeedback'>
+		        <tr>
+		        <th class='tableheads'>User</th>
+		        <th class='tableheads'>Rating</th>
+		        <th class='tableheads'>Comments</th>
+		        </tr>";
+		    }
+			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		        echo "<tr>";
+		        echo "<td id='info3' >" . $row['User']. "</td>";
+		        echo "<td id='info3' >" . $row['Rating'] . "</td>";
+		        //Check number of participants
+		        echo "<td id='info3'>".$row['Comments']."</td>";
+		        echo "</tr>";
+	        }
+	        echo "</fieldset>";
+    }else{
+    	echo "Feedback has not been submitted for this event!";
+    }
+    $db = null;
+}
 
 //Function to show hosted events and guestlist for said events
 function dbShowhostedEvents() {
@@ -595,6 +676,12 @@ else if($url_pieces[1]=='submitfeedback'){
 else if($url_pieces[1]=='showparticipants'){
        dbShowEventParticipants();
     }    
+else if($url_pieces[1]=='showpastevents'){
+       dbShowPastEvents();
+    }       
+else if($url_pieces[1]=='showeventfeedback'){
+       dbShowEventFeedback();
+    }       
 else{
 	echo 'unknown path';
 	}

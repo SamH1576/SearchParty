@@ -215,7 +215,33 @@ function attendevent(eventID) {
 //*Display past events with option to see reviews*//
 //*AJAX GET to server to populate table with past event details from database	*//
 function displaypastevents() {
-
+	//AJAX
+  	if (window.XMLHttpRequest) {
+		// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+  	} else { // code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+  	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) { 
+			document.getElementById('events_table').innerHTML=this.responseText;
+	}};
+  	xmlhttp.open("GET","event.php/showpastevents",true);
+  	xmlhttp.send();
+}
+function showfeedback(eventID){
+	if (window.XMLHttpRequest) {
+		// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+  	} else { // code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+  	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) { 
+			document.getElementById('userfeedback').innerHTML=this.responseText;
+	}};
+  	xmlhttp.open("GET","event.php/showeventfeedback/" + eventID,true);
+  	xmlhttp.send();
 }
 
 //* Host Events Functions					*//
