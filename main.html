@@ -39,21 +39,21 @@
       </select>
   </div>
   <div id="searchdates">
-    <h3>Search for events between the dates</h3>
+    <h3>Filter events by date</h3>
     <label for="startdate">Between</label><br>
     <input class="box" type="date" id="searchdate1" name="searchdate1"/><br>
     <label for="starttime">And</label><br>
     <input class="box" type="date" id="searchdate2" name="searchdate2" onchange=isdatelater("SearchEvent") required/><br><br>
     <div id="searchbutton">
-      <input class="submit" type = "button" onclick = find("bydate") value = "Search!"/>
+      <input class="submit" type = "button" onclick = find("bydate") value = "Filter"/>
     </div>
   </div>
   <div id="pastevents">
     <h3>Past Events</h3>
-    <input class="submit" type = "button" onclick = "displaypastevents()"" value = "Past Events"/>
+    <input class="submit" type = "button" onclick = "displaypastevents()"" value = "Show Past Events"/>
   </div>
-  <div id="events_table"><br><b>Events will be listed here</b></div>
-  <div id="userfeedback"><br><b>User feedback will be shown here</b></div>
+  <div id="events_table"><br> </div>
+  <div id="userfeedback"><br> </div>
 </div>
 
 <!--Host Events tab-->
