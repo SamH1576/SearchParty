@@ -89,6 +89,11 @@ font-family: Arial;
     color: red;
     font-size: 10px;
 }
+#dateerror1 {
+    display: none;
+    color: red;
+    font-size: 10px;
+}
 #description{
     float: left;
     margin-right: 1%;

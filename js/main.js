@@ -77,6 +77,11 @@ function addnewevent() {
 	if (title == '' || capacity == '' || startdate == '' || starttime == '' || enddate == '' || endtime == '' || description == '' || category == '' || ticketstartdate == '' || ticketenddate == '' || FirstLine == '' || SecondLine == '' || City == '' || County == '' || PostCode == '')
 	{
 		alert ("Please Fill All Fields ");
+	}else if(isdatelater("EventDate") == false){
+		alert ("The event must end later than its start date!")
+
+	}else if(isdatelater("EventTicket")== false){
+		alert ("The event's ticket sale end date must be at least 1 day later than its start date!")
 	}
 	else{
 		//AJAX code to submit form.
@@ -173,24 +178,41 @@ function find(str) {
 // Function returns true if date 2 is later than date 1
 function isdatelater(str){
 	if (str == "EventDate"){
-		var date1 = $('#startdate').val();
-		var date2 = $('#enddate').val();
+		var eventstartdate = $('#startdate').val();
+		var eventstarttime = $('#starttime').val();
+		var date1 = eventstartdate + eventstarttime;
+
+		var eventenddate = $('#enddate').val();
+		var eventendtime = $('#endtime').val();
+		var date2 = eventenddate + eventendtime;
 	}
+
 	if (str == "EventTicket"){
 		var date1 = $('#ticketstartdate').val();
-		var date2 = $('ticketenddate').val();
+		var date2 = $('#ticketenddate').val();
+		if (date2 > date1){
+		//Insert response to date 2 being later than date 1
+        	$("#dateerror1").hide();
+			return true;
+		}else{
+		//Insert response to date 2 being earlier than date 1
+        	$("#dateerror1").show();
+        	return false;
+		}
 	}
 	if (str == "SearchEvent"){
 		var date1 = $('#searchdate1').val();
 		var date2 = $('#searchdate2').val();
+		
 	}
-	if (date2 > date1){
+	if (date2 >= date1){
 		//Insert response to date 2 being later than date 1
         $("#dateerror").hide();
 		return true;
 	}else{
 		//Insert response to date 2 being earlier than date 1
         $("#dateerror").show();
+        return false;
 	}
 }
 //AJAX to server to assign user as participant to event
@@ -262,7 +284,6 @@ function hostedevents() {
   }
 //Listen for button click in hosted events table to pass eventID to showguests()
 $(document).ready(function(){
- 
  $("#hostedevents").on('click','.btndisplayguests',function(){
          // get the current row
         var currentRow=$(this).closest("tr"); 
@@ -308,7 +329,7 @@ function showguests(eventID, eventtitle) {
   xmlhttp.send();
 }
 
-//* Events I'm Attending Functions *//
+//* Events I'm Attending Functions */
 //*AJAX GET to server to populate table with event details from database *//
 function eventsattending(){
 	if (window.XMLHttpRequest) {
@@ -345,7 +366,7 @@ function submitfeedback(eventID){
 	}
 }
 
-//*Form Validation*//
+//*Form Validation*/
 function check_passwords_match() {
 	var valid5 = document.getElementById("val5");
 	//check to see if password matches and assign variable passwordnotmatch
@@ -358,9 +379,3 @@ function check_passwords_match() {
 		valid5.style.display = "block";
 	}
 }
-//*Text box for feedback*//
-//function feedbackbox() {
-//    var eventtitle= currentRow.find(".roweventtitle").html();
-  //  $("#feedbacktext").show();
-    //document.getElementById("eventname").innerHTML = eventtitle;
-//}

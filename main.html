@@ -80,7 +80,7 @@
         <label for="startdate">Start Date:</label><br>
         <input class="box" type="date" id="startdate" name="startdate" required/><br>
         <label for="starttime">Start Time:</label><br>
-        <input class="box" type="time" id="starttime" name="starttime" required/><br>
+        <input class="box" type="time" id="starttime" name="starttime" onchange=isdatelater("EventDate") required/><br>
       </div>
 
       <div id="end">
@@ -88,7 +88,7 @@
         <input class="box" type="date" id="enddate" name="enddate" onchange=isdatelater("EventDate") required/><br>
         <span id="dateerror"><p>The end date must be after the start date!</p></span>
         <label for="endtime">End Time:</label><br>
-        <input class="box" type="time" id="endtime" name="endtime" required/><br>
+        <input class="box" type="time" id="endtime" name="endtime" onchange=isdatelater("EventDate") required/><br>
       </div>
 
       <div id="description">
@@ -105,7 +105,8 @@
 
       <div id="ticket">
         <label for="ticketstartdate">Start ticket sales on the:</label><br>
-        <input class="box" type="date" id="ticketstartdate" name="ticketstartdate" required/><br>
+        <input class="box" type="date" id="ticketstartdate" name="ticketstartdate" onchange=isdatelater("EventTicket") required/><br>
+        <span id="dateerror1"><p>The ticket sales end date must be at least 1 day later than the start date!</p></span>
         <label for="ticketenddate">End ticket sales on the:</label><br>
         <input class="box" type="date" id="ticketenddate" name="ticketenddate" onchange=isdatelater("EventTicket") required/><br>
       </div>
