@@ -17,12 +17,10 @@
 		<h2>Login</h2>
 		<form name="form1" id ="form1" action= "authenticate.php" method= "post">
 			<span class="col1">User email:</span>
-			<input type="email" class="text-box" id="username" name="username" onchange="ValidateEmail(document.form1.username)"/>
 			<span id="val1">(email address is not in the valid form)</span><br>
 			<span class="col1">User password:</span>
-			<input type="password" class="text-box" id="password" name="password" onchange="CheckPassword(document.form1.password)"/>
-			<span id="val2">(Password is not valid! Must be 6-20 characters, have 1 upper and lower case, 1 numerical digit.)</span><br><br>
-			<input id="submitbutton" type="submit" value="Login" /> 
+			<input type="password" class="text-box" id="password" name="password"/>
+            <input id="submitbutton" type="submit" value="Login" /> 
 		</form>
 	</div>
 	<img src="http://i2.mirror.co.uk/incoming/article5230502.ece/ALTERNATES/s1227b/Detectives-focus-on-the-alleyway-behind-the-house-of-missing-Claudia-Lawrence.jpg" id="Image"> 
