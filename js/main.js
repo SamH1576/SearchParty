@@ -269,20 +269,18 @@ $(document).ready(function(){
         var eventdata = getrowdata(currentRow);
         showguests(eventdata['ID'], eventdata['title']);
     });
- $("#eventsattending").on('click','.btngivefeedback',function(){
-         // get the current row
-        var currentRow=$(this).closest("tr"); 
-        var eventdata = getrowdata(currentRow);
+ });
+
+function givefeedback(eventID){
         // show feedback form
         var html = '<h3 id="eventname"></h3>' + 
     	'<input type="textarea" id="comments"/>' +
     	'<input type="number" id="ratings" min="0" max="5">' +
-    	'<input type="box" class= "submit" id="submit" onclick="submitfeedback(' + eventdata['ID'] + ')" value="Submit Feedback!"/>'	
+    	'<input type="box" class= "submit" id="submit" onclick="submitfeedback(' + eventID + ')" value="Submit Feedback!"/>'	
     	$("div#feedbacktext").empty();
         $("#feedbacktext").append(html);
         $("#feedbacktext").show();
-    });
- });
+}
 function getrowdata(currentRow){
     var eventID= currentRow.find(".roweventID").html(); // get current row table cell TD class= 'hostedeventID' value
     var eventtitle= currentRow.find(".roweventtitle").html(); // get current row table cell TD class= 'hostedeventtitle' value

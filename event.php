@@ -521,7 +521,6 @@ function dbShowEventsAttending(){
 		if($result->rowCount() > 0){
 		echo "<table id='eventsattending'>
         <tr>
-        <th class='tableheads'>Event ID</th>
         <th class='tableheads'>Event Title</th>
         <th class='tableheads'>Event Date</th>
         <th class='tableheads'>Description</th>
@@ -529,7 +528,6 @@ function dbShowEventsAttending(){
         </tr>";
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 	        echo "<tr>";
-	        echo "<td id='info3' class='roweventID'>" . $row['Event_ID'] . "</td>";
 	        echo "<td id='info3' class='roweventtitle'>" . $row['Title'] . "</td>";
 			//Convert date to better format
 	        $displaydate = date_format(new DateTime($row['StartDate']),"d F Y");
@@ -540,13 +538,13 @@ function dbShowEventsAttending(){
 	        	$feedbackdata=dbCheckFeedbackSubmitted($row['Event_ID'], $db, $userID);
 
 	        	if($feedbackdata['submitted']){
-	        		echo "<td id='info3'><input type='button' id='submit' class='btngivefeedback' value= 'Feedback has been submitted. Edit Feedback?'/>";
+	        		echo "<td id='info3'><input type='button' id='submit' class='btngivefeedback' onclick = 'givefeedback(".$row['Event_ID'].")' value= 'Feedback has been submitted. Edit Feedback?'/>";
 	        		echo "<p>Comments: ".$feedbackdata['comments']." </p>";
 		        	echo "<p>Rating: ".$feedbackdata['rating']."</p>";
 		        	echo "</td>";
 	        	}
 	        	else{
-	        	echo "<td id='info3'><input type='button' id='submit' class='btngivefeedback' value= 'Give Feedback'/></td>";
+	        	echo "<td id='info3'><input type='button' id='submit' class='btngivefeedback' onclick = 'givefeedback(".$row['Event_ID'].")' value= 'Give Feedback'/></td>";
 	        	}
 	        }
 	        else{
