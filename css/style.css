@@ -63,7 +63,7 @@ float: left;
 display: none;
 width: 80%;
 margin-left: 10%;
-margin-top: 3%;
+margin-top: 10%;
 background-color: #483d8b;
 padding-left: 1%;
 padding-right: 1%;
@@ -71,6 +71,7 @@ padding-top: 1%;
 padding-bottom: 1%;
 color: white;
 font-family: Arial;
+margin-top: 5%;
 }
 #eventtitle {
     float:left;
@@ -119,6 +120,7 @@ font-family: Arial;
     text-decoration: none;
     transition: 0.3s;
     font-size: 17px;
+    margin-top: 15%;
 }
 .btndisplayguests {
     display: inline-block;
@@ -131,16 +133,14 @@ font-family: Arial;
     font-size: 15px;
 }
 #hosting {
-    position: absolute;
-    top:10%;
-    left:2%;
     display: none;
     width:25%;
     background-color: #483d8b;
     padding-left: 1%;
-    padding-right: 1%;
+    padding-right: 3%;
     padding-top: 1%;
     padding-bottom: 1%;
+    float: left;
 }
 #hostedevents, .tablehead, #info, .info2, #eventsattending, #info3, #guesttable {
     border: 2px solid black;
@@ -167,9 +167,9 @@ font-family: Arial;
 }
 #eventguests {
     float: left;
-    width: 80%;
+    width: 50%;
     margin-left: 10%;
-    margin-top: 3%;
+    margin-top: 0%;
     margin-bottom: 5%;
     background-color: #483d8b;
     padding-left: 1%;
@@ -178,6 +178,7 @@ font-family: Arial;
     padding-bottom: 1%;
     color: white;
     font-family: Arial;
+    display: none;
 }
 #search {
 	float: left;
@@ -200,10 +201,17 @@ font-family: Arial;
 }
 #searchdates {
     float: left;
+}
+#searchbutton {
+    float:left;
+    margin-right: 3%;
+}
+#pastevents {
+    float: left;
     margin-right: 1%;
 }
 #events_table {
-    margin-top: 3%;
+    margin-top: 15%;
 
 }
 #searchbutton {

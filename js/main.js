@@ -107,6 +107,7 @@ function addnewevent() {
 //*Functions in top bar of HTML page*//
 //Shows hidden items when menu bar button is pressed
 function search() {
+        $("#Image").hide();
 		$("#addevent").hide();
         $("#hosting").hide();
 		$("#search").toggle();
@@ -116,6 +117,7 @@ function search() {
 		$('#attendingbtn').css({"background-color":"#483d8b"});
 }
 function host() {
+        $("#Image").hide();
 		$("#addevent").toggle();
         $("#hosting").toggle();
 		$("#search").hide();
@@ -126,6 +128,7 @@ function host() {
 		$('#attendingbtn').css({"background-color":"#483d8b"});
 }
 function attending() {
+        $("#Image").hide();
 		$("#addevent").hide();
         $("#hosting").hide();
 		$("#search").hide();
@@ -298,6 +301,7 @@ $(document).ready(function(){
         var currentRow=$(this).closest("tr"); 
         var eventdata = getrowdata(currentRow);
         showguests(eventdata['ID'], eventdata['title']);
+        $("#eventguests").toggle();
     });
  });
 
