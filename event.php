@@ -325,7 +325,7 @@ function echoinputforuser($row, $db){
         }
     //Give button input to assign user as a guest
     else if ($result->rowCount() == 0 && $result1->rowCount() == 0) {
-        echo "<td id='eventselect'><input type='button' id='submit' onclick= 'attendevent(".$eventID.")' value= 'I am going for $eventtitle'/></td>";
+        echo "<td id='eventselect' class='eventtoattend'><input type='button' id='submit' onclick= 'attendevent(".$eventID.")' value= 'I am going for $eventtitle'/></td>";
     }
 }
 function dbAssignUserasGuest($array){

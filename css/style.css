@@ -112,7 +112,7 @@ margin-top: 5%;
     padding: 0% 2% 2% 2%;
     margin-right: 5%;
 }
-#hostedevents, .tablehead, #info, .info2, #eventsattending, #info3, #guesttable {
+#hostedevents, .tablehead, #info, .info2, #eventsattending, #info3, #guesttable, #pastevents {
     border: 2px solid black;
     color: white;
     border-collapse: collapse;
@@ -177,7 +177,7 @@ margin-top: 5%;
     float:left;
     margin-right: 3%;
 }
-#pastevents {
+#pasteventsattended {
     float: left;
     margin-left: 5%;
 }
