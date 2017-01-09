@@ -309,19 +309,19 @@ function echoinputforuser($row, $db){
     /*Output correct input message*/
     //Check if event sales has ended.
     if(datepassed($row['stopsaledate'])){
-        echo "<td class='eventerror'>The ticket sales for this event has ended</td>";
+        echo "<td class='eventtoattend'>The ticket sales for this event has ended</td>";
     }
     //If event is full, echo event full message
     else if($result2->rowCount()==$capacity){
-        echo "<td class='eventerror'>Event is full</td>";
+        echo "<td class='eventtoattend'>Event is full</td>";
     }
     //Check if User is a host. If true, display message saying User is host
     else if($result->rowCount() > 0){
-        echo "<td class='eventerror'>You are hosting this event </td>";
+        echo "<td class='eventtoattend'>You are hosting this event </td>";
     }
     //Check if User is going to event. If true, display message saying User is going
     else if($result1->rowCount() > 0){
-        echo "<td id='going'>You are going to this event</td>";
+        echo "<td class='eventtoattend'>You are going to this event</td>";
         }
     //Give button input to assign user as a guest
     else if ($result->rowCount() == 0 && $result1->rowCount() == 0) {
