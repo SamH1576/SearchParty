@@ -63,9 +63,10 @@ input[type="password"] {
 #submitbutton{
     display: inline-block;
     color: #f2f2f2;
+    float: right;
+    margin-right: 10%;
     background: black;
     text-align: center;
-    padding: 14px 16px;
     text-decoration: none;
     transition: 0.3s;
     font-size: 17px;
