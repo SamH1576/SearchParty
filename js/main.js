@@ -77,9 +77,10 @@ function addnewevent() {
 		alert ("Please Fill All Fields ");
 	}else if(isdatelater("EventDate") == false){
 		alert ("The event must end later than its start date!")
-
-	}else if(isdatelater("EventTicket")== false){
-		alert ("The event's ticket sale end date must be at least 1 day later than its start date!")
+	}else if(isdatelater("EventTicket") == false){
+		alert ("The event must have at least one day of ticket sales")
+	}else if(ticketsalescheck() == false){
+		alert ("The event's ticket sales must end at least one day before the event starts")
 	}
 	else{
 		//AJAX code to submit form.
@@ -97,7 +98,7 @@ function addnewevent() {
 			{
 				alert('failed');
 			}
-			})
+			}) 
 	};
 	return false;
 }
@@ -292,6 +293,17 @@ function hostedevents() {
   xmlhttp.open("GET","event.php/showhostedevents",true);
   xmlhttp.send();
   }
+function ticketsalescheck(){
+	isdatelater("EventTicket");
+	var ticketsalestopdate = $('#ticketenddate').val();
+	var eventstartdate = $('#startdate').val();
+	if (eventstartdate > ticketsalestopdate && isdatelater("EventTicket")){
+		return true;
+	}
+	else {
+		return false;
+	}
+}
 //Listen for button click in hosted events table to pass eventID to showguests()
 $(document).ready(function(){
  $("#hostedevents").on('click','.btndisplayguests',function(){
