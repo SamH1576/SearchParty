@@ -29,6 +29,9 @@ function addnewuser() {
 	else if(CheckPass(document.form2.password)==false){
 		alert ("Please make sure your password is in the right format");
 	}
+	else if(CheckPhoneNumber(document.form2.phone)==false){
+		alert ("Please make sure your phone number is in the right format");
+	}
 	else{			//AJAX code to submit form.
 		$.ajax({
 			type: "POST",
