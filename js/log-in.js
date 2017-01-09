@@ -15,9 +15,11 @@ function CheckPassword(inputText) {
 	var valid2 = document.getElementById("val2");
 	if(inputText.value.match(passw)) {  
 		valid2.style.display = "none"; 
+		return true;
 	}  
 	else {   
 		valid2.style.display = "block";
+		return false;
 	}  
 }  
 

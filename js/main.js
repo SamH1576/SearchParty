@@ -22,15 +22,14 @@ function addnewuser() {
 	{
 		alert ("Please Fill All Fields ");
 	}
-	else
-	{
 	// If passwords do not match, form will not be submitted
-	if (Boolean(passwordnotmatch))
-		{
-			alert ("Passwords must Match!");
-		}
-		else{
-		//AJAX code to submit form.
+	else if (Boolean(passwordnotmatch)){
+		alert ("Passwords must Match!");
+	}
+	else if(CheckPass(document.form2.password)==false){
+		alert ("Please make sure your password is in the right format");
+	}
+	else{			//AJAX code to submit form.
 		$.ajax({
 			type: "POST",
 			url: "user.php/adduser",
@@ -48,10 +47,9 @@ function addnewuser() {
 				document.form1.submit();
 				}
 				}
-			})
-		};
+		})
 	}
-	return false;
+	return false;	
 }
 function addnewevent() {
 	//event variables
@@ -392,3 +390,16 @@ function check_passwords_match() {
 		valid5.style.display = "block";
 	}
 }
+
+function CheckPass(inputText) {   
+	var passw2 = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;  
+	var valid4 = document.getElementById("val4");
+	if(inputText.value.match(passw2)) {  
+		valid4.style.display = "none";
+		return true;
+	}  
+	else {   
+		valid4.style.display = "block";
+		return false;
+	}  
+}  
