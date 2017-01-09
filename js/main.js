@@ -320,10 +320,12 @@ $(document).ready(function(){
 
 function givefeedback(eventID){
         // show feedback form
-        var html = '<h3 id="eventname"></h3>' + 
-    	'<input type="textarea" id="comments"/>' +
+        var html = '<h3 id="eventname"></h3>' +
+        '<label for="comments"><span>Comments:</span></label>' + 
+    	'<input type="textarea" id="comments"/>' + 
+    	'<label for="ratings"><span>   Rating ( /5):</span></label>' + 
     	'<input type="number" id="ratings" min="0" max="5">' +
-    	'<input type="box" class= "submit" id="submit" onclick="submitfeedback(' + eventID + ')" value="Submit Feedback!"/>'	
+    	'<input type="button" class= "submit" id="submit" onclick="submitfeedback(' + eventID + ')" value="Submit Feedback!"/>'	
     	$("div#feedbacktext").empty();
         $("#feedbacktext").append(html);
         $("#feedbacktext").show();
@@ -376,6 +378,9 @@ function submitfeedback(eventID){
 	var ratings = $('#ratings').val();
 	if(comments == '' || ratings == ''){
 		alert ("Please fill in all fields");
+	}
+	else if(ratings > 5 || ratings < 0){
+		alert ("Rating is out of 5");
 	}
 	else{
 		var dataString = 'comments=' + comments + '&ratings=' + ratings +'&eventID=' + eventID;
