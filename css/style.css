@@ -1,17 +1,11 @@
 body {
     background: #FFFF00;
 }
-h1 {
+h1, h2 {
     text-align: center;
     font-family: Stencil;
     color: white;
     background: #483d8b;
-}
-h2 {
-    text-align: center;
-    font-family: Stencil;
-    color: white;
-    background:#483d8b;
 }
 h3 {
     color:white;
@@ -73,43 +67,14 @@ color: white;
 font-family: Arial;
 margin-top: 5%;
 }
-#eventtitle {
+#eventtitle, #start, #end, #description, #ticket, #address {
     float:left;
     margin-right: 1%;
 }
-#start{
-    float: left;
-    margin-right: 1%;
-}
-#end {
-    float: left;
-    margin-right: 1%;
-}
-#dateerror {
+#dateerror, #dateerror1 {
     display: none;
     color: red;
     font-size: 10px;
-}
-#dateerror1 {
-    display: none;
-    color: red;
-    font-size: 10px;
-}
-#description{
-    float: left;
-    margin-right: 1%;
-}
-#description {
-    float: left;
-    margin-right: 1%;
-}
-#ticket {
-    float: left;
-    margin-right: 1%;
-}
-#address {
-    float: left;
-    margin-right: 1%;
 }
 .submit{
     display: inline-block;
@@ -134,13 +99,18 @@ margin-top: 5%;
 }
 #hosting {
     display: none;
-    width:25%;
-    background-color: #483d8b;
     padding-left: 1%;
     padding-right: 3%;
     padding-top: 1%;
     padding-bottom: 1%;
     float: left;
+}
+#hostingborder {
+    width: 30%;
+    float: left;
+    background-color: #483d8b;
+    padding: 0% 2% 2% 2%;
+    margin-right: 5%;
 }
 #hostedevents, .tablehead, #info, .info2, #eventsattending, #info3, #guesttable {
     border: 2px solid black;
@@ -168,7 +138,8 @@ margin-top: 5%;
 #eventguests {
     float: left;
     width: 50%;
-    margin-left: 10%;
+    margin-left: 0%;
+    margin-right: 0%;
     margin-top: 0%;
     margin-bottom: 5%;
     background-color: #483d8b;
