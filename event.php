@@ -389,7 +389,10 @@ function dbShowEventFeedback(){
 	$sql = "SELECT e.Event_ID AS Event_ID, e.StartDate AS Date, e.title AS Title, e.description AS Description, e.EndDate AS EndDate, fk.rating AS Rating, fk.comments AS Comments, u.email AS User
 	FROM event AS e
 	JOIN fkguest_list AS fk ON fk.Event_ID = e.Event_ID
-	JOIN user AS u ON u.user_ID = fk.user_ID WHERE fk.event_ID ='".$url_pieces[2]."'";
+	JOIN user AS u ON u.user_ID = fk.user_ID 
+	WHERE fk.event_ID ='".$url_pieces[2]."'
+	AND (Rating IS NOT NULL OR Comments IS NOT NULL)";
+
 	$result = $db->query($sql);
 	//Get Event Title
 	$sql1 = "SELECT e.event_ID AS Event_ID, e.title AS Title 
@@ -423,54 +426,6 @@ function dbShowEventFeedback(){
 
 //Function to show hosted events and guestlist for said events
 function dbShowhostedEvents() {
-    global $dbname;
-	global $dbusername;
-	global $dbpassword;
-	global $dbhost;
-	$userID = $_SESSION['usernameID'];
-    //db connection
-	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
-	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	$sql = "SELECT e.Event_ID AS Event_ID, e.StartDate AS StartDate, e.title AS Title, e.Capacity as Capacity
-	FROM event AS e
-	JOIN fkhost AS fk ON fk.Event_ID = e.Event_ID WHERE fk.User_ID =  $userID ORDER BY Title";
-	$result = $db->query($sql);
-
-		if($result->rowCount() > 0){
-		echo "<table id='hostedevents'>
-        <tr>
-        <th class='tablehead'>Event ID</th>
-        <th class='tablehead'>Event Title</th>
-        <th class='tablehead'>Event Date</th>
-        <th class='tablehead'>Capacity</th>
-        <th class='tablehead'>Input Type</th>
-        </tr>";
-		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-	        echo "<tr>";
-	        echo "<td class='roweventID'>" . $row['Event_ID'] . "</td>";
-	        echo "<td class='roweventtitle'>" . $row['Title'] . "</td>";
-
-			//Convert date to better format
-	        $displaydate = date_format(new DateTime($row['StartDate']),"d F Y");
-	        echo "<td id='info' class='hostdate'> $displaydate ";
-	        if(datepassed($row['StartDate'])){
-	        	echo "-event passed";
-	        }
-	        	"</td>";
-	        //Check number of participants
-	        $guests = numberofguestsattending($row, $db);
-	        $maxnum = $row['Capacity'];
-	        echo "<td id='info' class='guestnum'> $guests / $maxnum";
-	        if ($guests==$maxnum){
-	        	echo "-sold out";
-	 		}
-	        echo "</td>";
-	        echo "<td id='info'><input type='button' id='submit' class='btndisplayguests' value= 'Display $guests guest(s)'/></td>";
-	        echo "</tr>";
-        }
-    }else{
-    	echo "You currently aren't hosting any events";
-    }
 }
 function dbShowEventParticipants(){
 	global $dbname;
