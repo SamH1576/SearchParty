@@ -311,7 +311,7 @@ $(document).ready(function(){
         var currentRow=$(this).closest("tr"); 
         var eventdata = getrowdata(currentRow);
         showguests(eventdata['ID'], eventdata['title']);
-        $("#eventguests").toggle();
+        $("#eventguests").show();
     });
  });
 
