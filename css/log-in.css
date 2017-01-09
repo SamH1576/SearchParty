@@ -120,6 +120,10 @@ input[type="password"] {
     display: none;
     color: red;
 }
+#val6{
+    display: none;
+    color: red;
+}
 #emailandpass{
     float: left;
     position: relative;

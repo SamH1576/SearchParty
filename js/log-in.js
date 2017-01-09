@@ -1,5 +1,5 @@
 
-	function ValidateEmail(inputText) { 
+function ValidateEmail(inputText) { 
 	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
 	var valid = document.getElementById("val1");
 	if(inputText.value.match(mailformat)) { 
@@ -44,3 +44,16 @@ function CheckPass(inputText) {
 		valid4.style.display = "block";
 	}  
 }  
+
+function CheckPhoneNumber(inputText) {   
+	var phoneno = /^\d{11}$/;  
+	var valid6 = document.getElementById("val6");
+	if(inputText.value.match(phoneno)) {  
+		valid6.style.display = "none"; 
+		return true;
+	}  
+	else {   
+		valid6.style.display = "block";
+		return false;
+	}  
+}

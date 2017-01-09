@@ -37,6 +37,7 @@
         		<p id="val3">(email address is not in the valid form)</p>
         		<p id="val4">(Password is not valid! Must be 6-20 characters, have 1 upper and lower case, 1 numerical digit.)</p>
         		<p id="val5">(Password does not match!)</p>
+                <p id="val6">(Phone number is not in the valid form 07*********!)</p>
 
           		<fieldset id="fieldSet">
             		<legend><h3>Create User</h3></legend>
@@ -59,7 +60,7 @@
             			<input type="text" id="LastName" name="last_name" /><br>
               
             			<label for="Phone"><span class="col1">Phone:</span></label>
-            			<input type="text" id="Phone" name="phone" /><br>
+            			<input type="text" id="Phone" name="phone" onchange="CheckPhoneNumber(document.form2.Phone)"/><br>
 			
 						<label for="FirstLine"><span class="col1">FirstLine:</span></label>
             			<input type="text" id="FirstLine" name="firstline" /><br>
