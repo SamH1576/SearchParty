@@ -210,7 +210,8 @@ margin-top: 5%;
     float: left;
     margin-left: 5%;
 }
-#events_table {
+#events_table, #userfeedback {
+    padding-top: 1%;
     float: left;
 }
 #searchbutton {
