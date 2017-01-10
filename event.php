@@ -453,7 +453,8 @@ function dbShowhostedEvents() {
         <th class='tablehead'>Event Title</th>
         <th class='tablehead'>Event Date</th>
         <th class='tablehead'>Capacity</th>
-        <th class='tablehead'>Input Type</th>
+        <th class='tablehead'>Show guests of your event</th>
+        <th class='tablehead'>Delete Event</th>
         </tr>";
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 	        echo "<tr>";
@@ -476,6 +477,7 @@ function dbShowhostedEvents() {
 	 		}
 	        echo "</td>";
 	        echo "<td id='info'><input type='button' id='submit' class='btndisplayguests' value= 'Display $guests guest(s)'/></td>";
+	        echo "<td id='info'><input type='button' id='submit' class='btndeleteevent' value= 'Delete ". $row['Title'] ."'/></td>";
 	        echo "</tr>";
         }
     }else{
@@ -619,7 +621,7 @@ function delete_event($unwantedevent){
 	//Login to database
 	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $eventtodelete= $unwantedevent['unwantedevent'];
+    $eventtodelete= $unwantedevent['eventtitle'];
     $result = $db->exec("DELETE FROM event WHERE title = '$eventtodelete'");
 	if($result == 1){
 		return True;

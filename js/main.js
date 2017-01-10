@@ -316,6 +316,12 @@ $(document).ready(function(){
         showguests(eventdata['ID'], eventdata['title']);
         $("#eventguests").show();
     });
+  $("#hostedevents").on('click','.btndeleteevent',function(){
+         // get the current row
+        var currentRow=$(this).closest("tr"); 
+        var eventdata = getrowdata(currentRow);
+        deleteevent(eventdata['ID'], eventdata['title']);
+    });
  });
 
 function givefeedback(eventID){
@@ -355,6 +361,27 @@ function showguests(eventID, eventtitle) {
   };
   xmlhttp.open("GET","event.php/showparticipants/"+ eventID,true);
   xmlhttp.send();
+}
+function deleteevent(eventID, eventtitle) {
+	dataString = 'eventtitle=' + eventtitle;
+	var r =confirm("Are you sure you want to delete "+ eventtitle + "?"); 
+    if(r==true) { 
+    	$.ajax({
+			type: "POST",
+			url: "event.php/deleteevent",
+			data: dataString,
+			cache: false,
+			success: function() {
+				//Reload table with 
+				hostedevents();
+				},
+			error: function(){
+				alert('failed');
+			}
+		})  
+    }else { 
+        return false;
+    }
 }
 
 //* Events I'm Attending Functions */
