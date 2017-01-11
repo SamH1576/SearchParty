@@ -14,8 +14,8 @@
   <li><input type="button" name="host" id = "hostbtn" value="Host Event" onclick="host()"/></li>
   <li><input type="button" name="attending" id = "attendingbtn" value="Events I'm Attending" onclick="attending()"></li>
   <div id = "usernameheader"><!--Username is displayed here--></div>
-  <div id="logoutbutton">
-  <li><input type="button" name="logout" value="Logout" onclick="logout()"></li>
+  <div id="accountbutton">
+  <li><input type="button" name="logout" value="Account" onclick="displayaccount()"></li>
   </div>
   <li class="icon">
   </li>
@@ -143,10 +143,21 @@
   </div>
 </div>
 
-<!--Logout Button-->
-<div id="logout">
-  <p> Are you sure you want to logout</p>
+<!--Account Button-->
+<div id="accountmanagement">
+  <br>
   <input id="confirmlogout" type="button" name="confirmlogout" value="Logout" onclick="logoutconfirm()"/>
+  <input id="deleteaccount" type="button" name="deleteaccount" value="Delete Account" onclick="deleteaccount()"/>
+</div>
+<div id="suredeleteaccount">
+  <p>Type your email and password to delete your account</p>
+  <!--these need IDs-->
+  <label for="email">Email Address:</label>
+  <input id="Aemail" type="box" name="email"><br><br>
+  <label for="password">Password:</label>
+  <input id="Apassword" type="password" name="password"><br><br>
+  <input id="yesdeleteaccount" type="button" name="yesdeleteaccount" value="Delete Account" onclick="deleteaccountconfirm()"/>
+  <input id="nodeleteaccount" type="button" name="nodeleteaccount" value="Cancel" onclick="deleteaccount()"/>
 </div>
 </body>
 </html>

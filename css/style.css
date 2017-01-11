@@ -235,11 +235,11 @@ margin-top: 5%;
     height:60%;
 }
 
-#logoutbutton {
+#accountbutton {
     float:right;
     margin-right: 2%;
 }
-#logout {
+#accountmanagement, #suredeleteaccount {
     background-color: #483d8b;
     position: absolute;
     top:10%;
@@ -253,8 +253,8 @@ margin-top: 5%;
     color: white;
     display: none;
 }
-#confirmlogout {
-display: inline-block;
+#confirmlogout, #deleteaccount, #yesdeleteaccount, #nodeleteaccount {
+    display: inline-block;
     color: #483d8b;
     background: #FFFF00;
     text-align: center;

@@ -140,15 +140,15 @@ function attending() {
 		$('#hostbtn').css({"background-color":"#483d8b"});
 		$('#attendingbtn').css({"background-color":"green"});
 }
-// Logout Functiions
-function logout() {
-	$("#logout").toggle();
+// Logout and delete account Functiions
+function displayaccount() {
+	$("#accountmanagement").toggle();
 }
 function logoutconfirm(){
 	$.ajax({
 				type: "POST",
 				url: "logout.php",
-				data: '',
+				data: '', 
 				cache: false,
 				success: function() {
 					window.location.assign('login.html');
@@ -156,6 +156,31 @@ function logoutconfirm(){
 				error: function()
 				{
 					alert('failed');
+				}
+				})  
+}
+function deleteaccount() {
+	$("#suredeleteaccount").toggle();
+}
+function deleteaccountconfirm(){
+	var dataString = 'email=' + $('#Aemail').val() + '&password=' + $('#Apassword').val();
+	$.ajax({
+				type: "POST",
+				url: "user.php/deleteuser",
+				data: dataString,
+				cache: false,
+				success: function(data) {
+					if(data == 'Success'){
+						window.location.assign('login.html');
+						alert("The account was deleted.");
+					}else{
+						alert("The account was not deleted - check your email & password.");
+						//alert(data);
+					}
+				},
+				error: function(data)
+				{
+					alert('The account was not deleted, check your email & password');
 				}
 				})  
 }

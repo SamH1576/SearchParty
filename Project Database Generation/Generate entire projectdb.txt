@@ -1,3 +1,6 @@
+SET default_storage_engine=InnoDB;
+/*SHOW TABLE STATUS WHERE Name = 'xxx'*/
+
 DROP DATABASE IF EXISTS projectdb;
 CREATE DATABASE projectdb;
 

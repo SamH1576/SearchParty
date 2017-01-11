@@ -204,6 +204,15 @@ function dbCheckUserExists($email, $db){
 	}	
 }
 
+function dbCheckUserPasswordExists($email, $password, $db){
+	$result = $db->query("SELECT email FROM user WHERE email = '$email' AND password = '$password' ");
+	if($result->rowCount() > 0){
+		return True;
+	}else{
+		return False;
+	}	
+}
+
 function dbCheckCustAddressExists($firstline, $postcode, $db){
 	$result = $db->query("SELECT cust_address_id FROM cust_address WHERE postcode = '$postcode' AND firstline = '$firstline'");
 	if($result->rowCount() > 0){
@@ -215,8 +224,13 @@ function dbCheckCustAddressExists($firstline, $postcode, $db){
 }
 
 function dbDeleteUserbyEmail($email, $password, $db){
+	$result1 = $db->exec("DELETE event FROM event JOIN fkhost
+	ON event.Event_ID = fkhost.Event_ID
+	JOIN user
+	ON fkhost.User_ID = user.User_ID
+	WHERE user.Email = '$email'");
 	$result = $db->exec("DELETE FROM user WHERE email = '$email' AND password = '$password'");
-	if($result == 1){
+	if($result == 1 and $result1 == 1){
 		return True;
 	}else{
 		return False;
@@ -235,7 +249,7 @@ function delete_user($cust_info){
 	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", "$dbusername", "$dbpassword");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
-	if(dbCheckUserExists($cust_info[0], $db)){
+	if(dbCheckUserPasswordExists($cust_info[0], $cust_info[1], $db)){
 		if(dbDeleteUserbyEmail($cust_info[0], $cust_info[1], $db)){
 			return True;
 		}else{
@@ -299,7 +313,7 @@ if($url_pieces[1] == 'adduser'){
 }
 else if($url_pieces[1] == 'deleteuser'){
 		if($boolSuccess){
-            echo "success the user was deleted.";
+            echo "Success";
         }
         else{
             echo "Failure, the user was not deleted.";
