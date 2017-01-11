@@ -309,7 +309,7 @@ function echoinputforuser($row, $db){
     /*Output correct input message*/
     //Check if event sales has ended.
     if(datepassed($row['stopsaledate'])){
-        echo "<td class='eventtoattend'>The ticket sales for this event has ended</td>";
+        echo "<td class='eventtoattend'>The ticket sales for this event have ended</td>";
     }
     //If event is full, echo event full message
     else if($result2->rowCount()==$capacity){
