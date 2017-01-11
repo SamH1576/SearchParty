@@ -565,7 +565,7 @@ function dbShowEventsAttending(){
 	        echo "</tr>";
         }
     }else{
-    	echo "You currently aren't hosting any events";
+    	echo "You currently aren't attending any events";
     }
     $db = null;
 }
