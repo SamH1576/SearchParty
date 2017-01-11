@@ -230,7 +230,7 @@ function dbDeleteUserbyEmail($email, $password, $db){
 	ON fkhost.User_ID = user.User_ID
 	WHERE user.Email = '$email'");
 	$result = $db->exec("DELETE FROM user WHERE email = '$email' AND password = '$password'");
-	if($result == 1 and $result1 == 1){
+	if($result == 1){
 		return True;
 	}else{
 		return False;
