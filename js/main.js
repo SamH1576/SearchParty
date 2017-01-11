@@ -399,6 +399,7 @@ function deleteevent(eventID, eventtitle) {
 			success: function() {
 				//Reload table with 
 				hostedevents();
+				$('#eventguests').toggle();
 				},
 			error: function(){
 				alert('failed');
