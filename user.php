@@ -205,7 +205,7 @@ function dbCheckUserExists($email, $db){
 }
 
 function dbCheckUserPasswordExists($email, $password, $db){
-	$result = $db->query("SELECT email FROM user WHERE email = '$email' AND password = '$password' ");
+	$result = $db->query("SELECT email FROM user WHERE email = '$email' AND BINARY password = '$password' ");
 	if($result->rowCount() > 0){
 		return True;
 	}else{
